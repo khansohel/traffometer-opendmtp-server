@@ -1,0 +1,251 @@
+
+<!-- Copyright Martin D. Flynn -->
+<project name="OpenDMTP Java Server" default="help" basedir=".">
+
+  <!-- build compiler -->
+  <!-- <property name="build.compiler"       value="/export/java5/bin/javac"/> -->
+
+  <!-- Build properties -->
+  <property file="build.properties"/>
+  <property name="destination.name"     value="opendmtp"/>
+
+  <!-- Install home directory -->
+  <property name="install.home"         value="${basedir}/install"/>
+
+  <!-- Source directories -->
+  <property name="src.dmtp"             value="${basedir}/src"/>
+
+  <!-- Tomcat home (may be symbolic link) -->
+  <property name="catalina.home"        value="${basedir}/Tomcat"/>
+
+  <!-- libraries -->
+  <property name="lib.home"             value="${basedir}/lib"/>
+  <property name="war.home"             value="${basedir}/war"/>
+  <property name="build.home"           value="${basedir}/build"/>
+  <property name="build.lib"            value="${build.home}/lib"/>
+  
+  <!-- build destination directory -->
+  <property name="dest.home"            value="${build.home}/dest/${destination.name}"/>
+  <property name="dest.lib"             value="${dest.home}/lib"/>
+  <property name="dest.bin"             value="${dest.home}/bin"/>
+
+  <!-- compile options -->
+  <property name="compile.debug"        value="true"/>
+  <property name="compile.deprecation"  value="false"/>
+  <property name="compile.optimize"     value="false"/>
+  <property name="compile.unchecked"    value="-Xlink:unchecked"/>
+
+  <!-- jar classpath -->
+  <path id="compile.classpath">
+    <pathelement location="${build.home}"/>
+    <fileset dir="${build.lib}">
+        <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- war classpath -->
+  <path id="compile.war.classpath">
+    <pathelement location="${build.home}"/>
+    <fileset dir="${build.lib}">
+        <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${catalina.home}/common/lib">
+        <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- ======================================================================== -->
+
+  <!-- Target: all -->
+  <target name="all" depends="clean,server.jar,main.file,main.sql" description="Clean/Build server with all datastores"/>
+
+  <!-- Target: help -->
+  <target name="help" description="Clean/Build project">
+
+    <echo message="help           : This help"/>
+    <echo message="filestore      : Create OpenDMTP server with the flat-file datastore"/>
+    <echo message="sqlstore       : Create server.jar with the MySQL datastore"/>
+    <echo message="clean          : Remove 'build' directory"/>
+
+  </target>
+
+  <!-- Target: clean -->
+  <target name="clean" description="Clean build">
+    <delete dir="${build.home}"/>
+  </target>
+  
+  <!-- ======================================================================== -->
+
+  <!-- Target: prepare (create build directories) -->
+  <target name="prepare" description="Prepare for compile">
+
+    <mkdir dir="${build.home}"/>
+    <mkdir dir="${build.lib}"/>
+    
+    <property name="compile.classpath" refid="compile.classpath"/>
+
+  </target>
+
+  <!-- ======================================================================== -->
+
+  <!-- Target: util.jar -->
+  <target name="util.jar" depends="prepare" description="Create util.jar">
+
+    <echo message="util.jar ..."/>
+    <javac srcdir="${src.dmtp}"
+        destdir="${build.home}"
+        debug="${compile.debug}"
+        deprecation="${compile.deprecation}"
+        optimize="${compile.optimize}">
+        <!-- <compilerarg value="-Xlint"/> -->
+        <classpath refid="compile.classpath"/>
+        <include name="org/opendmtp/util/**/*.java"/>
+        <include name="org/opendmtp/codes/**/*.java"/>
+    </javac>
+
+    <jar jarfile="${build.lib}/util.jar">
+        <fileset dir="${build.home}">
+            <include name="org/opendmtp/util/**/*.class"/>
+            <include name="org/opendmtp/codes/**/*.class"/>
+        </fileset>
+    </jar>
+
+  </target>
+
+  <!-- ======================================================================== -->
+
+  <!-- Target: server.jar -->
+  <target name="server.jar" depends="prepare,util.jar" description="Create server.jar">
+
+    <echo message="server.jar ..."/>
+    <javac srcdir="${src.dmtp}"
+        destdir="${build.home}"
+        debug="${compile.debug}"
+        deprecation="${compile.deprecation}"
+        optimize="${compile.optimize}">
+        <!-- <compilerarg value="-Xlint"/> -->
+        <classpath refid="compile.classpath"/>
+        <include name="org/opendmtp/server/**/*.java"/>
+    </javac>
+
+    <jar jarfile="${build.lib}/server.jar">
+        <fileset dir="${build.home}">
+            <include name="org/opendmtp/server/**/*.class"/>
+        </fileset>
+    </jar>
+
+  </target>
+
+  <!-- ======================================================================== -->
+
+  <!-- Target: filestore -->
+  <target name="filestore" depends="clean,main.file" description="Clean/Build server with flat-file datastore"/>
+
+  <!-- Target: main.file -->
+  <target name="main.file" depends="prepare,server.jar" description="Create main.file">
+
+    <echo message="mainfile.jar ..."/>
+    <javac srcdir="${src.dmtp}"
+        destdir="${build.home}"
+        debug="${compile.debug}"
+        deprecation="${compile.deprecation}"
+        optimize="${compile.optimize}">
+        <!-- <compilerarg value="-Xlint"/> -->
+        <classpath refid="compile.classpath"/>
+        <include name="org/opendmtp/server_file/**/*.java"/>
+    </javac>
+
+    <jar jarfile="${build.lib}/mainfile.jar">
+        <fileset dir="${build.home}">
+            <include name="org/opendmtp/server_file/**/*.class"/>
+        </fileset>
+    </jar>
+
+  </target>
+
+  <!-- ======================================================================== -->
+
+  <!-- Target: sqlstore -->
+  <target name="sqlstore" depends="clean,main.sql" description="Clean/Build server with MySQL datastore"/>
+
+  <!-- Target: main.sql -->
+  <target name="main.sql" depends="prepare,server.jar" description="Create main.sql">
+
+    <echo message="mainsql.jar ..."/>
+    <javac srcdir="${src.dmtp}"
+        destdir="${build.home}"
+        debug="${compile.debug}"
+        deprecation="${compile.deprecation}"
+        optimize="${compile.optimize}">
+        <!-- <compilerarg value="-Xlint"/> -->
+        <classpath refid="compile.classpath"/>
+        <include name="org/opendmtp/dbtools/**/*.java"/>
+        <include name="org/opendmtp/server_mysql/**/*.java"/>
+    </javac>
+
+    <jar jarfile="${build.lib}/mainsql.jar">
+        <fileset dir="${build.home}">
+            <include name="org/opendmtp/dbtools/**/*.class"/>
+            <include name="org/opendmtp/server_mysql/**/*.class"/>
+        </fileset>
+    </jar>
+
+  </target>
+
+  <!-- ======================================================================== -->
+
+  <!-- Target: events.war -->
+  <!-- Not available in this release -->
+  <target name="events.war" depends="prepare" description="Create events.war">
+  
+    <property name="compile.war.classpath" refid="compile.war.classpath"/>
+
+    <mkdir dir="${build.home}/_events"/>
+    <mkdir dir="${build.home}/_events/WEB-INF"/>
+    <mkdir dir="${build.home}/_events/WEB-INF/classes"/>
+    <mkdir dir="${build.home}/_events/WEB-INF/lib"/>
+    <mkdir dir="${build.home}/_events/WEB-INF/tlds"/>
+
+    <echo message="events.war ..."/>
+    <javac srcdir="${src.dmtp}"
+        destdir="${build.home}/_events/WEB-INF/classes"
+        debug="${compile.debug}"
+        deprecation="${compile.deprecation}"
+        optimize="${compile.optimize}">
+        <!-- <compilerarg value="-Xlint"/> -->
+        <classpath refid="compile.war.classpath"/>
+        <include name="org/opendmtp/war/tools/**/*.java"/>
+        <include name="org/opendmtp/war/events/**/*.java"/>
+    </javac>
+
+    <copy todir="${build.home}/_events">
+        <fileset dir="${war.home}/events" excludes="**/*.java"/>
+    </copy>
+
+    <delete file="${build.home}/events.war"/>
+
+    <copy todir="${build.home}/_events/WEB-INF/lib">
+        <fileset dir="${build.lib}">
+           <include name="util.jar"/>
+           <include name="mainsql.jar"/>
+        </fileset>
+    </copy>
+
+    <war warfile="${build.home}/events.war" webxml="${build.home}/_events/WEB-INF/web.xml">
+        <classes dir="${build.home}/_events/WEB-INF/classes">
+            <include name="**/*"/>
+        </classes>
+        <lib dir="${build.home}/_events/WEB-INF/lib"/>
+        <fileset dir="${build.home}/_events">
+            <include name="**/*"/>
+            <exclude name="WEB-INF/web.xml"/>
+            <exclude name="WEB-INF/classes/**/*"/>
+            <exclude name="WEB-INF/lib/**/*"/>
+        </fileset>
+    </war>
+
+  </target>
+
+  <!-- ======================================================================== -->
+
+</project>

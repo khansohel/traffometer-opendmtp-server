@@ -1,0 +1,24 @@
+<project name="locc" default="locc.tool">
+  <description>
+  Provides the LOCC tool and the Hackystat LOCC sensor.
+  </description>
+
+  <import file="build.xml"/>
+  <property environment="env"/>
+  <property name="locc.dir" location="${build.home}/locc" />
+
+  <target name="locc.tool" depends="server.jar" description="Compute size data on the source code using LOCC.">
+    <!-- Verify that LOCC is installed. -->
+    <available file="${env.LOCC_HOME}/build/locc-all.jar" property="locc.available"/>
+    <fail unless="locc.available"  message="Error: LOCC_HOME not set or locc.jar not found, indicating LOCC is not installed."/>
+    <taskdef name="locc" classname="csdl.locc.tools.ant.LOCCTaskdef" classpath="${env.LOCC_HOME}/build/locc-all.jar" />
+
+    <!-- Generate total size data in XML format. -->
+    <mkdir dir="${locc.dir}" />
+    <locc sizetype="javaline" outformat="csv" outfile="${locc.dir}/size.csv">
+      <fileset dir="${src.dmtp}" includes="**/*.java" />
+    </locc>
+  </target>
+
+</project>
+
