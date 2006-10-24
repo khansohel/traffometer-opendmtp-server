@@ -1,0 +1,38 @@
+-----------------------------------------------------------------------------------
+Project: OpenDMTP Reference Implementation - Java server
+URL    : http://www.opendmtp.org
+File   : CHANGELOG.txt
+-----------------------------------------------------------------------------------
+
+Version 1.1.4
+- NEW: Now includes a build target for creating a Servlet WAR file for delivering
+       CSV, or KML(XML), formatted records over the web.  KML formatted records can
+       be imported directly into Google Earth (which also automatically retrieve
+       periodic updates to the data) so that as new records come in to the MySQL
+       database, they will automatically be updated in Google Earth.
+- NEW: MySQL datastore server now has better error checking.
+- NEW: The build-in logging facility has been updated with some additional features
+       and provides an easier path for eventually porting to Log4J.
+
+Version 1.1.3
+- NEW: Now includes support for extracting events from the 'Device' MySQL table into 
+       a file in Google Earth's "kml" (XML) format.  This file can then be loaded 
+       and viewed in Google Earth.
+
+Version 1.1.2
+- BUG: Added a comment about the use of the JavaMail api.  Also, renamed the source
+       file "SendMail.java" to "SendMail.java.save" to allow the compiling without 
+       JavaMail api support.
+- NEW: Minor changes to the MySQL dabase support.
+
+Version 1.1.1
+- NEW: Now Includes support for MySQL data store.
+- NEW: Added "STATUS_INITIALIZED" and "STATUS_WAYMARK" to the OpenDMTP protocol.
+
+Version 1.1.0
+- NEW: First public release of the full featured OpenDMTP Java server reference
+       implementation.
+- NEW: Works with both C and J2ME based OpenDMTP clients.
+- NEW: Full support for Client Custom Event Packet Negotiation.
+- NEW: Protocol imlementation supports multiple accounts/devicess and connection
+       accounting. 
