@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.1//EN" "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
+
+<!-- For info on these checks, see http://checkstyle.sourceforge.net/config.html -->
+<!-- Uppercase comments indicate the 'section' in the checkstyle documentation. -->
+
+<module name="Checker">
+  <module name="PackageHtml"/>
+
+  <module name="TreeWalker">
+    <property name="charset" value="UTF-8"/>
+
+    <!-- JAVADOC COMMENTS -->
+    <module name="JavadocType">
+      <property name="authorFormat" value="\S"/>
+    </module>  
+
+    <!-- Suppress violations when can't find ServletException class etc. -->
+    <module name="JavadocMethod">
+      <property name="allowUndeclaredRTE" value="true"/>
+    </module>
+           
+    <module name="JavadocVariable">
+       <property name="scope" value="public"/>
+    </module>
+
+    <module name="JavadocStyle"/>    
+  </module>
+</module>
