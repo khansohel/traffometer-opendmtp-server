@@ -25,5 +25,9 @@
     </module>
 
     <module name="JavadocStyle"/>    
+    <!-- IMPORTS -->
+    <module name="AvoidStarImport"/>
+    <module name="RedundantImport"/>
+    <module name="UnusedImports"/> 
   </module>
 </module>
