@@ -25,118 +25,144 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.util;
 
-import java.lang.reflect.*;
-import java.io.*;
-import java.util.*;
-import java.net.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.io.File;
 
-public class OSTools
-{
-    
-    // ------------------------------------------------------------------------
-    // OS and JVM specific tools    
-    // ------------------------------------------------------------------------
-    
-    private static int OS_INITIALIZE = -1;
-    public  static int OS_UNKNOWN    = 0x1000;
-    public  static int OS_UNIX       = 0x0010;
-    public  static int OS_MAC        = 0x0020;
-    public  static int OS_WINDOWS    = 0x0040;
-    public  static int OS_WINDOWS_XP = OS_WINDOWS | 0x0001;
-    public  static int OS_WINDOWS_9X = OS_WINDOWS | 0x0002;
-    
-    private static int OSType = OS_INITIALIZE;
-    
-    public static int getOSType()
-    {
-        if (OSType == OS_INITIALIZE) {
-            String osName = System.getProperty("os.name").toLowerCase();
-            Print.logInfo("OS: " + osName);
-            if (osName.startsWith("windows")) {
-                if (osName.startsWith("windows xp")) {
-                    OSType = OS_WINDOWS_XP;
-                } else
-                if (osName.startsWith("windows 9") || osName.startsWith("windows m")) {
-                    OSType = OS_WINDOWS_9X;
-                } else {
-                    OSType = OS_WINDOWS;
-                }
-            } else
-            if (File.separatorChar == '/') {
-                OSType = OS_UNIX;
-            } else {
-                OSType = OS_UNKNOWN;
-            }
+/**
+ * 
+ * @author Martin D. Flynn
+ * @author Mark Stillwell
+ */
+public class OSTools {
+
+  // ------------------------------------------------------------------------
+  // OS and JVM specific tools
+  // ------------------------------------------------------------------------
+
+  private static int OS_INITIALIZE = -1;
+  public static int OS_UNKNOWN = 0x1000;
+  public static int OS_UNIX = 0x0010;
+  public static int OS_MAC = 0x0020;
+  public static int OS_WINDOWS = 0x0040;
+  public static int OS_WINDOWS_XP = OS_WINDOWS | 0x0001;
+  public static int OS_WINDOWS_9X = OS_WINDOWS | 0x0002;
+
+  private static int OSType = OS_INITIALIZE;
+
+  /**
+   * Returns an integer corresponding to the operating system type.
+   * @return operating system type
+   */
+  public static int getOSType() {
+    if (OSType == OS_INITIALIZE) {
+      String osName = System.getProperty("os.name").toLowerCase();
+      Print.logInfo("OS: " + osName);
+      if (osName.startsWith("windows")) {
+        if (osName.startsWith("windows xp")) {
+          OSType = OS_WINDOWS_XP;
         }
-        return OSType;
-    }
-        
-    // ------------------------------------------------------------------------
-
-    public static boolean isUnknown()
-    {
-        return (getOSType() == OS_UNKNOWN);
-    }
-    
-    public static boolean isWindows()
-    {
-        return ((getOSType() & OS_WINDOWS) != 0);
-    }
-    
-    public static boolean isWindowsXP()
-    {
-        return (getOSType() == OS_WINDOWS_XP);
-    }
-    
-    public static boolean isWindows9X()
-    {
-        return (getOSType() == OS_WINDOWS_9X);
-    }
-
-    public static boolean isUnix()
-    {
-        return ((getOSType() & OS_UNIX) != 0);
-    }
-    
-    // ------------------------------------------------------------------------
-    
-    public static boolean isBrokenToFront()
-    {
-        return isWindows();
-    }
-    
-    // ------------------------------------------------------------------------
-
-    public static void printCallerClasses()
-    {
-        for (int i = 0; ; i++) {
-            Class clz = sun.reflect.Reflection.getCallerClass(i);
-            Print.logInfo("" + i + "] class " + StringTools.className(clz));
-            if (clz == null) { break; }
+        else if (osName.startsWith("windows 9") || osName.startsWith("windows m")) {
+          OSType = OS_WINDOWS_9X;
         }
+        else {
+          OSType = OS_WINDOWS;
+        }
+      }
+      else if (File.separatorChar == '/') {
+        OSType = OS_UNIX;
+      }
+      else {
+        OSType = OS_UNKNOWN;
+      }
     }
-    
-    public static Class getCallerClass(int frame)
-    {
-        // sun.reflect.Reflection.getCallerClass(0) == sun.reflect.Reflection
-        // sun.reflect.Reflection.getCallerClass(1) == OSTools
-        Class clz = sun.reflect.Reflection.getCallerClass(frame + 1);
-        //Print._println("" + (frame + 1) + "] class " + StringTools.className(clz));
-        return clz;
+    return OSType;
+  }
+
+  // ------------------------------------------------------------------------
+
+  /**
+   * Returns true if operating system type is unknown.
+   * @return true if operating system type is unknown
+   */
+  public static boolean isUnknown() {
+    return (getOSType() == OS_UNKNOWN);
+  }
+
+  /**
+   * Returns true if operating system type is Microsoft Windows.
+   * @return true if operating system type is windows
+   */
+  public static boolean isWindows() {
+    return ((getOSType() & OS_WINDOWS) != 0);
+  }
+
+  /**
+   * Returns true if operating system type is Microsoft Windows XP.
+   * @return true if operating system type is windows xp
+   */  
+  public static boolean isWindowsXP() {
+    return (getOSType() == OS_WINDOWS_XP);
+  }
+
+  /**
+   * Returns true if operating system type is Microsoft Windows 9x or Millennium.
+   * @return true if operating system type is windows 9x
+   */  
+  public static boolean isWindows9X() {
+    return (getOSType() == OS_WINDOWS_9X);
+  }
+
+  /**
+   * Returns true if operating system type is unix
+   * Note: also returns true if operating system is Linux
+   * @return true if operating system type is unix
+   */ 
+  public static boolean isUnix() {
+    return ((getOSType() & OS_UNIX) != 0);
+  }
+
+  // ------------------------------------------------------------------------
+
+  public static boolean isBrokenToFront() {
+    return isWindows();
+  }
+
+  // ------------------------------------------------------------------------
+
+  /**
+   * Prints a list of calling classes to the log.
+   */
+  public static void printCallerClasses() {
+    for (int i = 0;; i++) {
+      Class clz = sun.reflect.Reflection.getCallerClass(i);
+      Print.logInfo("" + i + "] class " + StringTools.className(clz));
+      if (clz == null) {
+        break;
+      }
     }
-    
-    // ------------------------------------------------------------------------
-    
-    public static void main(String argv[])
-    {
-        RTConfig.setCommandLineArgs(argv);
-        Print.logInfo("Is Windows  : " + isWindows());
-        Print.logInfo("Is Windows9X: " + isWindows9X());
-        Print.logInfo("Is WindowsXP: " + isWindowsXP());
-        Print.logInfo("Is Unix     : " + isUnix());
-    }
-    
-}    
+  }
+
+  /**
+   * Provides a shortcut to sun.reflect.Reflection.getCallerClass.
+   * @param frame
+   * @return
+   */
+  public static Class getCallerClass(int frame) {
+    // sun.reflect.Reflection.getCallerClass(0) == sun.reflect.Reflection
+    // sun.reflect.Reflection.getCallerClass(1) == OSTools
+    Class clz = sun.reflect.Reflection.getCallerClass(frame + 1);
+    // Print._println("" + (frame + 1) + "] class " + StringTools.className(clz));
+    return clz;
+  }
+
+  // ------------------------------------------------------------------------
+
+  public static void main(String argv[]) {
+    RTConfig.setCommandLineArgs(argv);
+    Print.logInfo("Is Windows  : " + isWindows());
+    Print.logInfo("Is Windows9X: " + isWindows9X());
+    Print.logInfo("Is WindowsXP: " + isWindowsXP());
+    Print.logInfo("Is Unix     : " + isUnix());
+  }
+
+}
+
