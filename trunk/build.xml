@@ -2,6 +2,9 @@
 <!-- Copyright Martin D. Flynn -->
 <project name="OpenDMTP Java Server" default="help" basedir=".">
 
+  <!-- Always make environment variables available with the "env." prefix. -->
+  <property environment="env"/>
+
   <!-- build compiler -->
   <!-- <property name="build.compiler"       value="/export/java5/bin/javac"/> -->
 
@@ -15,8 +18,11 @@
   <!-- Source directories -->
   <property name="src.dmtp"             value="${basedir}/src"/>
 
-  <!-- Tomcat home (may be symbolic link) -->
-  <property name="catalina.home"        value="${basedir}/Tomcat"/>
+  <!-- Set directory for Tomcat home using CATALINA_HOME environment variable -->
+  <!-- with fallback to hardcoded value (which can point to a symbolic link.  -->
+  <condition property="catalina.home" value="${env.CATALINA_HOME}" else="${basedir}/Tomcat">
+    <isset property="env.CATALINA_HOME"/>
+  </condition>
 
   <!-- libraries -->
   <property name="lib.home"             value="${basedir}/lib"/>
