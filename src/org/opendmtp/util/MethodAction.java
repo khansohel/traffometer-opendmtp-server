@@ -34,7 +34,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * This class provides a way to invoke an object's methods in another thread.
+ * This class provides a way to invoke an object's methods by name.  This object can even be used
+ * to run the named method of the target object in a new thread.
  * @author Martin D. Flynn
  * @author Mark Stillwell
  */
@@ -170,7 +171,6 @@ public class MethodAction implements ActionListener, Runnable {
    * @param targ an object
    * @param fieldName the name of a field of the given object
    * @param value a string representing the value to set the field with the given name to
-   * @return a string derived from the value of the field of the given object with the given name
    * @throws ClassNotFoundException if the class of the given object can not be found
    * @throws NoSuchMethodException if the object does not have an accessor method for the field
    * @throws Throwable if the invoked accessor method throws something
@@ -206,7 +206,8 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Sets the arguments to the method which can be invoked by this MethodAction object.
+   * Sets the arguments to the method of the target object which can be invoked by this 
+   * MethodAction object.
    * @param args an array of argument values
    */
   public void setArgs(Object args[]) {
@@ -214,7 +215,8 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Gets the current arguments to the method which can be invoked by this MethodAction object.
+   * Gets the current arguments to the method of the target object which can be invoked by this 
+   * MethodAction object.
    * @return an array of argument values
    */
   public Object[] getArgs() {
@@ -224,8 +226,10 @@ public class MethodAction implements ActionListener, Runnable {
   // ------------------------------------------------------------------------
 
   /**
-   * Invokes the method of the target object which can be invoked by this MethodAction object.
+   * Invokes the method of the target object which can be invoked by this MethodAction object using
+   * the given arguments.
    * @param args an array of argument values
+   * @return the return value of the target method of the target object
    * @throws Throwable if the invoked method throws something
    */
   public Object invoke(Object args[]) throws Throwable {
@@ -275,8 +279,8 @@ public class MethodAction implements ActionListener, Runnable {
   // ------------------------------------------------------------------------
 
   /**
-   * Delays for the given number of milliseconds.
-   * @param the number of milliseconds to delay
+   * Invokes the target method of the target object after the given number of milliseconds.
+   * @param delayMillis the number of milliseconds to delay
    */
   public void invokeDelayed(int delayMillis) {
     javax.swing.Timer delay = new javax.swing.Timer(delayMillis, this);
@@ -286,6 +290,12 @@ public class MethodAction implements ActionListener, Runnable {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Causes the actionPerformed method of the given ActionListener to be called in the dispatch
+   * thread of the EventQueue.  This will happen after all pending events are processed.
+   * @param al an ActionListener object whose actionPerformed method will be invoked
+   * @param ae an ActionEvent to pass to the actionPerformed method of the ActionListener 
+   */
   public static void invokeLater(final ActionListener al, final ActionEvent ae) {
     MethodAction.invokeLater(new Runnable() {
       public void run() {
@@ -294,26 +304,49 @@ public class MethodAction implements ActionListener, Runnable {
     });
   }
 
+  /**
+   * Causes runnable to have its run method called in the dispatch thread of the EventQueue. 
+   * This will happen after all pending events are processed.
+   * @param r a runnable object
+   */
   public static void invokeLater(Runnable r) {
     Toolkit.getDefaultToolkit().getSystemEventQueue().invokeLater(r);
   }
 
+  /**
+   * Causes runnable to have its run  method called in the dispatch thread of the EventQueue. 
+   * This will happen after all pending events are processed.  This call blocks until this has 
+   * happened.  This method will throw an Error if called from the event dispatcher thread.
+   * @param r a runnable object
+   * @throws InterruptedException if another thread has interrupted this thread
+   * @throws InvocationTargetException if a throwable is thrown while running runnable
+   */
   public static void invokeAndWait(Runnable r) 
       throws InterruptedException, InvocationTargetException {
     // call from a child thread only!
     Toolkit.getDefaultToolkit().getSystemEventQueue().invokeAndWait(r);
   }
 
+  /**
+   * Causes this object to have its run  method called in the dispatch thread of the EventQueue. 
+   */
   public void invokeLater() {
     MethodAction.invokeLater(this);
   }
 
+  /**
+   * Causes this object to have its run  method called in the dispatch thread of the EventQueue. 
+   * This will happen after all pending events are processed.  This call blocks until this has 
+   * happened.  This method will throw an Error if called from the event dispatcher thread.
+   * @throws InterruptedException if another thread has interrupted this thread
+   * @throws InvocationTargetException if a throwable is thrown while running runnable
+   */
   public void invokeAndWait() throws InterruptedException, InvocationTargetException {
     MethodAction.invokeAndWait(this);
   }
 
   /**
-   * Invokes method when a Thread is started to run this object.
+   * Invokes the target method of the target object when a Thread runs this object.
    */
   public void run() {
     try {
@@ -324,6 +357,11 @@ public class MethodAction implements ActionListener, Runnable {
     }
   }
 
+  /**
+   * Invokes the target method of the target object when an action occurs for which this
+   * object is registered as an ActionListener.
+   * @param ae the ActionEvent which caused this method to be invoked
+   */
   public void actionPerformed(ActionEvent ae) {
     try {
       this.invoke();
