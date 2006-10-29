@@ -170,11 +170,21 @@ public class DBField
         return this.javaClass;
     }
 
+    /**
+     * Function returns a boolean true if the field is
+     * flagged as a primary key.
+     * @return
+     */
     public boolean isPriKey()
     {
         return this.isPriKey;
     }
 
+    /**
+     * Function isAltKey returns a boolean true if the field
+     * is flagged as being an alternate key.
+     * @return
+     */
     public boolean isAltKey()
     {
         return this.isAltKey;
