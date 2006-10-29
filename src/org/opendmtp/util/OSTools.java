@@ -28,7 +28,7 @@ package org.opendmtp.util;
 import java.io.File;
 
 /**
- * 
+ * This class provides utility methods for dealing with operating system related issues.
  * @author Martin D. Flynn
  * @author Mark Stillwell
  */
@@ -39,11 +39,17 @@ public class OSTools {
   // ------------------------------------------------------------------------
 
   private static int OS_INITIALIZE = -1;
+  /** Integer value representing unknown operating system. */
   public static int OS_UNKNOWN = 0x1000;
+  /** Integer value representing unix operating systems. */
   public static int OS_UNIX = 0x0010;
+  /** Integer value representing macintosh operating systems. */
   public static int OS_MAC = 0x0020;
+  /** Integer value representing generic Microsoft Windows operating systems. */
   public static int OS_WINDOWS = 0x0040;
+  /** Integer value representing Microsoft Windows XP. */
   public static int OS_WINDOWS_XP = OS_WINDOWS | 0x0001;
+  /** Integer value representing Microsoft Windows 9x. */
   public static int OS_WINDOWS_9X = OS_WINDOWS | 0x0002;
 
   private static int OSType = OS_INITIALIZE;
@@ -112,7 +118,7 @@ public class OSTools {
   }
 
   /**
-   * Returns true if operating system type is unix
+   * Returns true if operating system type is unix.
    * Note: also returns true if operating system is Linux
    * @return true if operating system type is unix
    */ 
@@ -122,6 +128,10 @@ public class OSTools {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Returns true if operating system type is Microsoft Windows.
+   * @return true if operating system type is windows
+   */  
   public static boolean isBrokenToFront() {
     return isWindows();
   }
@@ -143,8 +153,8 @@ public class OSTools {
 
   /**
    * Provides a shortcut to sun.reflect.Reflection.getCallerClass.
-   * @param frame
-   * @return
+   * @param frame level of class above OSTools on call stack
+   * @return a class on the calling stack
    */
   public static Class getCallerClass(int frame) {
     // sun.reflect.Reflection.getCallerClass(0) == sun.reflect.Reflection
@@ -156,6 +166,10 @@ public class OSTools {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Runs operating system tests from the commandline and prints results.
+   * @param argv command line argument vector
+   */
   public static void main(String argv[]) {
     RTConfig.setCommandLineArgs(argv);
     Print.logInfo("Is Windows  : " + isWindows());
