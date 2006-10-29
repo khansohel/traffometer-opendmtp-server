@@ -33,8 +33,7 @@ import java.util.Set;
 import java.util.Vector;
 
 /**
- * This class implements a HashMap using an OrderedSet to hold key values.  
- * 
+ * This class implements a HashMap using an OrderedSet to hold key values.
  * @author Martin D. Flynn
  * @author Mark Stillwell
  */
@@ -45,11 +44,18 @@ public class OrderedMap extends HashMap implements Map {
   private OrderedSet keyOrder = null;
   private Map ignoredCaseMap = null;
 
+  /**
+   * Default OrderedMap constructor.
+   */
   public OrderedMap() {
     super();
     this.keyOrder = new OrderedSet();
   }
 
+  /**
+   * Creates a new OrderedMap containing the contents of map.
+   * @param map a Map of key/value pairs to copy
+   */
   public OrderedMap(Map map) {
     this();
     this.putAll(map);
@@ -57,10 +63,18 @@ public class OrderedMap extends HashMap implements Map {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Returns true if this OrderedMap ignores the case of keys.
+   * @return true if this object ignores the case of keys
+   */
   public boolean isIgnoreCase() {
     return (this.ignoredCaseMap != null);
   }
 
+  /**
+   * Sets whether this OrderedMap ignores the case of keys.
+   * @param ignoreCase true if this Map should ignore case, false otherwise
+   */
   public void setIgnoreCase(boolean ignoreCase) {
     if (ignoreCase) {
       if (this.ignoredCaseMap == null) {
@@ -197,9 +211,10 @@ public class OrderedMap extends HashMap implements Map {
 
   /**
    * Puts a value in this Map with the given key in position ndx.
-   * @param position to put the key in this map
-   * @param key to map to value
-   * @param value to be put in this Map
+   * @param ndx position to put the key in this map
+   * @param key key to map to value
+   * @param value value to be put in this Map
+   * @return previous value associated with the given key, or null if no such value exists
    */
   public Object put(int ndx, Object key, Object value) {
     if ((this.ignoredCaseMap != null) && (key instanceof String)) {
@@ -213,6 +228,7 @@ public class OrderedMap extends HashMap implements Map {
    * Puts a value in this Map with the given key.  The key is placed in the last position.
    * @param key to map to value
    * @param value to be put in this Map
+   * @return previous value associated with the given key, or null if no such value exists   
    */
   public Object put(Object key, Object value) {
     if ((this.ignoredCaseMap != null) && (key instanceof String)) {
@@ -228,7 +244,7 @@ public class OrderedMap extends HashMap implements Map {
 
   /**
    * Adds the contents of the given map to the end of this map.
-   * @param a map to add to the end of this one
+   * @param map a map to add to the end of this one
    */
   public void putAll(Map map) {
     for (Iterator i = map.keySet().iterator(); i.hasNext();) {
@@ -241,6 +257,7 @@ public class OrderedMap extends HashMap implements Map {
 
   /**
    * Tests if this map has the given key without considering case.
+   * @param key a key mapped to a value by this Map
    * @return true if this map has the given key (ignores case)
    */
   public boolean containsKeyIgnoreCase(String key) {
@@ -258,6 +275,7 @@ public class OrderedMap extends HashMap implements Map {
 
   /**
    * Tests if this map has the given key.  This method does not ignore case.
+   * @param key a key mapped to a value by this Map
    * @return true if this map has the given key
    */
   public boolean containsKey(Object key) {
@@ -266,6 +284,11 @@ public class OrderedMap extends HashMap implements Map {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Removes the key/value pair with the given key from this Map.
+   * @param key a key mapped to a value by this Map
+   * @return value associated with key if it exists, null otherwise
+   */
   public Object remove(Object key) {
     Object k = this.keyCaseFilter(key);
     if ((this.ignoredCaseMap != null) && (key instanceof String)) {
@@ -277,6 +300,11 @@ public class OrderedMap extends HashMap implements Map {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Returns the object associated with the given key in this map.
+   * @param key a key mapped to a value by this Map
+   * @return value associated with key if it exists, null otherwise
+   */
   public Object get(Object key) {
     return super.get(this.keyCaseFilter(key));
   }
@@ -300,7 +328,7 @@ public class OrderedMap extends HashMap implements Map {
   /**
    * Returns the key in position ndx. Returns null if ndx is less than 0 or larger than the
    * position of the last key.
-   * @param the index of the key to return
+   * @param ndx the index of the key to return
    * @return the key at position ndx 
    */
   public Object getKey(int ndx) {
@@ -310,7 +338,7 @@ public class OrderedMap extends HashMap implements Map {
   /**
    * Returns the value in position ndx. Returns null if ndx is less than 0 or larger than the
    * position of the last value.
-   * @param the index of the key to return
+   * @param ndx the index of the key to return
    * @return the value at position ndx
    */
   public Object getValue(int ndx) {
@@ -320,7 +348,7 @@ public class OrderedMap extends HashMap implements Map {
 
   /**
    * Removes the key/value pair at position ndx.
-   * @param the index of the key/value pair to remove
+   * @param ndx the index of the key/value pair to remove
    */
   public void remove(int ndx) {
     this.remove(this.getKey(ndx));
