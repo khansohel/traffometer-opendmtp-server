@@ -27,13 +27,14 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.text.*;
-import java.sql.*;
 
-import org.opendmtp.util.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.opendmtp.util.OrderedMap;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.StringTools;
+
 
 public class DBFieldValues
 {
