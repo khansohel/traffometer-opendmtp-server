@@ -26,12 +26,13 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
-import java.lang.reflect.*;
-import java.util.*;
-import java.sql.*;
+import java.lang.reflect.Constructor;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.RTProperties;
+import org.opendmtp.util.StringTools;
 
-import org.opendmtp.util.*;
 
 public class DBField
 {
@@ -77,6 +78,11 @@ public class DBField
 
     // ------------------------------------------------------------------------
 
+    /**
+     * DBField constructor with a single parameter.
+     * @param DBField Another instance of the DBField
+     * for the purposes of making a copy.
+     */
     public DBField(DBField other)
     {
         this.name       = other.name;
@@ -87,6 +93,13 @@ public class DBField
         this.isAltKey   = other.isAltKey;
     }
 
+    /**
+     * DBField constructor with 3 parameters.
+     * @param name Name of the field.
+     * @param dataType Datatype of the field.
+     * @param isPriKey True if value is a primary key,
+     * false otherwise.
+     */
     public DBField(String name, String dataType, boolean isPriKey)
     {
         // used by DBFactory.getTableColumns
@@ -98,6 +111,13 @@ public class DBField
         this.isAltKey   = false;
     }
 
+    /**
+     * DBField constructor with 4 parameters.
+     * @param name Name of the field.
+     * @param javaClass Class type of the field.
+     * @param dataType Datatype of the field.
+     * @param attr Attributes of the field.
+     */
     public DBField(String name, Class javaClass, String dataType, String attr)
     {
         this.name       = name;
@@ -110,11 +130,21 @@ public class DBField
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Setter function setting the private factory variable to
+     * and instance of the DBFactory class.
+     * @param factory instance of the DBFactory class.
+     */
     public void setFactory(DBFactory factory)
     {
         this.factory = factory;
     }
     
+    /**
+     * Getter function returning an instance of the DBFactory
+     * class.
+     * @return returns the private factory class.
+     */
     public DBFactory getFactory()
     {
         return this.factory;
@@ -122,11 +152,19 @@ public class DBField
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Getter function for field names.
+     * @return Returns the private field name value.
+     */
     public String getName()
     {
         return this.name;
     }
 
+    /**
+     * Getter function for class type.
+     * @return Returns the private class type.
+     */
     public Class getTypeClass()
     {
         return this.javaClass;

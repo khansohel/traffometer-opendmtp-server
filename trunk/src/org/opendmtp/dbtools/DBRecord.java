@@ -26,12 +26,13 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
 import java.lang.reflect.Constructor;
-import java.util.*;
-import java.io.*;
-import java.text.*;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Iterator;
+import java.util.Stack;
+import java.util.Vector;
 
 //import javax.servlet.*;
 //import javax.servlet.http.*;

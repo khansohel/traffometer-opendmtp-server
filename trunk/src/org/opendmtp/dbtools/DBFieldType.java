@@ -24,12 +24,9 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
-import java.lang.reflect.*;
-import java.util.*;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import org.opendmtp.util.*;
 
 public abstract class DBFieldType
 {
