@@ -22,47 +22,131 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-import java.lang.*;
-import java.util.*;
+//import java.lang.*; Commented out by Kiet Huynh
+//import java.util.*; Commented out by Kiet Huynh
 
-public class Encoding
-{
-    
-    // ------------------------------------------------------------------------
-    
-    public static final char    AsciiEncodingChar           = '$';
-    public static final char    AsciiChecksumChar           = '*';
-    public static final char    AsciiEndOfLineChar          = '\r';
+/**
+ * This class defines ASCII encoding types and checksum encoding.  The ASCII encoding 
+ * types include Hex, CVS, and Base64 encoding.
+ * <p>Javadoc created by Kiet Huynh on 10/29/2006.
+ */
+public class Encoding {
 
-    // ------------------------------------------------------------------------
-    // Packet encoding
-    
-    public static final int     SUPPORTED_ENCODING_BINARY   = 0x01;
-    public static final int     SUPPORTED_ENCODING_BASE64   = 0x02;
-    public static final int     SUPPORTED_ENCODING_HEX      = 0x04;
-    public static final int     SUPPORTED_ENCODING_CSV      = 0x08;
+  // ------------------------------------------------------------------------
 
-    public static final int     ENCODING_UNKNOWN            = -1;     // unknown ASCII encoding
-    public static final int     ENCODING_BINARY             =  0;     // server must support
-    public static final int     ENCODING_BASE64             = 10;     // server must support
-    public static final int     ENCODING_BASE64_CKSUM       = 11;     // server must support
-    public static final int     ENCODING_HEX                = 20;     // server must support
-    public static final int     ENCODING_HEX_CKSUM          = 21;     // server must support
-    public static final int     ENCODING_CSV                = 30;     // server need not support
-    public static final int     ENCODING_CSV_CKSUM          = 31;     // server need not support
-    public static boolean IsEncodingAscii(int encoding) { 
-        return (encoding > 0);
-    }
-    public static boolean IsEncodingChecksum(int encoding) { 
-        return (encoding > 0) && ((encoding % 10) != 0);
-    }
+  /**
+   * Indicator of the start of ASCII packet.
+   */
+  public static final char AsciiEncodingChar = '$';
 
-    // ------------------------------------------------------------------------
+  /**
+   * Indicator of the beginning of the checksum
+   */
+  public static final char AsciiChecksumChar = '*';
 
-    public static final char    ENCODING_BASE64_CHAR        = '='; 
-    public static final char    ENCODING_HEX_CHAR           = ':';
-    public static final char    ENCODING_CSV_CHAR           = ',';
+  /**
+   * ACSII end-of-file character.
+   */
+  public static final char AsciiEndOfLineChar = '\r';
 
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+  // Packet encoding
+
+  /**
+   * Supported binary encoding.
+   */
+  public static final int SUPPORTED_ENCODING_BINARY = 0x01;
+
+  /**
+   * Supported base64 encoding.
+   */
+  public static final int SUPPORTED_ENCODING_BASE64 = 0x02;
+
+  /**
+   * Supported hexidecimal encoding.
+   */
+  public static final int SUPPORTED_ENCODING_HEX = 0x04;
+
+  /**
+   * Supported CVS encoding. 
+   */
+  public static final int SUPPORTED_ENCODING_CSV = 0x08;
+
+  /**
+   * Unknown ASCII encoding.
+   */
+  public static final int ENCODING_UNKNOWN = -1; // unknown ASCII encoding
+
+  /**
+   * Binary encoding.
+   */
+  public static final int ENCODING_BINARY = 0; // server must support
+
+  /**
+   * Base64 encoding.
+   */
+  public static final int ENCODING_BASE64 = 10; // server must support
+
+  /**
+   * Base64 checksum encoding.
+   */
+  public static final int ENCODING_BASE64_CKSUM = 11; // server must support
+
+  /**
+   * Hex encoding.
+   */
+  public static final int ENCODING_HEX = 20; // server must support
+
+  /**
+   * Hex checksum encoding.
+   */
+  public static final int ENCODING_HEX_CKSUM = 21; // server must support
+
+  /**
+   * CVS encoding.
+   */
+  public static final int ENCODING_CSV = 30; // server need not support
+
+  /**
+   * CVS Checksum encoding.
+   */
+  public static final int ENCODING_CSV_CKSUM = 31; // server need not support
+
+  /**
+   * Checks if an encoding is ASCII encoding.
+   * @param encoding - The encoding code.
+   * @return Returns true if this is ASCII encoding. Otherwise, return false.
+   */
+  public static boolean IsEncodingAscii(int encoding) {
+    return (encoding > 0);
+  }
+
+  /**
+   * Checks if an encoding is checksum encoding.
+   * @param encoding - the encoding code.
+   * @return Returns true if this is a checksum encoding. Otherwise, return false.
+   */
+  public static boolean IsEncodingChecksum(int encoding) {
+    return (encoding > 0) && ((encoding % 10) != 0);
+  }
+
+  // ------------------------------------------------------------------------
+
+  /**
+   * Base64 encoding indicator.
+   */
+  public static final char ENCODING_BASE64_CHAR = '=';
+
+  /**
+   * Hex encoding indicator.
+   */
+  public static final char ENCODING_HEX_CHAR = ':';
+
+  /**
+   * CVS encoding indicator.
+   */
+  public static final char ENCODING_CSV_CHAR = ',';
+
+  // ------------------------------------------------------------------------
 
 }
