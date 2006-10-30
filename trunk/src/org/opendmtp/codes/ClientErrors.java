@@ -22,13 +22,17 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-import org.opendmtp.util.*;
+import org.opendmtp.util.StringTools; // added by Kiet Huynh
+
+// import org.opendmtp.util.*; // commented out by Kiet Huynh
 
 /**
- * This class defines the client errors.  The types of errors include protocol/
- * packet errors, property errors, command errors, upload errors, GPS errors, 
- * and internal errors.
- * <p>Javadoc created by Kiet Huynh on 10/29/2006.</p>
+ * This class defines the client errors. The types of errors include protocol/ packet errors,
+ * property errors, command errors, upload errors, GPS errors, and internal errors. The error
+ * will be sent by a client to a server when the client detects the error.
+ * <p>
+ * Javadoc created by Kiet Huynh on 10/29/2006.
+ * </p>
  */
 public class ClientErrors {
 
@@ -37,500 +41,650 @@ public class ClientErrors {
 
   /**
    * Invalid packet header.
-   * <p>Payload:</p> 
-   *      <ul><li>0:2 - This error code</li>
-   *      <li>2:1 - Packet header causing error (if available)</li>
-   *      <li>3:1 - Packet type causing error (if available)</li></ul>
-   * <p>Notes: Sent to server when the packet is not recognize.</p>
+   * <p>
+   * Payload:
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error (if available)</li>
+   * <li>3:1 - Packet type causing error (if available)</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when the packet is not recognize.
+   * </p>
    */
   public static final int ERROR_PACKET_HEADER = 0xF111;
   // Description:
-  //      Invalid packet header
+  // Invalid packet header
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error (if available)
-  //      3:1 - Packet type causing error (if available)
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error (if available)
+  // 3:1 - Packet type causing error (if available)
   // Notes:
-  //      Sent to server when the packet header is not recognized.
+  // Sent to server when the packet header is not recognized.
 
   /**
    * Invalid packet type.
-   * <p>Payload:</p>
-   *      <ul><li>0:2 - This error code</li>
-   *          <li>2:1 - Packet header causing error</li>
-   *          <li>3:1 - Packet type causing erro</li></ul>
-   * <p>Notes: Sent to server when the packet type is not recognized.</p>
+   * <p>
+   * Payload:
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error</li>
+   * <li>3:1 - Packet type causing erro</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when the packet type is not recognized.
+   * </p>
    */
   public static final int ERROR_PACKET_TYPE = 0xF112;
   // Description:
-  //      Invalid packet type
+  // Invalid packet type
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error
-  //      3:1 - Packet type causing error
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error
+  // 3:1 - Packet type causing error
   // Notes:
-  //      Sent to server when the packet type is not recognized.
+  // Sent to server when the packet type is not recognized.
 
   /**
    * Invalid packet length.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:1 - Packet header causing error</li>
-   *     <li>3:1 - Packet type causing erro</li></ul>
-   * <p>Notes: Sent to server when the packet length is invalid</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error</li>
+   * <li>3:1 - Packet type causing erro</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when the packet length is invalid
+   * </p>
    */
   public static final int ERROR_PACKET_LENGTH = 0xF113;
   // Description:
-  //      Invalid packet length
+  // Invalid packet length
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error (if available)
-  //      3:1 - Packet type causing error (if available)
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error (if available)
+  // 3:1 - Packet type causing error (if available)
   // Notes:
-  //      Sent to server when the packet length is invalid.
+  // Sent to server when the packet length is invalid.
 
   /**
    * Invalid/unsupported packet encoding.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:1 - Packet header causing error</li>
-   *     <li>3:1 - Packet type causing erro</li></ul>
-   * <p>Notes: Sent to server when the packet encoding is not supported 
-   *           by the client.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error</li>
+   * <li>3:1 - Packet type causing erro</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when the packet encoding is not supported by the client.
+   * </p>
    */
   public static final int ERROR_PACKET_ENCODING = 0xF114;
   // Description:
-  //      Invalid/unsupported packet encoding
+  // Invalid/unsupported packet encoding
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error
-  //      3:1 - Packet type causing error
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error
+  // 3:1 - Packet type causing error
   // Notes:
-  //      Sent to server when the packet encoding is not supported by the client.
+  // Sent to server when the packet encoding is not supported by the client.
 
   /**
    * Invalid packet payload.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:1 - Packet header causing error</li>
-   *     <li>3:1 - Packet type causing erro</li></ul>
-   * <p>Notes: Sent to server when the packet payload is invalid.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error</li>
+   * <li>3:1 - Packet type causing erro</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when the packet payload is invalid.
+   * </p>
    */
   public static final int ERROR_PACKET_PAYLOAD = 0xF115;
   // Description:
-  //      Invalid packet payload
+  // Invalid packet payload
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error
-  //      3:1 - Packet type causing error
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error
+  // 3:1 - Packet type causing error
   // Notes:
-  //      Sent to server when the packet payload is invalid.
+  // Sent to server when the packet payload is invalid.
 
   /**
    * Invalid packet checksum (ASCII encoding only).
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:1 - Packet header causing error</li>
-   *     <li>3:1 - Packet type causing erro</li></ul>
-   * <p>Notes: Sent to server when the packet checksum appears to be invalid. 
-   *           This can only occur for ASCII encoded packets.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error</li>
+   * <li>3:1 - Packet type causing erro</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when the packet checksum appears to be invalid. This can only occur for
+   * ASCII encoded packets.
+   * </p>
    */
   public static final int ERROR_PACKET_CHECKSUM = 0xF116;
   // Description:
-  //      Invalid packet checksum (ASCII encoding only)
+  // Invalid packet checksum (ASCII encoding only)
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error
-  //      3:1 - Packet type causing error
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error
+  // 3:1 - Packet type causing error
   // Notes:
-  //      Sent to server when the packet checksum appears to be invalid.
-  //      This can only occur for ASCII encoded packets.
+  // Sent to server when the packet checksum appears to be invalid.
+  // This can only occur for ASCII encoded packets.
 
   /**
    * Packet ACK sequence invalid.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:1 - Packet header causing error</li>
-   *     <li>3:1 - Packet type causing erro</li></ul>
-   * <p>Notes: Sent to the server when the packet ACK sequence number was not 
-   *           found in the list of sent/unacknowledged events packets.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error</li>
+   * <li>3:1 - Packet type causing erro</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the packet ACK sequence number was not found in the list of
+   * sent/unacknowledged events packets.
+   * </p>
    */
   public static final int ERROR_PACKET_ACK = 0xF117;
   // Description:
-  //      Packet ACK sequence invalid
+  // Packet ACK sequence invalid
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error
-  //      3:1 - Packet type causing error
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error
+  // 3:1 - Packet type causing error
   // Notes:
-  //      Sent to server when the packet ACK sequence number was not found
-  //      in the list of sent/unacknowledged event packets.
+  // Sent to server when the packet ACK sequence number was not found
+  // in the list of sent/unacknowledged event packets.
 
   /**
    * Protocol error.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:1 - Packet header causing error</li>
-   *     <li>3:1 - Packet type causing erro</li></ul>
-   * <p>Notes: Sent to the server when the client does not receive an expected
-   *           response from the server.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:1 - Packet header causing error</li>
+   * <li>3:1 - Packet type causing erro</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the client does not receive an expected response from the
+   * server.
+   * </p>
    */
   public static final int ERROR_PROTOCOL_ERROR = 0xF121;
   // Description:
-  //      Protocol error
+  // Protocol error
   // Payload:
-  //      0:2 - This error code
-  //      2:1 - Packet header causing error
-  //      3:1 - Packet type causing error
+  // 0:2 - This error code
+  // 2:1 - Packet header causing error
+  // 3:1 - Packet type causing error
   // Notes:
-  //      Sent to server when the client does not receive an expected
-  //      response from the server.
+  // Sent to server when the client does not receive an expected
+  // response from the server.
 
   // ----------------------------------------------------------------------------
   // Property errors (data provides specifics):
 
   /**
    * Property is read-only.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:2 - The id of the read-only property</li></ul>
-   * <p>Notes: Sent to the server when an attempt is made to set a read-only 
-   *           property.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:2 - The id of the read-only property</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when an attempt is made to set a read-only property.
+   * </p>
    */
   public static final int ERROR_PROPERTY_READ_ONLY = 0xF201;
   // Description:
-  //      Property is read-only
+  // Property is read-only
   // Payload:
-  //      0:2 - This error code
-  //      2:2 - the id of the read-only property
+  // 0:2 - This error code
+  // 2:2 - the id of the read-only property
   // Notes:
-  //      Sent to server when an attempt is made to set a read-only property
+  // Sent to server when an attempt is made to set a read-only property
 
   /**
    * Property is write-only.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:2 - The id of the write-only property</li></ul>
-   * <p>Notes: Sent to the server when an attempt is made to read a write-only
-   *           property.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:2 - The id of the write-only property</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when an attempt is made to read a write-only property.
+   * </p>
    */
   public static final int ERROR_PROPERTY_WRITE_ONLY = 0xF202;
   // Description:
-  //      Property is write-only
+  // Property is write-only
   // Payload:
-  //      0:2 - This error code
-  //      2:2 - the id of the write-only property
+  // 0:2 - This error code
+  // 2:2 - the id of the write-only property
   // Notes:
-  //      Sent to server when an attempt is made to read a write-only property
+  // Sent to server when an attempt is made to read a write-only property
 
   /**
    * Invalid/unsupported property ID.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:2 - The id of the unrecognized property</li></ul>
-   * <p>Notes: Sent to the server when an attempt is made to get/set an 
-   *           unrecognized property id.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:2 - The id of the unrecognized property</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when an attempt is made to get/set an unrecognized property id.
+   * </p>
    */
   public static final int ERROR_PROPERTY_INVALID_ID = 0xF211;
   // Description:
-  //      Invalid/unsupported property ID
+  // Invalid/unsupported property ID
   // Payload:
-  //      0:2 - This error code
-  //      2:2 - the id of the unrecognized property
+  // 0:2 - This error code
+  // 2:2 - the id of the unrecognized property
   // Notes:
-  //      Sent to server when an attempt is made to get/set an unrecognized property id
+  // Sent to server when an attempt is made to get/set an unrecognized property id
 
   /**
    * Invalid property value.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:2 - The id of the property which is attempting to be get/set</li></ul>
-   * <p>Notes: Sent to server when a specified value is invalid for the property type.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:2 - The id of the property which is attempting to be get/set</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when a specified value is invalid for the property type.
+   * </p>
    */
   public static final int ERROR_PROPERTY_INVALID_VALUE = 0xF212;
   // Description:
-  //      Invalid property value
+  // Invalid property value
   // Payload:
-  //      0:2 - This error code
-  //      2:2 - the id of the property which is attempting to be get/set
+  // 0:2 - This error code
+  // 2:2 - the id of the property which is attempting to be get/set
   // Notes:
-  //      Sent to server when a specified value is invalid for the property type
+  // Sent to server when a specified value is invalid for the property type
 
   /**
    * Invalid property value.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code</li>
-   *     <li>2:2 - The id of the property which has the error.</li></ul>
-   * <p>Notes: Sent to the server a specified value is invalid for the property type.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code</li>
+   * <li>2:2 - The id of the property which has the error.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server a specified value is invalid for the property type.
+   * </p>
    */
   public static final int ERROR_PROPERTY_UNKNOWN_ERROR = 0xF213;
   // Description:
-  //      Invalid property value
+  // Invalid property value
   // Payload:
-  //      0:2 - This error code
-  //      2:2 - the id of the property which has the error
+  // 0:2 - This error code
+  // 2:2 - the id of the property which has the error
   // Notes:
-  //      Sent to server when a specified value is invalid for the property type
+  // Sent to server when a specified value is invalid for the property type
 
   // ----------------------------------------------------------------------------
   // Command errors (data provides specifics):
 
   /**
    * The specified command is invalid/unsupported.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li>
-   *     <li>2:2 - The id of the invalid command.</li></ul>
-   * <p>Notes: Sent to the server when the client is requested to perform a
-   *           command which it does not support.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * <li>2:2 - The id of the invalid command.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the client is requested to perform a command which it does not
+   * support.
+   * </p>
    */
   public static final int ERROR_COMMAND_INVALID = 0xF311;
   // Description:
-  //      The specified command is invalid/unsupported
+  // The specified command is invalid/unsupported
   // Payload:
-  //      0:2 - This error code
-  //      2:2 - the id of the invalid command.
+  // 0:2 - This error code
+  // 2:2 - the id of the invalid command.
   // Notes:
-  //      Sent to the server when the client is requested to perform a 
-  //      command which it does not support.
+  // Sent to the server when the client is requested to perform a
+  // command which it does not support.
 
   /**
    * The command arguments are invalid, or an execution error was encountered.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li>
-   *     <li>2:2 - The id of the commnand which had the error.</li>
-   *     <li>4:2 - Returned command error (reason).</li>
-   *     <li>6:X - Other data which may be useful in diagnosing the 
-   *               error [optional].</li></ul>
-   * <p>Notes: Sent to the server when the executed client command has found an
-   *           error either in the command arguments, or in the execution 
-   *           of the command.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * <li>2:2 - The id of the commnand which had the error.</li>
+   * <li>4:2 - Returned command error (reason).</li>
+   * <li>6:X - Other data which may be useful in diagnosing the error [optional].</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the executed client command has found an error either in the
+   * command arguments, or in the execution of the command.
+   * </p>
    */
   public static final int ERROR_COMMAND_ERROR = 0xF321;
   // Description:
-  //      The command arguments are invalid, or an execution error was encountered.
+  // The command arguments are invalid, or an execution error was encountered.
   // Payload:
-  //      0:2 - This error code
-  //      2:2 - the id of the command which had the error
-  //      4:2 - returned command error (reason)
-  //      6:X - other data which may be useful in diagnosing the error [optional]
+  // 0:2 - This error code
+  // 2:2 - the id of the command which had the error
+  // 4:2 - returned command error (reason)
+  // 6:X - other data which may be useful in diagnosing the error [optional]
   // Notes:
-  //      Sent to the server when the executed client command has found an 
-  //      error either in the command arguments, or in the execution of the command.
+  // Sent to the server when the executed client command has found an
+  // error either in the command arguments, or in the execution of the command.
 
   // ----------------------------------------------------------------------------
   // Upload errors (data provides specifics):
 
   /**
    * Invalid specified upload type.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li></ul>
-   * <p>Notes: Sent to the server when the upload record type is not recognized.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the upload record type is not recognized.
+   * </p>
    */
   public static final int ERROR_UPLOAD_TYPE = 0xF401;
   // Description:
-  //      Invalid speficied upload type
+  // Invalid speficied upload type
   // Payload:
-  //      0:2 - This error code
+  // 0:2 - This error code
   // Notes:
-  //      Sent to the server when the upload record type is not recognized.
+  // Sent to the server when the upload record type is not recognized.
 
   /**
    * Invalid specified upload file size (too small/large).
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li></ul>
-   * <p>Notes: Sent to the server when the specified data length is 
-   *           too large/small.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the specified data length is too large/small.
+   * </p>
    */
   public static final int ERROR_UPLOAD_LENGTH = 0xF411;
   // Description:
-  //      Invalid speficied upload file size (too small/large)
+  // Invalid speficied upload file size (too small/large)
   // Payload:
-  //      0:2 - This error code
+  // 0:2 - This error code
   // Notes:
-  //      Sent to the server when the specified data length is too large/small.
+  // Sent to the server when the specified data length is too large/small.
 
   /**
    * Invalid specified upload file offset.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li></ul>
-   * <p>Notes: Sent to the server when the specified data offset overlaps a 
-   *           previous record.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the specified data offset overlaps a previous record.
+   * </p>
    */
   public static final int ERROR_UPLOAD_OFFSET_OVERLAP = 0xF412;
   // Description:
-  //      Invalid speficied upload file offset
+  // Invalid speficied upload file offset
   // Payload:
-  //      0:2 - This error code
+  // 0:2 - This error code
   // Notes:
-  //      Sent to the server when the specified data offset overlaps a previous record.
+  // Sent to the server when the specified data offset overlaps a previous record.
 
   /**
    * Invalid specified upload file offset.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li></ul>
-   * <p>Notes: Sent to the server when the specified data offset leaves a gap between 
-   *           this and the previous record.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the specified data offset leaves a gap between this and the
+   * previous record.
+   * </p>
    */
   public static final int ERROR_UPLOAD_OFFSET_GAP = 0xF413;
   // Description:
-  //      Invalid speficied upload file offset
+  // Invalid speficied upload file offset
   // Payload:
-  //      0:2 - This error code
+  // 0:2 - This error code
   // Notes:
-  //      Sent to the server when the specified data offset leaves a gap between this
-  //      and the previous record.
+  // Sent to the server when the specified data offset leaves a gap between this
+  // and the previous record.
 
   /**
    * Invalid specified upload file offset.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li></ul>
-   * <p>Notes: Sent to the server when the specified data offset and the length of
-   *           the provided data exceeds the previously specified length of 
-   *           the file.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the specified data offset and the length of the provided data
+   * exceeds the previously specified length of the file.
+   * </p>
    */
   public static final int ERROR_UPLOAD_OFFSET_OVERFLOW = 0xF414;
   // Description:
-  //      Invalid speficied upload file offset
+  // Invalid speficied upload file offset
   // Payload:
-  //      0:2 - This error code
+  // 0:2 - This error code
   // Notes:
-  //      Sent to the server when the specified data offset and the length of the
-  //      provided data exceeds the previously specified length of the file.
+  // Sent to the server when the specified data offset and the length of the
+  // provided data exceeds the previously specified length of the file.
 
   /**
    * Invalid specified upload file name.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li></ul>
-   * <p>Notes: Sent to the server when the specified filename is invalid.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the specified filename is invalid.
+   * </p>
    */
   public static final int ERROR_UPLOAD_FILE_NAME = 0xF421;
   // Description:
-  //      Invalid speficied upload file name
+  // Invalid speficied upload file name
   // Payload:
-  //      0:2 - This error code
+  // 0:2 - This error code
   // Notes:
-  //      Sent to the server when the specified filename is invalid.
+  // Sent to the server when the specified filename is invalid.
 
   /**
    * Invalid specified upload checksum.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li></ul>
-   * <p>Notes: Sent to the server when the specified checksum value is invalid.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the specified checksum value is invalid.
+   * </p>
    */
   public static final int ERROR_UPLOAD_CHECKSUM = 0xF431;
   // Description:
-  //      Invalid speficied upload checksum
+  // Invalid speficied upload checksum
   // Payload:
-  //      0:2 - This error code
+  // 0:2 - This error code
   // Notes:
-  //      Sent to the server when the specified checksum value is invalid.
+  // Sent to the server when the specified checksum value is invalid.
 
   /**
    * Error saving upload file.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li>
-   *     <li>2:X - Additional diagnostic information as needed.</li></ul>
-   * <p>Notes: Sent to the server when the client is unable to save the 
-   *           uploaded file. Possibly due to some internal client error.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * <li>2:X - Additional diagnostic information as needed.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to the server when the client is unable to save the uploaded file. Possibly due to
+   * some internal client error.
+   * </p>
    */
   public static final int ERROR_UPLOAD_SAVE = 0xF441;
   // Description:
-  //      Error saving upload file
+  // Error saving upload file
   // Payload:
-  //      0:2 - This error code
-  //      2:X - Additional diagnostic information as needed.
+  // 0:2 - This error code
+  // 2:X - Additional diagnostic information as needed.
   // Notes:
-  //      Sent to the server when the client is unable to save the uploaded
-  //      file.  Possibly due to some internal client error.
+  // Sent to the server when the client is unable to save the uploaded
+  // file. Possibly due to some internal client error.
 
   // ----------------------------------------------------------------------------
   // GPS errors (data provides specifics):
 
   /**
    * GPS fix expired (possible antenna problem).
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li>
-   *     <li>2:4 - The time of the last valid fix.</li></ul>
-   * <p>Notes: Sent to server when the client has determined that a new GPS
-   *           fix has not bee aquired in the expected time frame (as specified
-   *           by the property PROP_GPS_EXPIRATION).  This typically means that
-   *           either the device is not in an area where a GPS fix is possible,
-   *           or that there may be a problem with the GPS antenna.
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * <li>2:4 - The time of the last valid fix.</li>
+   * </ul>
+   * <p>
+   * Notes: Sent to server when the client has determined that a new GPS fix has not bee aquired in
+   * the expected time frame (as specified by the property PROP_GPS_EXPIRATION). This typically
+   * means that either the device is not in an area where a GPS fix is possible, or that there may
+   * be a problem with the GPS antenna.
    */
   public static final int ERROR_GPS_EXPIRED = 0xF911;
   // Description:
-  //      GPS fix expired (possible antenna problem)
+  // GPS fix expired (possible antenna problem)
   // Payload:
-  //      0:2 - This error code
-  //      2:4 - the time of the last valid fix
+  // 0:2 - This error code
+  // 2:4 - the time of the last valid fix
   // Notes:
-  //      Sent to server when the client has determined that a new GPS
-  //      fix has not bee aquired in the expected time frame (as specified
-  //      by the property PROP_GPS_EXPIRATION).  This typically means that
-  //      either the device is not in an area where a GPS fix is possible,
-  //      or that there may be a problem with the GPS antenna.
+  // Sent to server when the client has determined that a new GPS
+  // fix has not bee aquired in the expected time frame (as specified
+  // by the property PROP_GPS_EXPIRATION). This typically means that
+  // either the device is not in an area where a GPS fix is possible,
+  // or that there may be a problem with the GPS antenna.
 
   /**
    * Lost communication with GPS module (possible module problem).
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li>
-   *     <li>2:4 - The time of the last GPS communication.</li>
-   *     <li>6:X - Anything else that the client deems useful to diagnosing
-   *               this problem.</li></ul>
-   * <p>Notes:  This differs from ERROR_GPS_EXPIRED is that no communication from
-   *            GPS module (whether valid, or invalid) has been received in the 
-   *            expected time frame (typically 15 to 30 seconds).  This typically
-   *            indicates a failure in the GPS module.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * <li>2:4 - The time of the last GPS communication.</li>
+   * <li>6:X - Anything else that the client deems useful to diagnosing this problem.</li>
+   * </ul>
+   * <p>
+   * Notes: This differs from ERROR_GPS_EXPIRED is that no communication from GPS module (whether
+   * valid, or invalid) has been received in the expected time frame (typically 15 to 30 seconds).
+   * This typically indicates a failure in the GPS module.
+   * </p>
    */
   public static final int ERROR_GPS_FAILURE = 0xF912;
   // Description:
-  //      Lost communication with GPS module (possible module problem)
+  // Lost communication with GPS module (possible module problem)
   // Payload:
-  //      0:2 - This error code
-  //      2:4 - the time of the last GPS communication
-  //      6:X - anything else that the client deems useful to diagnosing this problem.
+  // 0:2 - This error code
+  // 2:4 - the time of the last GPS communication
+  // 6:X - anything else that the client deems useful to diagnosing this problem.
   // Notes:
-  //      This differs from ERROR_GPS_EXPIRED is that no communication from
-  //      GPS module (whether valid, or invalid) has been received in the 
-  //      expected time frame (typically 15 to 30 seconds).  This typically
-  //      indicates a failure in the GPS module.
+  // This differs from ERROR_GPS_EXPIRED is that no communication from
+  // GPS module (whether valid, or invalid) has been received in the
+  // expected time frame (typically 15 to 30 seconds). This typically
+  // indicates a failure in the GPS module.
 
   // ----------------------------------------------------------------------------
   // Internal errors (data provides specifics):
 
   /**
    * Internal error, as defined by client device.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li>
-   *     <li>2:X - Payload format is defined by the client.</li></ul>
-   * <p>Notes:  This error code is for use by the client to allow general
-   *      error information to be sent to the server for analysis.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * <li>2:X - Payload format is defined by the client.</li>
+   * </ul>
+   * <p>
+   * Notes: This error code is for use by the client to allow general error information to be sent
+   * to the server for analysis.
+   * </p>
    */
   public static final int ERROR_INTERNAL_ERROR_00 = 0xFE00;
 
   /**
    * Internal error, as defined by client device.
-   * <p>Payload</p>
-   * <ul><li>0:2 - This error code.</li>
-   *     <li>2:X - Payload format is defined by the client.</li></ul>
-   * <p>Notes:  This error code is for use by the client to allow general
-   *      error information to be sent to the server for analysis.</p>
+   * <p>
+   * Payload
+   * </p>
+   * <ul>
+   * <li>0:2 - This error code.</li>
+   * <li>2:X - Payload format is defined by the client.</li>
+   * </ul>
+   * <p>
+   * Notes: This error code is for use by the client to allow general error information to be sent
+   * to the server for analysis.
+   * </p>
    */
   public static final int ERROR_INTERNAL_ERROR_0F = 0xFE0F;
 
   // Description:
-  //      Internal error, as defined by client device
+  // Internal error, as defined by client device
   // Payload:
-  //      0:2 - This error code
-  //      2:X - payload format is defined by the client.
+  // 0:2 - This error code
+  // 2:X - payload format is defined by the client.
   // Notes:
-  //      These error codes are for use by the client to allow general
-  //      error information to be sent to the server for analysis.
+  // These error codes are for use by the client to allow general
+  // error information to be sent to the server for analysis.
 
   // ----------------------------------------------------------------------------
 
   /**
    * Return a error discription as a String.
+   * 
    * @param errCode - The error code.
    * @return A short description of the error.
    */
