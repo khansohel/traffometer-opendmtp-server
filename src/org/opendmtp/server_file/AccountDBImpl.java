@@ -24,40 +24,52 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server_file;
 
-import java.lang.*;
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.sql.*;
+import org.opendmtp.server.db.AccountDB;
 
-import org.opendmtp.util.*;
-import org.opendmtp.server.db.*;
+/**
+ * Creates an account with a specified account ID.
+ * 
+ * @author Martin D. Flynn
+ * @author George Lee
+ */
+public class AccountDBImpl implements AccountDB {
 
-public class AccountDBImpl
-    implements AccountDB
-{
-    private String accountId = null;
-    
-    public AccountDBImpl(String acctId) 
-    {
-        this.accountId = acctId;
-    }
-    
-    public String getAccountName() 
-    {
-        return this.accountId;
-    }
-    
-    public String getDescription()
-    {
-        return this.accountId;
-    }
-    
-    public boolean isActive()
-    {
-        return true;
-    }
-    
-    // ------------------------------------------------------------------------
+  /**The id of the account.*/
+  private String accountId = null;
 
+  /**
+   * Creates an account with the specified account ID.
+   * 
+   * @param acctId The ID to be assigned to this account.
+   */
+  public AccountDBImpl(String acctId) {
+    this.accountId = acctId;
+  }
+
+  /**
+   * Get the name of the account.  Implementation simply returns the ID.
+   * 
+   * @return The ID of the account.
+   */
+  public String getAccountName() {
+    return this.accountId;
+  }
+
+  /**
+   * Get the description of the account.  Implementation simply returns the ID.
+   * 
+   * @return The ID of the account.
+   */
+  public String getDescription() {
+    return this.accountId;
+  }
+
+  /**
+   * Determine if the account is active.  Always returns true.
+   * 
+   * @return True if the account is active, false otherwise.
+   */
+  public boolean isActive() {
+    return true;
+  }
 }
