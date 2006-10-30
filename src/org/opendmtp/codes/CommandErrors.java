@@ -27,7 +27,7 @@ import org.opendmtp.util.*;
 /**
  * This class defines the command-errors. The types of errors include command 
  * success, command argument errors, and command execution errors.
- * <p>Javadoc is created by Kiet Huynh on 10/29/2006.</p>
+ * <p>Javadoc created by Kiet Huynh on 10/29/2006.</p>
  */
 public class CommandErrors {
 
@@ -125,13 +125,44 @@ public class CommandErrors {
   // Generic Command errors
   // Create desired aliases for these to define specific custom errors
 
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_00 = 0xFE00;
+  
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_01 = 0xFE01;
+  
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_02 = 0xFE02;
+  
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_03 = 0xFE03;
+  
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_04 = 0xFE04;
+  
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_05 = 0xFE05;
+  
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_06 = 0xFE06;
+  
+  /**
+   * An alias to define specific custom error.
+   */
   public static final int COMMAND_ERROR_07 = 0xFE07;
 
   // ----------------------------------------------------------------------------

@@ -28,7 +28,7 @@ import org.opendmtp.util.*;
  * This class defines the client errors.  The types of errors include protocol/
  * packet errors, property errors, command errors, upload errors, GPS errors, 
  * and internal errors.
- * <p>Javadoc is created by Kiet Huynh on 10/29/2006.</p>
+ * <p>Javadoc created by Kiet Huynh on 10/29/2006.</p>
  */
 public class ClientErrors {
 
