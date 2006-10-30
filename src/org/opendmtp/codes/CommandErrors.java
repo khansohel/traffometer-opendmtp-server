@@ -22,110 +22,163 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-
 import org.opendmtp.util.*;
 
-public class CommandErrors
-{
-    
-// ----------------------------------------------------------------------------
-// Command success
+/**
+ * This class defines the command-errors. The types of errors include command 
+ * success, command argument errors, and command execution errors.
+ * <p>Javadoc is created by Kiet Huynh on 10/29/2006.</p>
+ */
+public class CommandErrors {
 
-    public static final int COMMAND_OK                          = 0x0000;
-    // Description:
-    //      Command execution was successful (no error return to server)
+  // ----------------------------------------------------------------------------
+  // Command success
 
-    public static final int COMMAND_OK_ACK                      = 0x0001;
-    // Description:
-    //      Command execution was successful (Acknowledgement returned to server)
+  /**
+   * Command execution was successful (no error return to server).
+   */
+  public static final int COMMAND_OK = 0x0000;
+  // Description:
+  //      Command execution was successful (no error return to server)
 
-// ----------------------------------------------------------------------------
-// Command argument errors
-    
-    public static final int COMMAND_ARGUMENTS                   = 0xF011;
-    // Description:
-    //      Insufficient/Invalid command arguments
+  /**
+   * Command execution was successful (Acknowledgement returned to server).
+   */
+  public static final int COMMAND_OK_ACK = 0x0001;
+  // Description:
+  //      Command execution was successful (Acknowledgement returned to server)
 
-    public static final int COMMAND_INDEX                       = 0xF012;
-    // Description:
-    //      An index specified in the command arguments is invalid
+  // ----------------------------------------------------------------------------
+  // Command argument errors
 
-    public static final int COMMAND_STATUS                      = 0xF013;
-    // Description:
-    //      A status code specified in the command arguments is invalid
+  /**
+   * Insufficient/Invalid command arguments.
+   */
+  public static final int COMMAND_ARGUMENTS = 0xF011;
+  // Description:
+  //      Insufficient/Invalid command arguments
 
-    public static final int COMMAND_LENGTH                      = 0xF014;
-    // Description:
-    //      A length specified in the command arguments is invalid
+  /**
+   * An index specified in the command arguments is invalid.
+   */
+  public static final int COMMAND_INDEX = 0xF012;
+  // Description:
+  //      An index specified in the command arguments is invalid
 
-    public static final int COMMAND_NAME                        = 0xF015;
-    // Description:
-    //      An ID/Filename specified in the command arguments is invalid
+  /**
+   * A status code specified in the command arguments is invalid.
+   */
+  public static final int COMMAND_STATUS = 0xF013;
+  // Description:
+  //      A status code specified in the command arguments is invalid
 
-    public static final int COMMAND_CHECKSUM                    = 0xF016;
-    // Description:
-    //      A checksum specified in the command arguments is invalid
+  /**
+   * A length specified in the command arguments is invalid.
+   */
+  public static final int COMMAND_LENGTH = 0xF014;
+  // Description:
+  //      A length specified in the command arguments is invalid
 
-    public static final int COMMAND_OFFSET                      = 0xF017;
-    // Description:
-    //      An offset specified in the command arguments is invalid
-    
-// ----------------------------------------------------------------------------
-// Command execution errors
-    
-    public static final int COMMAND_EXECUTION                   = 0xF511;
-    // Description:
-    //      The client has determined that the execution of the command has failed
-    //      (no specific reason)
+  /**
+   * An ID/Filename specified in the command arguments is invalid.
+   */
+  public static final int COMMAND_NAME = 0xF015;
+  // Description:
+  //      An ID/Filename specified in the command arguments is invalid
 
-    public static final int COMMAND_HARDWARE_FAILURE            = 0xF521;
-    // Description:
-    //      The client has determined that the execution of the command has failed
-    //      due to hardware failure.
-    
-// ----------------------------------------------------------------------------
-// Generic Command errors
-// Create desired aliases for these to define specific custom errors
+  /**
+   * A checksum specified in the command arguments is invalid.
+   */
+  public static final int COMMAND_CHECKSUM = 0xF016;
+  // Description:
+  //      A checksum specified in the command arguments is invalid
 
-    public static final int COMMAND_ERROR_00                    = 0xFE00;
-    public static final int COMMAND_ERROR_01                    = 0xFE01;
-    public static final int COMMAND_ERROR_02                    = 0xFE02;
-    public static final int COMMAND_ERROR_03                    = 0xFE03;
-    public static final int COMMAND_ERROR_04                    = 0xFE04;
-    public static final int COMMAND_ERROR_05                    = 0xFE05;
-    public static final int COMMAND_ERROR_06                    = 0xFE06;
-    public static final int COMMAND_ERROR_07                    = 0xFE07;
+  /**
+   * An offset specified in the commnad arguments is invalid.
+   */
+  public static final int COMMAND_OFFSET = 0xF017;
+  // Description:
+  //      An offset specified in the command arguments is invalid
 
-// ----------------------------------------------------------------------------
-// Command execution errors
+  // ----------------------------------------------------------------------------
+  // Command execution errors
 
-    public static final int COMMAND_FEATURE_NOT_SUPPORTED       = 0xFF01;
-    // Description:
-    //      A requested command feature is not supported.
+  /**
+   * The client has determined that the execution of the command has failed
+   * (no specifiec reason).
+   */
+  public static final int COMMAND_EXECUTION = 0xF511;
+  // Description:
+  //      The client has determined that the execution of the command has failed
+  //      (no specific reason)
 
-// ----------------------------------------------------------------------------
+  /**
+   * The client has determined that the execution of the command has failed
+   * due to hardware failure.
+   */
+  public static final int COMMAND_HARDWARE_FAILURE = 0xF521;
+  // Description:
+  //      The client has determined that the execution of the command has failed
+  //      due to hardware failure.
 
-    public static String getErrorDescription(int errCode)
-    {
-        switch (errCode) {
-            case COMMAND_OK:                    return "Successful";
-            case COMMAND_ARGUMENTS:             return "Invalid argument";
-            case COMMAND_INDEX:                 return "Invalid index";
-            case COMMAND_STATUS:                return "Invalid status code";
-            case COMMAND_LENGTH:                return "Invalid length";
-            case COMMAND_NAME:                  return "Invalid name";
-            case COMMAND_CHECKSUM:              return "Invalid checksum";
-            case COMMAND_OFFSET:                return "Invalid offset";
-            case COMMAND_FEATURE_NOT_SUPPORTED: return "Feature not supported";
-            case COMMAND_EXECUTION:             return "Execution error";
-            case COMMAND_HARDWARE_FAILURE:      return "Hardware failure";
-            default:                            return "Unknown [" + StringTools.toHexString(errCode,16) + "]";
-        }
+  // ----------------------------------------------------------------------------
+  // Generic Command errors
+  // Create desired aliases for these to define specific custom errors
+
+  public static final int COMMAND_ERROR_00 = 0xFE00;
+  public static final int COMMAND_ERROR_01 = 0xFE01;
+  public static final int COMMAND_ERROR_02 = 0xFE02;
+  public static final int COMMAND_ERROR_03 = 0xFE03;
+  public static final int COMMAND_ERROR_04 = 0xFE04;
+  public static final int COMMAND_ERROR_05 = 0xFE05;
+  public static final int COMMAND_ERROR_06 = 0xFE06;
+  public static final int COMMAND_ERROR_07 = 0xFE07;
+
+  // ----------------------------------------------------------------------------
+  // Command execution errors
+
+  /**
+   * A requested command feature is not supported.
+   */
+  public static final int COMMAND_FEATURE_NOT_SUPPORTED = 0xFF01;
+
+  // Description:
+  //      A requested command feature is not supported.
+
+  // ----------------------------------------------------------------------------
+
+  /**
+   * Return command errors's descriptions.
+   * @param errCode - The command-error code.
+   * @return The command-error description.
+   */
+  public static String getErrorDescription(int errCode) {
+    switch (errCode) {
+    case COMMAND_OK:
+      return "Successful";
+    case COMMAND_ARGUMENTS:
+      return "Invalid argument";
+    case COMMAND_INDEX:
+      return "Invalid index";
+    case COMMAND_STATUS:
+      return "Invalid status code";
+    case COMMAND_LENGTH:
+      return "Invalid length";
+    case COMMAND_NAME:
+      return "Invalid name";
+    case COMMAND_CHECKSUM:
+      return "Invalid checksum";
+    case COMMAND_OFFSET:
+      return "Invalid offset";
+    case COMMAND_FEATURE_NOT_SUPPORTED:
+      return "Feature not supported";
+    case COMMAND_EXECUTION:
+      return "Execution error";
+    case COMMAND_HARDWARE_FAILURE:
+      return "Hardware failure";
+    default:
+      return "Unknown [" + StringTools.toHexString(errCode, 16) + "]";
     }
+  }
 
 }
