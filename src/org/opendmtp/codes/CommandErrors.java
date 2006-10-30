@@ -22,7 +22,9 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-import org.opendmtp.util.*;
+import org.opendmtp.util.StringTools; // added by Kiet Huynh
+
+// import org.opendmtp.util.*; // commented out by Kiet Huynh
 
 /**
  * This class defines the command-errors. The types of errors include command 
@@ -129,37 +131,37 @@ public class CommandErrors {
    * An alias to define specific custom error.
    */
   public static final int COMMAND_ERROR_00 = 0xFE00;
-  
+
   /**
    * An alias to define specific custom error.
    */
   public static final int COMMAND_ERROR_01 = 0xFE01;
-  
+
   /**
    * An alias to define specific custom error.
    */
   public static final int COMMAND_ERROR_02 = 0xFE02;
-  
+
   /**
    * An alias to define specific custom error.
    */
   public static final int COMMAND_ERROR_03 = 0xFE03;
-  
+
   /**
    * An alias to define specific custom error.
    */
   public static final int COMMAND_ERROR_04 = 0xFE04;
-  
+
   /**
    * An alias to define specific custom error.
    */
   public static final int COMMAND_ERROR_05 = 0xFE05;
-  
+
   /**
    * An alias to define specific custom error.
    */
   public static final int COMMAND_ERROR_06 = 0xFE06;
-  
+
   /**
    * An alias to define specific custom error.
    */

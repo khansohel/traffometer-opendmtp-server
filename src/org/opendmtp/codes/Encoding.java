@@ -26,9 +26,10 @@ package org.opendmtp.codes;
 //import java.util.*; Commented out by Kiet Huynh
 
 /**
- * This class defines ASCII encoding types and checksum encoding.  The ASCII encoding 
- * types include Hex, CVS, and Base64 encoding.
- * <p>Javadoc created by Kiet Huynh on 10/29/2006.
+ * This class defines ASCII encoding types and checksum encoding. The ASCII encoding types include
+ * Hex, CVS, and Base64 encoding.
+ * <p>
+ * Javadoc created by Kiet Huynh on 10/29/2006.
  */
 public class Encoding {
 
@@ -68,7 +69,7 @@ public class Encoding {
   public static final int SUPPORTED_ENCODING_HEX = 0x04;
 
   /**
-   * Supported CVS encoding. 
+   * Supported CVS encoding.
    */
   public static final int SUPPORTED_ENCODING_CSV = 0x08;
 
@@ -114,6 +115,7 @@ public class Encoding {
 
   /**
    * Checks if an encoding is ASCII encoding.
+   * 
    * @param encoding - The encoding code.
    * @return Returns true if this is ASCII encoding. Otherwise, return false.
    */
@@ -123,6 +125,7 @@ public class Encoding {
 
   /**
    * Checks if an encoding is checksum encoding.
+   * 
    * @param encoding - the encoding code.
    * @return Returns true if this is a checksum encoding. Otherwise, return false.
    */
