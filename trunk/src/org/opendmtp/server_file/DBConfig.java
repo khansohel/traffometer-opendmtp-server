@@ -24,64 +24,94 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server_file;
 
-import java.lang.*;
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.sql.*;
+import java.io.File;
 
-import org.opendmtp.util.*;
+import org.opendmtp.server.base.DMTPServer;
+import org.opendmtp.server.db.AccountDB;
+import org.opendmtp.server.db.DeviceDB;
 
-import org.opendmtp.server.base.*;
-import org.opendmtp.server.db.*;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.RTConfig;
+import org.opendmtp.util.RTKey;
 
-public class DBConfig
-{
+/**
+ * Configures and initializes a new database for the DMTP Server. Also provides a class that creates
+ * Device and Account DB's.
+ * 
+ * @author Martin D. Flynn
+ * @author George Lee
+ */
+public class DBConfig {
 
-    // ------------------------------------------------------------------------
+  /**
+   * Class that creates new Account DB's and Device DB's.
+   * 
+   * @author Martin D. Flynn
+   * @author George Lee
+   */
+  private static class DMTP_DBFactory implements DMTPServer.DBFactory {
 
-    private static class DMTP_DBFactory
-        implements DMTPServer.DBFactory
-    {
-        public AccountDB getAccountDB(String acctName) {
-            return new AccountDBImpl(acctName);
-        }
-        public DeviceDB getDeviceDB(long uniqId) {
-            return null;
-        }
-        public DeviceDB getDeviceDB(String acctId, String devName) {
-            return new DeviceDBImpl(acctId, devName);
-        }
+    /**
+     * Create a new Account DB.
+     * 
+     * @param acctName The name or ID of the account.
+     * @return A new AccountDBImpl object.
+     */
+    public AccountDB getAccountDB(String acctName) {
+      return new AccountDBImpl(acctName);
     }
 
-    // ------------------------------------------------------------------------
-    
-    public static void init(String argv[], boolean interactive)
-    {
-
-        /* command line options */
-        RTConfig.setCommandLineArgs(argv);
-        if (interactive) {
-            RTConfig.setFile(RTKey.LOG_FILE,null);      // no log file
-            Print.setLogHeaderLevel(Print.LOG_WARN);    // include log header on WARN/ERROR/FATAL
-            RTConfig.setBoolean(RTKey.LOG_INCL_DATE, false);        // exclude date
-            RTConfig.setBoolean(RTKey.LOG_INCL_STACKFRAME, true);   // include stackframe
-        } else {
-            //RTConfig.setBoolean(RTKey.LOG_INCL_DATE, true);
-            //RTConfig.setBoolean(RTKey.LOG_INCL_STACKFRAME, false);
-        }
-
-        /* set the data-store directory for the received events */
-        File storeDir = RTConfig.getFile(Main.ARG_STOREDIR, null);
-        DeviceDBImpl.setDataStoreDirectory(storeDir);
-        Print.logInfo("Account/Device Events will be stored in directory '" + 
-            DeviceDBImpl.getDataStoreDirectory() + "'");
-        
-        /* register OpenDMTP protocol DB interface */
-        DMTPServer.setDBFactory(new DBConfig.DMTP_DBFactory());
-        
+    /**
+     * Create a new Device DB. This method always returns null.
+     * 
+     * @param uniqId The ID of the device.
+     * @return Returns null always.
+     */
+    public DeviceDB getDeviceDB(long uniqId) {
+      return null;
     }
-    
-    // ------------------------------------------------------------------------
-    
+
+    /**
+     * Create a new Device DB with the specified ID and name.
+     * 
+     * @param acctId The account ID for the deviceDB.
+     * @param devName The name of the device for the deviceDB.
+     * @return A new DeviceDB with the specified account ID and device name.
+     */
+    public DeviceDB getDeviceDB(String acctId, String devName) {
+      return new DeviceDBImpl(acctId, devName);
+    }
+  }
+
+  /**
+   * Initialize the server and the RTConfig. Also sets up the data store directory for the device.
+   * 
+   * @param argv Command line parameters to pass to init.
+   * @param interactive Enables a specific RTConfig if true. Does nothing if false.
+   */
+  public static void init(String argv[], boolean interactive) {
+
+    /* command line options */
+    RTConfig.setCommandLineArgs(argv);
+    if (interactive) {
+      RTConfig.setFile(RTKey.LOG_FILE, null); // no log file
+      Print.setLogHeaderLevel(Print.LOG_WARN); // include log header on WARN/ERROR/FATAL
+      RTConfig.setBoolean(RTKey.LOG_INCL_DATE, false); // exclude date
+      RTConfig.setBoolean(RTKey.LOG_INCL_STACKFRAME, true); // include stackframe
+    }
+    else {
+      // RTConfig.setBoolean(RTKey.LOG_INCL_DATE, true);
+      // RTConfig.setBoolean(RTKey.LOG_INCL_STACKFRAME, false);
+    }
+
+    /* set the data-store directory for the received events */
+    File storeDir = RTConfig.getFile(Main.ARG_STOREDIR, null);
+    DeviceDBImpl.setDataStoreDirectory(storeDir);
+    Print.logInfo("Account/Device Events will be stored in directory '"
+        + DeviceDBImpl.getDataStoreDirectory() + "'");
+
+    /* register OpenDMTP protocol DB interface */
+    DMTPServer.setDBFactory(new DBConfig.DMTP_DBFactory());
+
+  }
 }
