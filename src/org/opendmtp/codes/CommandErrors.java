@@ -30,6 +30,8 @@ import org.opendmtp.util.StringTools; // added by Kiet Huynh
  * This class defines the command-errors. The types of errors include command 
  * success, command argument errors, and command execution errors.
  * <p>Javadoc created by Kiet Huynh on 10/29/2006.</p>
+ * 
+ * @author Martin D. Flynn
  */
 public class CommandErrors {
 
