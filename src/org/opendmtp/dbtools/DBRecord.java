@@ -143,6 +143,9 @@ public abstract class DBRecord
     
     /**
      * Getter method to retrieve the private recordKey value.
+     * If a record key does not exist, it creates an instance of
+     * the table factory and calls the createKey method.
+     * The createKey method may throw a DBException.
      * 
      * @return DBRecordKey
      */
@@ -169,11 +172,29 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Retrieves an instance of the DBFactory class taking
+     * a DBRecord as a parameter.  If the input value is
+     * not null getFactory calls the overloaded getFactory
+     * class with no input values.  If the input value is
+     * null getFactory returns null.
+     * 
+     * @param dbr DBRecord
+     * @return returns an instance of the DBFactory class,
+     * or null.
+     */
     public static DBFactory getFactory(DBRecord dbr)
     {
         return (dbr != null)? dbr._getFactory() : null;
     }
     
+    /**
+     * Overloaded getFactory method which takes no input
+     * parameters.  Creates a new thread to invoke the
+     * getFactory method.
+     * Returns an instance of the DBFactory class.
+     * @return returns an instance of the DBFactory class.
+     */
     protected DBFactory _getFactory()
     {
         if (this.recordKey != null) {
@@ -202,6 +223,16 @@ public abstract class DBRecord
     //  rs.close();
     //  stmt.close();
 
+    /**
+     * Creates a dynamic list of DBRecords using the input parameters;
+     * fact to create the Record instances and rs to populate the Record
+     * data fields.  The maximum size of the array is the integer max.
+     * @param fact DBFactory
+     * @param rs ResultSet
+     * @param max int
+     * @return returns an array of DBRecords
+     * @throws MethodNotFoundException
+     */
     public static DBRecord[] getNextGroup(DBFactory fact, ResultSet rs, int max)
         throws DBException
     {
@@ -238,12 +269,28 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Selects an array of DBRecords by calling the DBRecord select
+     * method, passing the parameters:  (DBFactory,String,null).
+     * @param fact DBFactory
+     * @param where String
+     * @return returns an array of DBRecords
+     */
     protected static DBRecord[] select(DBFactory fact, String where)
         throws DBException
     {
         return DBRecord.select(fact, where, null);
     }
     
+    /**
+     * Selects an array of DBRecords, modeling the common SQL statement
+     * SELECT, FROM, WHERE.  
+     * @param fact
+     * @param where
+     * @param addtnlSel
+     * @return returns an array of DBRecords
+     * @throws DBException
+     */
     protected static DBRecord[] select(DBFactory fact, String where, String addtnlSel)
         throws DBException
     {
@@ -296,6 +343,11 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Overloaded getRecordCount method which takes in a StringBuffer
+     * as a parameter and converts it to a string, in order to call the
+     * getRecordCount method.
+     */
     protected static long getRecordCount(DBFactory fact, StringBuffer where)
         throws SQLException, DBException
     {
@@ -335,6 +387,10 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
     
+    /**
+     * Returns the boolean value indicating whether the current
+     * record has been changed since the last iteration.
+     */
     public boolean hasChanged()
     {
         return this.changed;
