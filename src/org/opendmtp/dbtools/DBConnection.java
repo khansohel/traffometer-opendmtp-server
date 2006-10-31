@@ -39,17 +39,31 @@ public class DBConnection
     // ------------------------------------------------------------------------
 
     protected static final String MYSQL_JDBC        = "mysql";
-
+    
+    /**
+     * The driver needed to connect to the MySQL database server.
+     */
     protected static final String MYSQL_DRIVER      = "com.mysql.jdbc.Driver";
+    
+    /**
+     * The driver needed to connect to the MySQL database server.
+     */
     protected static final String MYSQL_DRIVER_ALT  = "org.gjt.mm.mysql.Driver"; // obsolete
     
     // ------------------------------------------------------------------------
 
     // 'true' will cause table locking problems
     // (see DBRecord.TABLE_LOCKING_ENABLED)
+    /**
+     * "true" will cause table locking problems. 
+     */
     public  static boolean ALWAYS_NEW_CONNECTION    = false;
     
     /* this connection timeout must be less than what is configured in MySQL */
+    /**
+     * Connection timeout. This connection timeout must be less than what is 
+     * configured in MySQL.
+     */
     private static long    CONNECTION_TIMEOUT       = 6L * 3600L; // 6 hours
 
     // ------------------------------------------------------------------------
@@ -58,22 +72,39 @@ public class DBConnection
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Gets that hostname of the computer in which mysql database server is running.
+     * @return The hostname of the database server.
+     */
     protected static String getDBHost()
     {
         return RTConfig.getString(RTKey.DB_HOST);
     }
 
+    /**
+     * Gets the port number through which to connection to the database server can
+     * be made.
+     * @return The port number.
+     */
     protected static int getDBPort()
     {
         return RTConfig.getInt(RTKey.DB_PORT);
     }
 
+    /**
+     * Gets the username that can be used to connect to the database server.
+     * @return The username that can be used to connect to the database server.
+     */
     protected static String getDBUsername()
     {
         String user = RTConfig.getString(RTKey.DB_USER);
         return (user != null)? user : "";
     }
 
+    /**
+     * Gets the password that can be used to connect to the database server.
+     * @return The password that can be used to connect to the database server.
+     */
     protected static String getDBPassword()
     {
         String pass = RTConfig.getString(RTKey.DB_PASS);
@@ -82,6 +113,10 @@ public class DBConnection
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Gets a default connection to the database.
+     * @return The default connection to the database.
+     */
     public static DBConnection getDefaultConnection()
     {
         String uri = DBConnection.getDBUri();
@@ -90,6 +125,14 @@ public class DBConnection
         return DBConnection.getConnection(uri, usr, pwd);
     }
 
+    /**
+     * Gets a DBConnection from the dbConnectionsMap. If it is a new connection,
+     * it will be added to the dbConnectionsMap. 
+     * @param uri The URI of the database.
+     * @param user The username used to connect to the database.
+     * @param pass The password used to connect to the database.
+     * @return A connection to the database.
+     */
     public static DBConnection getConnection(String uri, String user, String pass)
     {
         Map dbConnMap = getDBConnectionMap();
@@ -106,8 +149,17 @@ public class DBConnection
 
     // ------------------------------------------------------------------------
     // Thread-Safety: Currently, each thread gets a new dedicated connection map
-        
+   
+    /**
+     * A Map that contain connections to the database.  Each thread get dedicated
+     * connection map.
+     */
     protected static Map dbConnectionsMap = new ThreadLocalMap(); // new Hashtable();
+    
+    /**
+     * Gets the dbConnectionsMap which is a map that contain connections to the database.
+     * @return The map that contain connections to the database.
+     */
     protected static Map getDBConnectionMap()
     {
         return dbConnectionsMap;
@@ -115,23 +167,50 @@ public class DBConnection
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Gets the name of the database server.
+     * @return The name of the database.
+     */
     public static String getDBName()
     {
         String dbName = RTConfig.getString(RTKey.DB_NAME);
         return dbName;
     }
     
+    /**
+     * Gets the URI of the database server. This method may not work because 
+     * there is no database name in the URI.
+     * @return The URL of the server.
+     */
     protected static String getDBUri()
     {
         return DBConnection.getDBUri(DBConnection.getDBHost(), DBConnection.getDBPort());
     }
 
+    /**
+     * Creates the complete URI of the database server. The name of the database 
+     * will be given.
+     * @param host The host name of the database server.
+     * @param port The port number through which a connection can be made to the 
+     *             database server.
+     * @return The URI of the database server.
+     */
     protected static String getDBUri(String host, int port)
     {
         String dbName = DBConnection.getDBName();
         return DBConnection.getDBUri(host, port, dbName);
     }
 
+    /**
+     * Creates the complete URI of the database server.
+     * @param host - The hostname of the database server.
+     * @param port - The port number through which a connection can be made to the 
+     *               database server.
+     * @param dbName - The name of the database.
+     * @return The URI of the database server.  If either of the given parameters is 
+     *         null or "", it will be replaced with the default values.
+     *      
+     */
     public static String getDBUri(String host, int port, String dbName)
     {
         String h = ((host != null) && !host.equals(""))? host : DBConnection.getDBHost();
@@ -152,13 +231,23 @@ public class DBConnection
     private long       connectTime  = 0L;
     private long       lastUseTime  = 0L;
 
+    /**
+     * Initializes all the fields needed to make a connection to the database server.
+     * @param uri The URI of the database server.
+     * @param user The username used to connect to the database server.
+     * @param pass The password used to connect to the database server.
+     */
     public DBConnection(String uri, String user, String pass)
     {
         this.dbUri    = uri;
         this.userName = user;
         this.password = pass;
     }
-
+    /**
+     * Initializes all the field needed to make a connection to the database server.
+     * This contructor initializes username and password to null.
+     * @param uri The URI of the database server.
+     */
     public DBConnection(String uri)
     {
         this(uri, null, null);
@@ -166,16 +255,28 @@ public class DBConnection
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Gets the URI of the database server. 
+     * @return The URI of the database server. 
+     */
     public String getUri()
     {
         return (this.dbUri != null)? this.dbUri : DBConnection.getDBUri();
     }
 
+    /**
+     * Gets the username used to connect to the database.
+     * @return The username used to connect to the database.
+     */
     public String getUser()
     {
         return (this.userName != null)? this.userName : DBConnection.getDBUsername();
     }
 
+    /**
+     * Gets the password used to connect to the database.
+     * @return The password used to connect to the database.
+     */
     public String getPassword()
     {
         return (this.password != null)? this.password : DBConnection.getDBPassword();
@@ -183,8 +284,17 @@ public class DBConnection
 
     // ------------------------------------------------------------------------
 
+    /**
+     * The name of loaded driver of the MySQL database. 
+     */
     private static String loadedDriverName = null;
     
+    /**
+     * Makes a connection to the database.  If no driver found, an exception 
+     * is thrown.
+     * @return A connection to the database.
+     * @throws SQLException The exception is thrown when no driver found.
+     */
     public Connection getConnection()
         throws SQLException
     {
@@ -221,6 +331,11 @@ public class DBConnection
         return this.dbConnection;
     }
 
+    /**
+     * Closes a connection to the database. SQLException occurs when there are 
+     * any errors.
+     *
+     */
     public void closeConnection()
     {
         if (this.dbConnection != null) {
@@ -236,6 +351,12 @@ public class DBConnection
         }
     }
     
+    /**
+     * Checks if a connection to the database is closed. SQLException occurs when 
+     * there are any errors. 
+     * @return True if the connection is closed or if there are any errors. 
+     *         Otherwise, returns false.
+     */
     public boolean isConnectionClosed()
     {
         try {
@@ -255,6 +376,10 @@ public class DBConnection
         }
     }
     
+    /** 
+     * Checks if the connection is timeout.
+     * @return True if connection is timeout. Otherwise returns false.
+     */
     public boolean isConnectionTimeout()
     {
         long nowTime = DateTime.getCurrentTimeSec();
@@ -263,6 +388,11 @@ public class DBConnection
 
     // ------------------------------------------------------------------------
 
+    /** 
+     * Creates an SQL statement to send to the database to open a connection with 
+     * the database.
+     * @throws SQLException if any errors occur.
+     */
     public Statement createStatement()
         throws SQLException
     {
@@ -271,6 +401,9 @@ public class DBConnection
 
     // ------------------------------------------------------------------------
 
+    /**
+     * 
+     */
     public Statement execute(String sql)
         throws SQLException, DBException
     {
