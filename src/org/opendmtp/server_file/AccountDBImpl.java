@@ -27,7 +27,7 @@ package org.opendmtp.server_file;
 import org.opendmtp.server.db.AccountDB;
 
 /**
- * Creates an account with a specified account ID.
+ * Creates an account with a specified account ID and provides access functions for the account.
  * 
  * @author Martin D. Flynn
  * @author George Lee

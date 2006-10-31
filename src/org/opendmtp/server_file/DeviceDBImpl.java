@@ -76,9 +76,8 @@ public class DeviceDBImpl implements DeviceDB {
   private static File dataStoreDirectory = new File(".");
 
   /**
-   * Set a new dataStoreDirectory at a given path.
-   * If the path does not exist, a new directory called ./data is created if the . directory exists.
-   * Else, the new created directory is .
+   * Set a new dataStoreDirectory at a given path. If the path does not exist, a new directory
+   * called "./data" is created if the "." directory exists. Else, the new created directory is "."
    * 
    * @param dir The pathname of the directory to store the events in.
    */
@@ -95,7 +94,7 @@ public class DeviceDBImpl implements DeviceDB {
   }
 
   /**
-   * Set a new data store directory called . if a directory has not been set.
+   * Set a new data store directory called "." if a directory has not been set.
    * Else, it returns the current dataStoreDirectory.
    * 
    * @return The file directory that stores the information about events.
@@ -449,7 +448,4 @@ public class DeviceDBImpl implements DeviceDB {
     }
 
   }
-
-  // ------------------------------------------------------------------------
-
 }
