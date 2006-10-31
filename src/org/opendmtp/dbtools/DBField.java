@@ -33,7 +33,6 @@ import org.opendmtp.util.Print;
 import org.opendmtp.util.RTProperties;
 import org.opendmtp.util.StringTools;
 
-
 public class DBField
 {
 
@@ -79,7 +78,10 @@ public class DBField
     // ------------------------------------------------------------------------
 
     /**
-     * DBField constructor with a single parameter.
+     * DBField constructor with a single parameter, an
+     * instance of the DBField.  The properties of the
+     * passed DBField are then copied to the private
+     * data values of the constructed DBField.
      * @param DBField Another instance of the DBField
      * for the purposes of making a copy.
      */
@@ -131,7 +133,7 @@ public class DBField
     // ------------------------------------------------------------------------
 
     /**
-     * Setter function setting the private factory variable to
+     * Setter method setting the private factory variable to
      * and instance of the DBFactory class.
      * @param factory instance of the DBFactory class.
      */
@@ -141,7 +143,7 @@ public class DBField
     }
     
     /**
-     * Getter function returning an instance of the DBFactory
+     * Getter method returning an instance of the DBFactory
      * class.
      * @return returns the private factory class.
      */
@@ -153,7 +155,7 @@ public class DBField
     // ------------------------------------------------------------------------
 
     /**
-     * Getter function for field names.
+     * Getter method for field name.
      * @return Returns the private field name value.
      */
     public String getName()
@@ -162,7 +164,7 @@ public class DBField
     }
 
     /**
-     * Getter function for class type.
+     * Getter method for class type.
      * @return Returns the private class type.
      */
     public Class getTypeClass()
@@ -171,8 +173,8 @@ public class DBField
     }
 
     /**
-     * Function returns a boolean true if the field is
-     * flagged as a primary key.
+     * Returns a boolean true if the field is flagged as
+     * being an primary key and false otherwise.
      * @return
      */
     public boolean isPriKey()
@@ -181,8 +183,8 @@ public class DBField
     }
 
     /**
-     * Function isAltKey returns a boolean true if the field
-     * is flagged as being an alternate key.
+     * Returns a boolean true if the field is flagged as
+     * being an alternate key and false otherwise.
      * @return
      */
     public boolean isAltKey()
@@ -208,6 +210,10 @@ public class DBField
     public static final String TYPE_STRING      = "STRING";
     public static String TYPE_STRING(int size) { return TYPE_STRING + "[" + size + "]"; }
     
+    /**
+     * Getter method returning the private dataType value.
+     * @return
+     */
     public String getDataType()
     {
         return this.dataType;
