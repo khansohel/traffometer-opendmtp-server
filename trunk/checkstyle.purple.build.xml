@@ -37,8 +37,8 @@
          <include name="org/opendmtp/util/StringTools.java"/>
          <include name="org/opendmtp/util/ThreadLocalMap.java"/>
          <include name="org/opendmtp/util/ThreadPool.java"/>
-         <include name="org/opendmtp/util/Events.java"/>
-         <include name="org/opendmtp/util/ServletTools.java"/>
+         <include name="org/opendmtp/war/events/Events.java"/>
+         <include name="org/opendmtp/war/tools/ServletTools.java"/>
        </fileset>
        <formatter type="plain"/>
        <formatter type="xml" tofile="${checkstyle.dir}/checkstyle.xml"/>
