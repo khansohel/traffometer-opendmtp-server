@@ -30,78 +30,102 @@ import java.sql.*;
 
 import org.opendmtp.util.*;
 
-public class UniqueID
-{
-    
-    // ------------------------------------------------------------------------
+/**
+ * Class defines Unique ID object to uniquely identify device.
+ * @author Martin D. Flynn
+ * @author Brandon Horiuchi
+ */
+public class UniqueID {
 
-    private long id = 0L;
-    
-    public UniqueID(long id) 
-    {
-        this.id = id;
-    }
-    
-    public UniqueID(byte id[]) 
-    {
-        this.id = 0L;
-        for (int i = 0; (i < id.length) && (i < 8); i++) {
-            this.id = (this.id << 8) | ((int)id[i] & 0xFF);
-        }
-    }
-    
-    public UniqueID(String id) 
-    {
-        this(StringTools.parseHex(id,null));
-    }
-    
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
 
-    public boolean isValid()
-    {
-        
-        /* check proper size */
-        if ((id & 0xFFFF000000000000L) != 0) {
-            return false;
-        }
-        
-        /* check checksum */
-        int c = 0;
-        //for (int i = 0; i < 6; i++) {
-        //    c ^= (int)id[i] & 0xFF;
-        //}
-        return (c == 0)? true : false;
-        
-    }
-        
-    public long getId()
-    {
-        return this.id;
-    }
-    
-    // ------------------------------------------------------------------------
+  private long id = 0L;
 
-    public boolean equals(Object other)
-    {
-        if (other instanceof UniqueID) {
-            long id1 = ((UniqueID)other).getId();
-            long id2 = this.getId();
-            return (id1 == id2);
-        }
-        return false;
-    }
-    
-    // ------------------------------------------------------------------------
+  /**
+   * Constructor for unique ID.
+   * @param id Long integer id.
+   */
+  public UniqueID(long id) {
+    this.id = id;
+  }
 
-    public String toString() 
-    {
-        if (this.isValid()) {
-            return "0x" + StringTools.toHexString(this.getId());
-        } else {
-            return "";
-        }
+  /**
+   * Constructor for unique ID.
+   * @param id Byte array id.
+   */
+  public UniqueID(byte id[]) {
+    this.id = 0L;
+    for (int i = 0; (i < id.length) && (i < 8); i++) {
+      this.id = (this.id << 8) | ((int) id[i] & 0xFF);
     }
-    
-    // ------------------------------------------------------------------------
+  }
+
+  /**
+   * Constructor for unique ID.
+   * @param id String id.
+   */
+  public UniqueID(String id) {
+    this(StringTools.parseHex(id, null));
+  }
+
+  // ------------------------------------------------------------------------
+  /**
+   * Checks if ID is valid.
+   * @return true if ID is valid
+   */
+  public boolean isValid() {
+
+    /* check proper size */
+    if ((id & 0xFFFF000000000000L) != 0) {
+      return false;
+    }
+
+    /* check checksum */
+    int c = 0;
+    //for (int i = 0; i < 6; i++) {
+    //    c ^= (int)id[i] & 0xFF;
+    //}
+    return (c == 0) ? true : false;
+
+  }
+
+  /**
+   * Gets ID.
+   * @return Long integer ID.
+   */
+  public long getId() {
+    return this.id;
+  }
+
+  // ------------------------------------------------------------------------
+  /**
+   * Compares two IDs.
+   * @param other Object to compare.
+   * @return Boolean true if same.
+   */
+  public boolean equals(Object other) {
+    if (other instanceof UniqueID) {
+      long id1 = ((UniqueID) other).getId();
+      long id2 = this.getId();
+      return (id1 == id2);
+    }
+    return false;
+  }
+
+  // ------------------------------------------------------------------------
+  /**
+   * Returns string representation of unique ID.
+   * @return String representation of unique ID.
+   */
+  public String toString() {
+    if (this.isValid()) {
+      return "0x" + StringTools.toHexString(this.getId());
+    }
+    else {
+      return "";
+    }
+  }
+
+  // ------------------------------------------------------------------------
 
 }

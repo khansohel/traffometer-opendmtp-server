@@ -32,93 +32,123 @@ import org.opendmtp.util.*;
 import org.opendmtp.codes.*;
 import org.opendmtp.server.db.*;
 
-public class PacketParseException
-    extends Exception
-{
-    // ------------------------------------------------------------------------
+/**
+ * Exception class for packet errors.
+ * @author Martin D. Flynn
+ * @author Brandon Horiuchi
+ */
+public class PacketParseException extends Exception {
+  // ------------------------------------------------------------------------
 
-    private Packet  packet      = null;
-    private int     errorCode   = 0x0000;
-    private byte    errorData[] = null;
-    private boolean terminate   = false;
+  private Packet packet = null;
+  private int errorCode = 0x0000;
+  private byte errorData[] = null;
+  private boolean terminate = false;
 
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+  /**
+   * Constructor for class PacketParseException.
+   * @param errCode Integer error code.
+   * @param packet Packet object.
+   */
+  public PacketParseException(int errCode, Packet packet) {
+    this(errCode, packet, null);
+  }
 
-    public PacketParseException(int errCode, Packet packet) 
-    {
-        this(errCode, packet, null);
-    }
-    
-    public PacketParseException(int errCode, Packet packet, byte errData[]) 
-    {
-        super();
-        this.packet    = packet;
-        this.errorCode = errCode;
-        this.errorData = errData;
-    }
-    
-    // ------------------------------------------------------------------------
+  /**
+   * Constructor for class PacketParseException.
+   * @param errCode Integer error code.
+   * @param packet Packet object.
+   * @param errData Byte array error data.
+   */
+  public PacketParseException(int errCode, Packet packet, byte errData[]) {
+    super();
+    this.packet = packet;
+    this.errorCode = errCode;
+    this.errorData = errData;
+  }
 
-    public Packet getPacket()
-    {
-        return this.packet;
-    }
+  // ------------------------------------------------------------------------
+/**
+ * Gets packet associated with exception.
+ * @return packet object.
+ */
+  public Packet getPacket() {
+    return this.packet;
+  }
 
-    public void setPacket(Packet pkt)
-    {
-        this.packet = pkt;
-    }
+  /**
+   * Sets packet for exception.
+   * @param pkt Packet to set.
+   */
+  public void setPacket(Packet pkt) {
+    this.packet = pkt;
+  }
 
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+/**
+ * Gets exception error code.
+ * @return Integer error code.
+ */
+  public int getErrorCode() {
+    return this.errorCode;
+  }
 
-    public int getErrorCode()
-    {
-        return this.errorCode;
-    }
-    
-    public byte[] getErrorData() 
-    {
-        return this.errorData;
-    }
-    
-    public Packet createServerErrorPacket()
-    {
-        int errCode    = this.getErrorCode();
-        Packet cause   = this.getPacket();
-        byte errData[] = this.getErrorData();
-        Packet errPkt  = Packet.createServerErrorPacket(errCode, cause);
-        if (errData != null) {
-            // DO NOT RESET PAYLOAD INDEX!!!
-            errPkt.getPayload(false).writeBytes(errData, errData.length);
-        }
-        return errPkt;
-    }
-    
-    // ------------------------------------------------------------------------
+  /**
+   * Gets exception error data.
+   * @return Byte array containing error data.
+   */
+  public byte[] getErrorData() {
+    return this.errorData;
+  }
 
-    public void setTerminate()
-    {
-        this.terminate = true;
+  /**
+   * Creates error packet with error code, info from packet that caused exception and error data.
+   * @return Error packet.
+   */
+  public Packet createServerErrorPacket() {
+    int errCode = this.getErrorCode();
+    Packet cause = this.getPacket();
+    byte errData[] = this.getErrorData();
+    Packet errPkt = Packet.createServerErrorPacket(errCode, cause);
+    if (errData != null) {
+      // DO NOT RESET PAYLOAD INDEX!!!
+      errPkt.getPayload(false).writeBytes(errData, errData.length);
     }
-    
-    public boolean terminateSession()
-    {
-        return this.terminate;
-    }
-    
-    // ------------------------------------------------------------------------
+    return errPkt;
+  }
 
-    public String toString() 
-    {
-        int errCode = this.getErrorCode();
-        StringBuffer sb = new StringBuffer();
-        sb.append("[");
-        sb.append(StringTools.toHexString(errCode,16));
-        sb.append("] ");
-        sb.append(ServerErrors.getErrorDescription(errCode));
-        return sb.toString();
-    }
-    
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+  /**
+   * Sets terminate field to boolean true.
+   */
+  public void setTerminate() {
+    this.terminate = true;
+  }
+
+  /**
+   * Checks boolean value of terminate field.
+   * @return boolean value of terminate field.
+   */
+  public boolean terminateSession() {
+    return this.terminate;
+  }
+
+  // ------------------------------------------------------------------------
+  /**
+   * Returns string contianing error code and description.
+   * @return string contianing error code and description.
+   */
+  public String toString() {
+    int errCode = this.getErrorCode();
+    StringBuffer sb = new StringBuffer();
+    sb.append("[");
+    sb.append(StringTools.toHexString(errCode, 16));
+    sb.append("] ");
+    sb.append(ServerErrors.getErrorDescription(errCode));
+    return sb.toString();
+  }
+
+  // ------------------------------------------------------------------------
 
 }
