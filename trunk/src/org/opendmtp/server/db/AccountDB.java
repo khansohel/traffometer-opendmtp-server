@@ -25,9 +25,10 @@ package org.opendmtp.server.db;
 import java.lang.*;
 import java.util.*;
 
-public interface AccountDB
-{
-    public String getAccountName();
-    public String getDescription();
-    public boolean isActive();
+public interface AccountDB {
+  public String getAccountName();
+
+  public String getDescription();
+
+  public boolean isActive();
 }

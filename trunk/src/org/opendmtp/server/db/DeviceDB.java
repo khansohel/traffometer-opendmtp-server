@@ -30,40 +30,54 @@ import java.sql.*;
 
 import org.opendmtp.util.*;
 
-public interface DeviceDB
-{
-    
-    public String getAccountName();
-    public String getDeviceName();
-    public String getDescription();
-    
-    public boolean isActive();
-    
-    public int getMaxAllowedEvents();
-    public long getEventCount(long timeStart, long timeEnd);
-    
-    public int getLimitTimeInterval();
-    
-    public int getMaxTotalConnections();
-    public int getMaxTotalConnectionsPerMinute();
-    public byte[] getTotalConnectionProfile();
-    public void setTotalConnectionProfile(byte[] profile);
-    public long getLastTotalConnectionTime();
-    public void setLastTotalConnectionTime(long connectTime);
-    
-    public int getMaxDuplexConnections();
-    public int getMaxDuplexConnectionsPerMinute();
-    public byte[] getDuplexConnectionProfile();
-    public void setDuplexConnectionProfile(byte[] profile);
-    public long getLastDuplexConnectionTime();
-    public void setLastDuplexConnectionTime(long connectTime);
-    
-    public boolean supportsEncoding(int encoding);
-    public void removeEncoding(int encoding);
-    
-    public boolean addClientPayloadTemplate(PayloadTemplate template);
-    public PayloadTemplate getClientPayloadTemplate(int custType);
-    
-    public int insertEvent(GeoEvent event);
-    
+public interface DeviceDB {
+
+  public String getAccountName();
+
+  public String getDeviceName();
+
+  public String getDescription();
+
+  public boolean isActive();
+
+  public int getMaxAllowedEvents();
+
+  public long getEventCount(long timeStart, long timeEnd);
+
+  public int getLimitTimeInterval();
+
+  public int getMaxTotalConnections();
+
+  public int getMaxTotalConnectionsPerMinute();
+
+  public byte[] getTotalConnectionProfile();
+
+  public void setTotalConnectionProfile(byte[] profile);
+
+  public long getLastTotalConnectionTime();
+
+  public void setLastTotalConnectionTime(long connectTime);
+
+  public int getMaxDuplexConnections();
+
+  public int getMaxDuplexConnectionsPerMinute();
+
+  public byte[] getDuplexConnectionProfile();
+
+  public void setDuplexConnectionProfile(byte[] profile);
+
+  public long getLastDuplexConnectionTime();
+
+  public void setLastDuplexConnectionTime(long connectTime);
+
+  public boolean supportsEncoding(int encoding);
+
+  public void removeEncoding(int encoding);
+
+  public boolean addClientPayloadTemplate(PayloadTemplate template);
+
+  public PayloadTemplate getClientPayloadTemplate(int custType);
+
+  public int insertEvent(GeoEvent event);
+
 }
