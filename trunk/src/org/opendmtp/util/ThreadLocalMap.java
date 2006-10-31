@@ -30,11 +30,9 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
- * Provides a thread-local map instance. 
- * All the variables in the class have an independent instance for each thread 
- * that accesses them.
+ * Provides a thread-local map instance. All the variables in the class have an independent instance
+ * for each thread that accesses them.
  * 
  * @author Martin D. Flynn
  * @author Guanghong Yang
@@ -53,8 +51,9 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
     this(null);
   }
 
-  /** 
+  /**
    * Creates a new thread-local map. Sets the mapClass variable.
+   * 
    * @param mapClass The class to be set to mapClass.
    */
   public ThreadLocalMap(Class mapClass) {
@@ -64,6 +63,7 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
 
   /**
    * Returns the mapClass.
+   * 
    * @return The mapClass variable.
    */
   public Class getMapClass() {
@@ -71,11 +71,12 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Sets the mapClass to be the parameter. 
-   * If the parameter is null, mapClass will be set as <tt>Hashtable</tt>. 
+   * Sets the mapClass to be the parameter. If the parameter is null, mapClass will be set as
+   * <tt>Hashtable</tt>.
    * 
    * Note that the parameter map is not checked to be a Map class or subclass.
-   * @param map The object to be set to mapClass.  
+   * 
+   * @param map The object to be set to mapClass.
    */
   public void setMapClass(Class map) {
     // Should check that 'mapClass' implements 'Map' (just assume for now)
@@ -83,9 +84,9 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Overides <tt>initialValue()</tt> of superclass (<tt>ThreadLocal</tt>).
-   * Creates a new instance when this thread first access the class object.
-   * If exception occurs, return a new instance of <tt>Hashtable</tt>. 
+   * Overides <tt>initialValue()</tt> of superclass (<tt>ThreadLocal</tt>). Creates a new
+   * instance when this thread first access the class object. If exception occurs, return a new
+   * instance of <tt>Hashtable</tt>.
    * 
    * @return New instance of <tt>mapClass</tt>.
    * @see java.lang.ThreadLocal#initialValue()
@@ -103,10 +104,9 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Returns the map instance in the current thread's copy of this thread-local
-   * variable.  Creates and initializes the copy if this is the first time
-   * the thread has called this method.
-   *
+   * Returns the map instance in the current thread's copy of this thread-local variable. Creates
+   * and initializes the copy if this is the first time the thread has called this method.
+   * 
    * @return the current thread's value of this thread-local.
    * @see java.lang.ThreadLocal#get()
    */
@@ -115,16 +115,16 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Implements <tt>clear()</tt> method in Map.
-   * Removes all mappings from the map instance.
+   * Implements <tt>clear()</tt> method in Map. Removes all mappings from the map instance.
    */
   public void clear() {
     this.getMap().clear();
   }
 
   /**
-   * Implements <tt>containsKey(Object)</tt> method in Map.
-   * Returns true if the map instance contains a mapping for the specified key.
+   * Implements <tt>containsKey(Object)</tt> method in Map. Returns true if the map instance
+   * contains a mapping for the specified key.
+   * 
    * @param key - The key to be matched.
    * @return True if the map instance contains key, or false otherwise.
    */
@@ -133,8 +133,9 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Implements <tt>containsValue(Object)</tt> method in Map.
-   * Returns true if the map instance maps one or more keys to the specified value.
+   * Implements <tt>containsValue(Object)</tt> method in Map. Returns true if the map instance
+   * maps one or more keys to the specified value.
+   * 
    * @param value - The value to be matched.
    * @return True if the map instance contains value, or false otherwise.
    */
@@ -143,8 +144,9 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Implements <tt>entrySet()</tt> method in Map.
-   * Returns a set view of the mappings contained in this map.
+   * Implements <tt>entrySet()</tt> method in Map. Returns a set view of the mappings contained in
+   * this map.
+   * 
    * @return A set view of the mappings contained in this map.
    */
   public Set entrySet() {
@@ -152,9 +154,9 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Overides <tt>equals(Object)</tt> method in Map.
-   * Returns a set view of the mappings contained in the map instance. 
-   * Each element in the returned set is a Map.Entry.
+   * Overides <tt>equals(Object)</tt> method in Map. Returns a set view of the mappings contained
+   * in the map instance. Each element in the returned set is a Map.Entry.
+   * 
    * @param o The map Object to be compared.
    * @return True if the map instance is equal to o, or false otherwise.
    */
@@ -168,13 +170,12 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Implements <tt>get(Object)</tt> method in Map.
-   * Returns the value to which this map maps the specified key. 
-   * Returns null if the map contains no mapping for this key. 
-   * A return value of null does not necessarily indicate that 
-   * the map contains no mapping for the key; 
-   * it's also possible that the map explicitly maps the key to null. 
-   * The containsKey operation may be used to distinguish these two cases. 
+   * Implements <tt>get(Object)</tt> method in Map. Returns the value to which this map maps the
+   * specified key. Returns null if the map contains no mapping for this key. A return value of null
+   * does not necessarily indicate that the map contains no mapping for the key; it's also possible
+   * that the map explicitly maps the key to null. The containsKey operation may be used to
+   * distinguish these two cases.
+   * 
    * @param key Key whose associated value is to be returned.
    * @return The object mapped to the key in the map instance.
    */
@@ -183,26 +184,28 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Overides <tt>hashCode()</tt> method in Map.
-   * Return The hash code value of the map instance.
+   * Overides <tt>hashCode()</tt> method in Map. Return The hash code value of the map instance.
+   * 
    * @return The hash code value of the map instance.
    */
- public int hashCode() {
+  public int hashCode() {
     return this.getMap().hashCode();
   }
 
- /**
-  * Implements <tt>isEmpty()</tt> method in Map.
-  * Returns true if this map instance contains no key-value mappings.
-  * @return True if the map instance is empty, or false otherwise.
-  */
+  /**
+   * Implements <tt>isEmpty()</tt> method in Map. Returns true if this map instance contains no
+   * key-value mappings.
+   * 
+   * @return True if the map instance is empty, or false otherwise.
+   */
   public boolean isEmpty() {
     return this.getMap().isEmpty();
   }
 
   /**
-   * Implements <tt>keySet()</tt> method in Map.
-   * Returns a set view of the keys contained in the map instance.
+   * Implements <tt>keySet()</tt> method in Map. Returns a set view of the keys contained in the
+   * map instance.
+   * 
    * @return A set view of the keys contained in the map instance.
    */
   public Set keySet() {
@@ -210,46 +213,46 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Implements <tt>put(Object, Object)</tt> method in Map.
-   * Associates the specified value with the specified key in the map instance.
+   * Implements <tt>put(Object, Object)</tt> method in Map. Associates the specified value with
+   * the specified key in the map instance.
+   * 
    * @param key Key with which the specified value is to be associated.
    * @param value Value to be associated with the specified key.
-   * @return previous value associated with specified key, 
-   *         or null if there was no mapping for key. 
-   *         A null return can also indicate that the map 
-   *         previously associated null with the specified key, 
-   *         if the implementation supports null values.
+   * @return previous value associated with specified key, or null if there was no mapping for key.
+   *         A null return can also indicate that the map previously associated null with the
+   *         specified key, if the implementation supports null values.
    */
   public Object put(Object key, Object value) {
     return this.getMap().put(key, value);
   }
 
   /**
-   * Implements <tt>putAll(Map)</tt> method in Map.
-   * Copies all of the mappings from the specified map to this map. 
-   * The effect of this call is equivalent to that of calling put(k, v) 
-   * on this map once for each mapping from key k to value v in the specified map. 
-   * The behavior of this operation is unspecified if the specified map 
-   * is modified while the operation is in progress. 
+   * Implements <tt>putAll(Map)</tt> method in Map. Copies all of the mappings from the specified
+   * map to this map. The effect of this call is equivalent to that of calling put(k, v) on this map
+   * once for each mapping from key k to value v in the specified map. The behavior of this
+   * operation is unspecified if the specified map is modified while the operation is in progress.
+   * 
    * @param t Mappings to be stored in this map.
    */
- public void putAll(Map t) {
+  public void putAll(Map t) {
     this.getMap().putAll(t);
   }
 
- /**
-  * Implements <tt>remove(Object)</tt> method in Map.
-  * Removes the mapping for this key from this map if it is present.
-  * @param key Key whose mapping is to be removed from the map.
-  * @return A set view of the keys contained in the map instance.
-  */
+  /**
+   * Implements <tt>remove(Object)</tt> method in Map. Removes the mapping for this key from this
+   * map if it is present.
+   * 
+   * @param key Key whose mapping is to be removed from the map.
+   * @return A set view of the keys contained in the map instance.
+   */
   public Object remove(Object key) {
     return this.getMap().remove(key);
   }
 
   /**
-   * Implements <tt>size()</tt> method in Map.
-   * Returns the number of key-value mappings in this map instance.
+   * Implements <tt>size()</tt> method in Map. Returns the number of key-value mappings in this
+   * map instance.
+   * 
    * @return A set view of the keys contained in the map instance.
    */
   public int size() {
@@ -257,8 +260,9 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
   }
 
   /**
-   * Implements <tt>values()</tt> method in Map.
-   * Returns a collection view of the values contained in this map.
+   * Implements <tt>values()</tt> method in Map. Returns a collection view of the values contained
+   * in this map.
+   * 
    * @return A collection view of the values contained in this map.
    */
   public Collection values() {
