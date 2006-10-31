@@ -44,7 +44,7 @@ import org.opendmtp.util.RTKey;
 public class DBConfig {
 
   /**
-   * Class that creates new Account DB's and Device DB's.
+   * Class that creates new AccountDBImpl's and DeviceDBImpl's.
    * 
    * @author Martin D. Flynn
    * @author George Lee
@@ -86,8 +86,8 @@ public class DBConfig {
   /**
    * Initialize the server and the RTConfig. Also sets up the data store directory for the device.
    * 
-   * @param argv Command line parameters to pass to init.
-   * @param interactive Enables a specific RTConfig if true. Does nothing if false.
+   * @param argv Command line parameters to pass to RTConfig.
+   * @param interactive Sets RTConfig options when set to true.  Does nothing if set to false.
    */
   public static void init(String argv[], boolean interactive) {
 

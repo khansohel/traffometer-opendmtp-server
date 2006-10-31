@@ -97,7 +97,8 @@ public class Main {
   }
 
   /**
-   * Main method for this package.
+   * Main method for this package.  Configures and initializes the server.
+   * Also displays usage information about the server.
    * 
    * @param argv Command line arguments to pass to DBConfig.
    */
