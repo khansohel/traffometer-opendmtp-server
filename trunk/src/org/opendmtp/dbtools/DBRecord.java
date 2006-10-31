@@ -34,11 +34,25 @@ import java.util.Iterator;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.opendmtp.util.DateTime;
+import org.opendmtp.util.ListTools;
+import org.opendmtp.util.MethodAction;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.RTConfig;
+import org.opendmtp.util.RTKey;
+import org.opendmtp.util.StringTools;
+
 //import javax.servlet.*;
 //import javax.servlet.http.*;
 
-import org.opendmtp.util.*;
-
+/**
+ * The <code>DBRecord</code> class defines a database record
+ * value along with all necessary methods to keep track of
+ * the any changes to the record.  This includes metadata,
+ * locking methods to ensure integrity of the data.
+ * 
+ * @author Josh
+ */
 public abstract class DBRecord
 {
 
@@ -47,19 +61,43 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Constant string value.
+     */
     public  static final String FLD_count_  = "count(*)";
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Integer constant Key value.
+     */
     public static final int KEY_PRIMARY     = DBField.KEY_PRIMARY;
+    
+    /**
+     * Integer constant unique Key value.
+     */
     public static final int KEY_UNIQUE      = DBField.KEY_UNIQUE;
+    
+    /**
+     * Integer constant Key index value.
+     */
     public static final int KEY_INDEX       = DBField.KEY_INDEX;
 
+    /**
+     * Integer constant group value.
+     */
     public static final int NOTIFY_GROUP    = 1;
 
     // ------------------------------------------------------------------------
 
+    /**
+     * String constant marking last update time.
+     */
     public static final String FLD_lastUpdateTime   = "lastUpdateTime";
+    
+    /**
+     * String constant denoting the last user who updated.
+     */
     public static final String FLD_lastUpdateUser   = "lastUpdateUser";
 
     // ------------------------------------------------------------------------
@@ -70,14 +108,31 @@ public abstract class DBRecord
     private   boolean       changed             = false;
     private   Vector        changeNotification  = null;
     
+    /**
+     * Boolean constant indicating if the Record is currently validating.
+     */
     protected boolean       isValidating        = false;
+    
+    /**
+     * SQLException indicating what the last error caught was.
+     */
     protected SQLException  lastSQLException    = null;
     
+    /**
+     * Empty DBRecord constructor taking no method input values, and only
+     * returning an instance of the superclass.
+     */
     public DBRecord()
     {
         super();
     }
 
+    /**
+     * <code>DBRecord</code> constructor taking an instance of the
+     * <code>DBRecordKey</code> class as a parameter.
+     * 
+     * @param key instance of the DBRecordKey class.
+     */
     protected DBRecord(DBRecordKey key)
     {
         this();
@@ -86,6 +141,11 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
     
+    /**
+     * Getter method to retrieve the private recordKey value.
+     * 
+     * @return DBRecordKey
+     */
     public DBRecordKey getRecordKey()
     {
         if (this.recordKey == null) {

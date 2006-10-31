@@ -28,11 +28,13 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
-import java.util.*;
-import java.sql.*;
 
-import org.opendmtp.util.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.opendmtp.util.Print;
+
 
 public abstract class DBRecordKey
 {
