@@ -33,6 +33,7 @@ import org.opendmtp.util.StringTools; // added by Kiet Huynh
  * <p>
  * Javadoc created by Kiet Huynh on 10/29/2006.
  * </p>
+ * @author Martin D. Flynn
  */
 public class ClientErrors {
 

@@ -28,8 +28,9 @@ package org.opendmtp.codes;
 /**
  * This class defines ASCII encoding types and checksum encoding. The ASCII encoding types include
  * Hex, CVS, and Base64 encoding.
- * <p>
- * Javadoc created by Kiet Huynh on 10/29/2006.
+ * <p>Javadoc created by Kiet Huynh on 10/29/2006.</p>
+ * 
+ * @author Martin D. Flynn
  */
 public class Encoding {
 
