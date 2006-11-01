@@ -34,13 +34,11 @@ package org.opendmtp.codes;
 import org.opendmtp.util.StringTools; // added by Kiet Huynh
 
 /**
- * This class defines errors that will be sent by server to client when the server detects the
+ * Defines errors that will be sent by server to client when the server detects the
  * errors.
- * <p>
- * Javadoc created by Kiet Huynh on 10/30/2006.
- * </p>
  * 
  * @author Martin D. Flynn
+ * @author Kiet Huynh
  */
 public class ServerErrors {
 
@@ -662,9 +660,9 @@ public class ServerErrors {
   // ----------------------------------------------------------------------------
 
   /**
-   * Returns server-errors descriptions.
+   * Get a server-error description.
    * 
-   * @param errCode - The error code.
+   * @param errCode The error code.
    * @return Returns the error description as a String.
    */
   public static String getErrorDescription(int errCode) {

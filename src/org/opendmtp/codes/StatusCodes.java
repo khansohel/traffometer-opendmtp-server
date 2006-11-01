@@ -31,12 +31,12 @@ import java.util.HashMap; // added by Kiet Huynh
 // import java.util.*; // commented out by Kiet Huynh
 
 /**
- * This class defines status codes for communication between the server and the client.
+ * Defines status codes for communication between the server and the client.
  * The types of codes are generic, motion, geofence, digital input/output, sensor input, 
  * and temperature input.
- * <p>Javadoc created by Kiet Huynh on 10/30/2006.</p>
  * 
  * @author Martin D. Flynn
+ * @author Kiet Huynh
  *
  */
 public class StatusCodes {
@@ -170,26 +170,42 @@ public class StatusCodes {
   // Notes:
   //      The excess-speed threshold is provided by property PROP_MOTION_EXCESS_SPEED
 
+  /** Constant odometer value */
   public static final int STATUS_ODOM_0 = 0xF130;
+  /** Constant odometer value */
   public static final int STATUS_ODOM_1 = 0xF131;
+  /** Constant odometer value */
   public static final int STATUS_ODOM_2 = 0xF132;
+  /** Constant odometer value */
   public static final int STATUS_ODOM_3 = 0xF133;
+  /** Constant odometer value */
   public static final int STATUS_ODOM_4 = 0xF134;
+  /** Constant odometer value */
   public static final int STATUS_ODOM_5 = 0xF135;
+  /** Constant odometer value */
   public static final int STATUS_ODOM_6 = 0xF136;
+  /** Constant odometer value */
   public static final int STATUS_ODOM_7 = 0xF137;
   // Description:
   //      Odometer value
   // Notes:
   //      The odometer limit is provided by property PROP_ODOMETER_#_LIMIT
 
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_0 = 0xF140;
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_1 = 0xF141;
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_2 = 0xF142;
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_3 = 0xF143;
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_4 = 0xF144;
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_5 = 0xF145;
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_6 = 0xF146;
+  /** Constant Odometer limit */
   public static final int STATUS_ODOM_LIMIT_7 = 0xF147;
   // Description:
   //      Odometer has exceeded a set limit
@@ -322,7 +338,8 @@ public class StatusCodes {
    * Current output On state (bitmask).
    * <p>
    * Notes: Client should include FIELD_OUTPUT_STATE in the event packet,
-   *      otherwise this status code would have no meaning.
+   *      otherwise this status code would have no meaning. 
+   * </p>
    */
   public static final int STATUS_OUTPUT_STATE = 0xF406;
   // Description:
@@ -340,6 +357,7 @@ public class StatusCodes {
    *      - This status code may be used to indicate that an arbitrary output
    *      'thing' turned ON, and the 'thing' can be identified by the 'Output ID'.
    *      This 'ID' can also represent the index of a digital output.
+   *</pre>
    */
   public static final int STATUS_OUTPUT_ON = 0xF408;
   // Description:
@@ -372,57 +390,128 @@ public class StatusCodes {
   //      'thing' turned OFF, and the 'thing' can be identified by the 'Output ID'.
   //      This 'ID' can also represent the index of a digital output.
 
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_00 = 0xF420;
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_01 = 0xF421;
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_02 = 0xF422;
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_03 = 0xF423;
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_04 = 0xF424;
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_05 = 0xF425;
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_06 = 0xF426;
+  /** Digital input state changed to ON */
   public static final int STATUS_INPUT_ON_07 = 0xF427;
   // Description:
   //      Digital input state changed to ON
 
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_00 = 0xF440;
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_01 = 0xF441;
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_02 = 0xF442;
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_03 = 0xF443;
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_04 = 0xF444;
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_05 = 0xF445;
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_06 = 0xF446;
+  /** Digital input state changed to OFF */
   public static final int STATUS_INPUT_OFF_07 = 0xF447;
   // Description:
   //      Digital input state changed to OFF
 
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_00 = 0xF460;
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_01 = 0xF461;
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_02 = 0xF462;
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_03 = 0xF463;
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_04 = 0xF464;
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_05 = 0xF465;
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_06 = 0xF466;
+  /** Digital output state set to ON */
   public static final int STATUS_OUTPUT_ON_07 = 0xF467;
   // Description:
   //      Digital output state set to ON
 
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_00 = 0xF480;
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_01 = 0xF481;
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_02 = 0xF482;
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_03 = 0xF483;
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_04 = 0xF484;
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_05 = 0xF485;
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_06 = 0xF486;
+  /** Digital output state set to OFF */
   public static final int STATUS_OUTPUT_OFF_07 = 0xF487;
   // Description:
   //      Digital output state set to OFF
 
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_00 = 0xF4A0;
+  
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_01 = 0xF4A1;
+  
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_02 = 0xF4A2;
+  
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_03 = 0xF4A3;
+  
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_04 = 0xF4A4;
+  
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_05 = 0xF4A5;
+  
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_06 = 0xF4A6;
+  
+  /** 
+   * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
+   * otherwise this status code would have no meaning. 
+   */
   public static final int STATUS_ELAPSED_07 = 0xF4A7;
   // Description:
   //      Elapsed time
@@ -430,13 +519,60 @@ public class StatusCodes {
   //      - Client should include FIELD_ELAPSED_TIME in the event packet,
   //      otherwise this status code would have no meaning.
 
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_00 = 0xF4B0;
+  
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_01 = 0xF4B1;
+  
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_02 = 0xF4B2;
+  
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_03 = 0xF4B3;
+  
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_04 = 0xF4B4;
+  
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_05 = 0xF4B5;
+  
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_06 = 0xF4B6;
+  
+  /** 
+   * Elapse timer has exceeded a limit. Client should include 
+   * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
+   * would have no meaning.
+   */
   public static final int STATUS_ELAPSED_LIMIT_07 = 0xF4B7;
   // Description:
   //      Elapsed timer has exceeded a set limit
@@ -447,13 +583,172 @@ public class StatusCodes {
   // ----------------------------------------------------------------------------
   // Analog/etc sensor values (extra data): 0xF600 to 0xF6FF
 
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_0 = 0xF600;
+  
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_1 = 0xF601;
+  
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_2 = 0xF602;
+  
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_3 = 0xF603;
+  
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_4 = 0xF604;
+  
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_5 = 0xF605;
+  
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_6 = 0xF606;
+  
+  /**
+   * 32-bit unsigned sensor value. 
+   * <p>Notes:</p>
+   * <ul>
+   *      <li>- Client should include FIELD_SENSOR32 in the event packet,
+   *      otherwise this status code would have no meaning.</li>
+   *      <li>- The server must be able to convert this 32-bit value to something
+   *      meaningful to the user.  This can be done using the following formula:
+   *         <p>Actual_Value = ((double)Sensor32_Value * (Gain)) + (Offset);
+   *      Where (Gain) & (Offset) are user configurable values provided at setup.
+   *      For instance: Assume Sensor32-0 contains a temperature value that can
+   *      have a range of -40.0C to +125.0C.  The client would encode -14.7C
+   *      by adding 40.0 and multiplying by 10.0.  The resulting value would be
+   *      253.  The server would then be configured to know how to convert this
+   *      value back into the proper temperature using the above formula by
+   *      substituting 0.1 for (Gain), and -40.0 for (Offset): eg.</p>
+   *          <p>-14.7 = ((double)253 * 0.1) + (-40.0);</p></li>
+   * </ul>
+   */
   public static final int STATUS_SENSOR32_7 = 0xF607;
   // Description:
   //      32-bit unsigned sensor value
@@ -472,13 +767,60 @@ public class StatusCodes {
   //      substituting 0.1 for <Gain>, and -40.0 for <Offset>: eg.
   //          -14.7 = ((double)253 * 0.1) + (-40.0);
 
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_0 = 0xF620;
+  
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_1 = 0xF621;
+  
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_2 = 0xF622;
+  
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_3 = 0xF623;
+  
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_4 = 0xF624;
+  
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_5 = 0xF625;
+  
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_6 = 0xF626;
+  
+  /**
+   * 32-bit unsigned sensor value out-of-range violation. Client should include
+   * FIELD_SENSOR32 in the event packet; otherwise this status code would have
+   * no meaning.
+   */
   public static final int STATUS_SENSOR32_RANGE_7 = 0xF627;
   // Description:
   //      32-bit unsigned sensor value out-of-range violation
@@ -489,13 +831,52 @@ public class StatusCodes {
   // ----------------------------------------------------------------------------
   // Temperature sensor values (extra data): 0xF700 to 0xF7FF
 
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_0 = 0xF710;
+  
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_1 = 0xF711;
+  
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_2 = 0xF712;
+  
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_3 = 0xF713;
+  
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_4 = 0xF714;
+  
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_5 = 0xF715;
+  
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_6 = 0xF716;
+  
+  /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
+   * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
+   * TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_7 = 0xF717;
   // Description:
   //      Temperature value
@@ -504,13 +885,60 @@ public class StatusCodes {
   //      event packet, and may also wish to include FIELD_TEMP_LOW and
   //      FIELD_TEMP_HIGH.
 
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_0 = 0xF730;
+  
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_1 = 0xF731;
+  
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_2 = 0xF732;
+  
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_3 = 0xF733;
+  
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_4 = 0xF734;
+  
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_5 = 0xF735;
+  
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_6 = 0xF736;
+  
+  /**
+   * Temperature value out-of-range [low/high/average]. Client should include
+   * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
+   * FIELD_TEMP_HIGH.
+   */
   public static final int STATUS_TEMPERATURE_RANGE_7 = 0xF737;
   // Description:
   //      Temperature value out-of-range [low/high/average]
@@ -580,11 +1008,11 @@ public class StatusCodes {
   private static final String CODE_PREFIX = "DMT.";
 
   /**
-   * This class defines a status code which consists of an integet code, a name, 
+   * Defines a status code which consists of an integer code, a name, 
    * a description.  
-   * <p>Javadoc created by Kiet Huynh on 10/30/2006.</p>
    * 
    * @author Martin D. Flynn
+   * @author Kiet Huynh
    */
   public static class Code {
     private int code = 0;
@@ -594,9 +1022,9 @@ public class StatusCodes {
     /**
      * Defines a status code.  A status code consists of a code as a hexidecimal number, 
      * a name of the code, and a description of the code.
-     * @param code - status code.
-     * @param name - name of the status code.
-     * @param desc - description of the status code.
+     * @param code The status code.
+     * @param name The name of the status code.
+     * @param desc The description of the status code.
      */
     public Code(int code, String name, String desc) {
       this.code = code;
@@ -646,7 +1074,7 @@ public class StatusCodes {
   }
 
   /**
-   * An array of status codes.  Each status code includes the code, the name,
+   * An array of status codes. Each status code includes the code, the name,
    * and the description of the status code.
    */
   private static Code _code[] = new Code[] {
@@ -819,7 +1247,7 @@ public class StatusCodes {
 
   /**
    * Gets a Code object from the HashMap that contains all the defined status codes.
-   * @param code - A integer code of the object Code that you want to get.
+   * @param code A integer code of the object Code that you want to get.
    * @return The Code object that consists of the code, the name, and the description.
    */
   public static Code GetCode(int code) {
@@ -828,7 +1256,7 @@ public class StatusCodes {
 
   /**
    * Gets a Code object from the HashMap that contains all the defined status codes.
-   * @param code - A code as a string whose object Code will be returned.
+   * @param code A code as a string whose object Code will be returned.
    * @return If the parameter "code" is null, return null. Otherwise, return the 
    *         object Code.
    */
@@ -843,7 +1271,7 @@ public class StatusCodes {
 
   /**
    * Gets the description of a status code.
-   * @param code - The integer code of the Code of which the description will be returned.
+   * @param code The integer code of the Code of which the description will be returned.
    * @return If the parameter "code" is invalid code, returns null. Otherwise, returns the full
    *         description of the Code.
    */
@@ -854,7 +1282,7 @@ public class StatusCodes {
 
   /**
    * Gets the description of a status code.
-   * @param code - The integer code of the Code of which the description will be returned.
+   * @param code The integer code of the Code of which the description will be returned.
    * @return If the parameter "code" is invalid code, returns null. Otherwise, returns the full
    *         description of the Code.
    */

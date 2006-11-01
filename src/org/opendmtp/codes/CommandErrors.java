@@ -27,11 +27,11 @@ import org.opendmtp.util.StringTools; // added by Kiet Huynh
 // import org.opendmtp.util.*; // commented out by Kiet Huynh
 
 /**
- * This class defines the command-errors. The types of errors include command 
+ * Defines the command-errors. The types of errors include command 
  * success, command argument errors, and command execution errors.
- * <p>Javadoc created by Kiet Huynh on 10/29/2006.</p>
  * 
  * @author Martin D. Flynn
+ * @author Kiet Huynh
  */
 public class CommandErrors {
 
@@ -183,8 +183,8 @@ public class CommandErrors {
   // ----------------------------------------------------------------------------
 
   /**
-   * Return command errors's descriptions.
-   * @param errCode - The command-error code.
+   * Returns command errors's descriptions.
+   * @param errCode The command-error code.
    * @return The command-error description.
    */
   public static String getErrorDescription(int errCode) {
