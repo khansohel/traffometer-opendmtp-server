@@ -28,7 +28,7 @@ package org.opendmtp.util;
 import java.io.File;
 
 /**
- * This class provides utility methods for dealing with operating system related issues.
+ * Provides utility methods for dealing with operating system related issues.
  * @author Martin D. Flynn
  * @author Mark Stillwell
  */
@@ -179,4 +179,3 @@ public class OSTools {
   }
 
 }
-
