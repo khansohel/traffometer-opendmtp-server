@@ -38,7 +38,7 @@ import java.io.OutputStream;
  * This class provides many File based utilities.
  * 
  * @author Martin D. Flynn
- * @author Pavel Senin.
+ * @author Pavel V. Senin.
  * 
  */
 public class FileTools {
@@ -187,7 +187,7 @@ public class FileTools {
    * Reads the stream into byte array.
    * 
    * @param input stream to read from.
-   * @return readed bytes array.
+   * @return read bytes array.
    * @throws IOException if an IO error encountered.
    */
   public static byte[] readStream(InputStream input) throws IOException {
@@ -212,7 +212,7 @@ public class FileTools {
    * Reads the File into byte array.
    * 
    * @param file file name.
-   * @return readed bytes array or null if file is empty.
+   * @return read bytes array or null if file is empty.
    */
 
   public static byte[] readFile(String file) {
@@ -228,7 +228,7 @@ public class FileTools {
    * Reads the File into byte array.
    * 
    * @param file file to read from.
-   * @return readed bytes array or null if file is empty.
+   * @return read bytes array or null if file is empty.
    */
   public static byte[] readFile(File file) {
     if ((file != null) && file.exists()) {
@@ -257,7 +257,7 @@ public class FileTools {
    * Reads string from the input stream.
    * 
    * @param input stream to read from.
-   * @return readed line
+   * @return read line
    * @throws IOException if IO error encountered.
    */
   public static String readLine(InputStream input) throws IOException {
@@ -277,7 +277,7 @@ public class FileTools {
   /**
    * Reads line from standard input.
    * 
-   * @return readed string.
+   * @return read string.
    * @throws IOException if an IO error encountered.
    */
   public static String readLine_stdin() throws IOException {
@@ -293,7 +293,7 @@ public class FileTools {
    * 
    * @param msg prompt message.
    * @param dft default value.
-   * @return readed string or default value.
+   * @return read string or default value.
    * @throws IOException if an IO error encountered.
    */
   public static String readString_stdin(String msg, String dft) throws IOException {
@@ -325,7 +325,7 @@ public class FileTools {
    * 
    * @param msg prompt message.
    * @param dft default value.
-   * @return readed string or default value.
+   * @return read string or default value.
    * @throws IOException if an IO error encountered.
    */
   public static boolean readBoolean_stdin(String msg, boolean dft) throws IOException {
@@ -353,7 +353,7 @@ public class FileTools {
    * 
    * @param msg prompt message.
    * @param dft default value.
-   * @return readed string or default value.
+   * @return read string or default value.
    * @throws IOException if an IO error encountered.
    */
   public static long readLong_stdin(String msg, long dft) throws IOException {
@@ -376,13 +376,13 @@ public class FileTools {
   }
 
   /**
-   * Reads double value from standard input. Uses dot "." as decimal delimeter. Prints promt
-   * friendly prompt and waits for the input. If nothing entered returns default value. If not
-   * numeric value entered re-requests for input.
+   * Reads double value from standard input. Uses dot "." as decimal delimeter. Prints friendly
+   * prompt and waits for the input. If nothing entered returns default value. If not numeric value
+   * entered re-requests for input.
    * 
    * @param msg prompt message.
    * @param dft default value.
-   * @return readed string or default value.
+   * @return read string or default value.
    * @throws IOException if an IO error encountered.
    */
   public static double readDouble_stdin(String msg, double dft) throws IOException {
