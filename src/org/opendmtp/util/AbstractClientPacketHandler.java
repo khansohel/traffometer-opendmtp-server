@@ -25,75 +25,59 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.util;
 
-import java.io.*;
-import java.util.*;
-import java.net.*;
-import java.awt.event.*;
-import javax.net.ssl.*;
-import javax.net.*;
-import javax.net.*;
+import java.net.InetAddress;
 
-public abstract class AbstractClientPacketHandler
-    implements ClientPacketHandler
-{
-    
-    // ------------------------------------------------------------------------
+public abstract class AbstractClientPacketHandler implements ClientPacketHandler {
 
-    private InetAddress inetAddr = null;
-    private boolean isTCP = true;
-    private boolean isTextPackets = false;
-    
-    protected boolean isTextPackets() 
-    {
-        return this.isTextPackets;
-    }
-    
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
 
-    public void sessionStarted(InetAddress inetAddr, boolean isTCP, boolean isText) 
-    {
-        this.inetAddr = inetAddr;
-        this.isTCP = isTCP;
-        this.isTextPackets = isText;
-    }
-    
-    // ------------------------------------------------------------------------
+  private InetAddress inetAddr = null;
+  private boolean isTCP = true;
+  private boolean isTextPackets = false;
 
-    public InetAddress getInetAddress()
-    {
-        return this.inetAddr;
-    }
-    
-    public String getHostAddress()
-    {
-        String ipAddr = (this.inetAddr != null)? this.inetAddr.getHostAddress() : null;
-        return ipAddr;
-    }
-    
-    // ------------------------------------------------------------------------
+  protected boolean isTextPackets() {
+    return this.isTextPackets;
+  }
 
-    public int getActualPacketLength(byte packet[], int packetLen) 
-    {
-        return this.isTextPackets? -1 : packetLen;
-    }
-    
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
 
-    public abstract byte[] getHandlePacket(byte cmd[]) 
-        throws Exception;
-    
-    // ------------------------------------------------------------------------
+  public void sessionStarted(InetAddress inetAddr, boolean isTCP, boolean isText) {
+    this.inetAddr = inetAddr;
+    this.isTCP = isTCP;
+    this.isTextPackets = isText;
+  }
 
-    public boolean terminateSession() 
-    {
-        return true; // always terminate by default
-    }
-    
-    public void sessionTerminated(Throwable err, long readCount, long writeCount)
-    {
-        // do nothing
-    }
-    
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+
+  public InetAddress getInetAddress() {
+    return this.inetAddr;
+  }
+
+  public String getHostAddress() {
+    String ipAddr = (this.inetAddr != null) ? this.inetAddr.getHostAddress() : null;
+    return ipAddr;
+  }
+
+  // ------------------------------------------------------------------------
+
+  public int getActualPacketLength(byte packet[], int packetLen) {
+    return this.isTextPackets ? -1 : packetLen;
+  }
+
+  // ------------------------------------------------------------------------
+
+  public abstract byte[] getHandlePacket(byte cmd[]) throws Exception;
+
+  // ------------------------------------------------------------------------
+
+  public boolean terminateSession() {
+    return true; // always terminate by default
+  }
+
+  public void sessionTerminated(Throwable err, long readCount, long writeCount) {
+    // do nothing
+  }
+
+  // ------------------------------------------------------------------------
 
 }

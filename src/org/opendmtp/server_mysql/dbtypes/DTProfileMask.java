@@ -22,66 +22,53 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server_mysql.dbtypes;
 
-import java.lang.*;
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import org.opendmtp.util.*;
+import org.opendmtp.dbtools.DBFieldType;
+import org.opendmtp.util.StringTools;
 
-import org.opendmtp.dbtools.*;
+public class DTProfileMask extends DBFieldType {
 
-public class DTProfileMask
-    extends DBFieldType
-{
-    
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
 
-    private byte profileMask[] = null;
-    
-    public DTProfileMask(byte profileMask[])
-    {
-        this.profileMask = (profileMask != null)? profileMask : new byte[0];
+  private byte profileMask[] = null;
+
+  public DTProfileMask(byte profileMask[]) {
+    this.profileMask = (profileMask != null) ? profileMask : new byte[0];
+  }
+
+  public DTProfileMask(String val) {
+    super(val);
+    this.profileMask = StringTools.parseHex(val, new byte[0]);
+  }
+
+  public DTProfileMask(ResultSet rs, String fldName) throws SQLException {
+    super(rs, fldName);
+    // set to default value if 'rs' is null
+    this.profileMask = (rs != null) ? rs.getBytes(fldName) : new byte[0];
+  }
+
+  public String toString() {
+    return "0x" + StringTools.toHexString(this.profileMask);
+  }
+
+  // ------------------------------------------------------------------------
+
+  public void setLimitTimeInterval(int minutes) {
+    int byteLen = (minutes + 7) / 8;
+    if (this.profileMask.length != byteLen) {
+      byte newMask[] = new byte[byteLen];
+      int len = (this.profileMask.length < byteLen) ? this.profileMask.length : byteLen;
+      System.arraycopy(this.profileMask, 0, newMask, 0, len);
+      this.profileMask = newMask;
     }
-    
-    public DTProfileMask(String val)
-    {
-        super(val);
-        this.profileMask = StringTools.parseHex(val, new byte[0]);
-    }
+  }
 
-    public DTProfileMask(ResultSet rs, String fldName)
-        throws SQLException
-    {
-        super(rs, fldName);
-        // set to default value if 'rs' is null
-        this.profileMask = (rs != null)? rs.getBytes(fldName) : new byte[0];
-    }
+  // ------------------------------------------------------------------------
 
-    public String toString()
-    {
-        return "0x" + StringTools.toHexString(this.profileMask);
-    }
+  public byte[] getByteMask() {
+    return this.profileMask;
+  }
 
-    // ------------------------------------------------------------------------
-
-    public void setLimitTimeInterval(int minutes)
-    {
-        int byteLen = (minutes + 7) / 8;
-        if (this.profileMask.length != byteLen) {
-            byte newMask[] = new byte[byteLen];
-            int len = (this.profileMask.length < byteLen)? this.profileMask.length : byteLen;
-            System.arraycopy(this.profileMask, 0, newMask, 0, len);
-            this.profileMask = newMask;
-        }
-    }
-
-    // ------------------------------------------------------------------------
-
-    public byte[] getByteMask()
-    {
-        return this.profileMask;
-    }
-    
 }
