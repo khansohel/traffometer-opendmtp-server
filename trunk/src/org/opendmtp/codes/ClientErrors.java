@@ -27,13 +27,12 @@ import org.opendmtp.util.StringTools; // added by Kiet Huynh
 // import org.opendmtp.util.*; // commented out by Kiet Huynh
 
 /**
- * This class defines the client errors. The types of errors include protocol/ packet errors,
+ * Defines the client errors. The types of errors include protocol/ packet errors,
  * property errors, command errors, upload errors, GPS errors, and internal errors. The error
  * will be sent by a client to a server when the client detects the error.
- * <p>
- * Javadoc created by Kiet Huynh on 10/29/2006.
- * </p>
+ * 
  * @author Martin D. Flynn
+ * @author Kiet Huynh
  */
 public class ClientErrors {
 
@@ -684,9 +683,9 @@ public class ClientErrors {
   // ----------------------------------------------------------------------------
 
   /**
-   * Return a error discription as a String.
+   * Gets an error's discription.
    * 
-   * @param errCode - The error code.
+   * @param errCode The error code.
    * @return A short description of the error.
    */
   public static String getErrorDescription(int errCode) {
