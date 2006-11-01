@@ -22,50 +22,39 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server_mysql.dbtypes;
 
-import java.lang.*;
-import java.util.*;
-import java.math.*;
-import java.io.*;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import org.opendmtp.util.*;
+import org.opendmtp.dbtools.DBFieldType;
+import org.opendmtp.util.StringTools;
 
-import org.opendmtp.dbtools.*;
+public class DTUniqueID extends DBFieldType {
 
-public class DTUniqueID
-    extends DBFieldType
-{
+  // ------------------------------------------------------------------------
 
-    // ------------------------------------------------------------------------
+  private long uniqueID = 0L;
 
-    private long uniqueID = 0L;
-    
-    public DTUniqueID(long uniqueID)
-    {
-        this.uniqueID = uniqueID;
-    }
-    
-    public DTUniqueID(String uniqueIDHex)
-    {
-        super(uniqueIDHex);
-        // If 'uniqueIDHex' represents a 'HEX' value, then it must begin with '0x'.
-        // Otherwise it will be parsed as a 'Long'
-        this.uniqueID = StringTools.parseLong(uniqueIDHex, 0L);
-    }
+  public DTUniqueID(long uniqueID) {
+    this.uniqueID = uniqueID;
+  }
 
-    public DTUniqueID(ResultSet rs, String fldName)
-        throws SQLException
-    {
-        super(rs, fldName);
-        // set to default value if 'rs' is null
-        this.uniqueID = (rs != null)? rs.getLong(fldName) : 0L;
-    }
+  public DTUniqueID(String uniqueIDHex) {
+    super(uniqueIDHex);
+    // If 'uniqueIDHex' represents a 'HEX' value, then it must begin with '0x'.
+    // Otherwise it will be parsed as a 'Long'
+    this.uniqueID = StringTools.parseLong(uniqueIDHex, 0L);
+  }
 
-    public String toString()
-    {
-        return String.valueOf(this.uniqueID);
-    }
+  public DTUniqueID(ResultSet rs, String fldName) throws SQLException {
+    super(rs, fldName);
+    // set to default value if 'rs' is null
+    this.uniqueID = (rs != null) ? rs.getLong(fldName) : 0L;
+  }
 
-    // ------------------------------------------------------------------------
+  public String toString() {
+    return String.valueOf(this.uniqueID);
+  }
+
+  // ------------------------------------------------------------------------
 
 }

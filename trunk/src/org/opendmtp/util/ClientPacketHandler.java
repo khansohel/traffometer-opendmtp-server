@@ -25,30 +25,23 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.util;
 
-import java.io.*;
-import java.util.*;
-import java.net.*;
-import java.awt.event.*;
-import javax.net.ssl.*;
-import javax.net.*;
-import javax.net.*;
+import java.net.InetAddress;
 
-public interface ClientPacketHandler
-{
+public interface ClientPacketHandler {
 
-    // called when new client session initiated
-    public void sessionStarted(InetAddress inetAddr, boolean isTCP, boolean isText);
-    
-    // return actual packet length based on this partial packet
-    public int getActualPacketLength(byte packet[], int packetLen); // non-text
-    
-    // process packet and return response
-    public byte[] getHandlePacket(byte cmd[]) throws Exception;
-    
-    // return true to terminate session
-    public boolean terminateSession();
-    
-    // called after client session terminated
-    public void sessionTerminated(Throwable err, long readCount, long writeCount);
-    
+  // called when new client session initiated
+  public void sessionStarted(InetAddress inetAddr, boolean isTCP, boolean isText);
+
+  // return actual packet length based on this partial packet
+  public int getActualPacketLength(byte packet[], int packetLen); // non-text
+
+  // process packet and return response
+  public byte[] getHandlePacket(byte cmd[]) throws Exception;
+
+  // return true to terminate session
+  public boolean terminateSession();
+
+  // called after client session terminated
+  public void sessionTerminated(Throwable err, long readCount, long writeCount);
+
 }
