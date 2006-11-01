@@ -40,11 +40,14 @@ import org.opendmtp.util.*;
 public class DBFactory {
 
   // ------------------------------------------------------------------------
-
+  /** The type of the database table. */
   public static final String DBTABLE_TYPE = "MyISAM"; // "InnoDB"; // "MyISAM";
 
+  /** The Primary key of the table. */
   public static final int KEY_PRIMARY = DBField.KEY_PRIMARY;
+  /** The Unique key of the table. */
   public static final int KEY_UNIQUE = DBField.KEY_UNIQUE;
+  /** The Index key of the table. */
   public static final int KEY_INDEX = DBField.KEY_INDEX;
 
   // ------------------------------------------------------------------------
@@ -59,20 +62,40 @@ public class DBFactory {
   //   1146 - Table doesn't exist
   //   
 
+  /** The error code indicating that the database already exists. */
   public static final int SQLERR_DATABASE_EXISTS = 1007;
+  
+  /** The error code indicating that the authorization is invalid. */
   public static final int SQLERR_INVALID_AUTH = 1045;
+  
+  /** The error code indicating that the database is unknown. */
   public static final int SQLERR_UNKNOWN_DATABASE = 1049;
+  
+  /** The error code indicating that one of the columns in the table is unknown. */
   public static final int SQLERR_UNKNOWN_COLUMN = 1054;
+  
+  /** The error code indicating that the key is duplicate. */
   public static final int SQLERR_DUPLICATE_KEY = 1062;
+  
+  /** The error code indicating that there is a statement syntax error. */
   public static final int SQLERR_SYNTAX_ERROR = 1064;
+  
+  /** The error code indicating that the table is not locked. */
   public static final int SQLERR_TABLE_NOTLOCKED = 1100;
+  
+  /** The error code indicating that the table does not exist. */
   public static final int SQLERR_TABLE_NONEXIST = 1146;
 
   // ------------------------------------------------------------------------
 
+  /** A Vector containing all the tables in the database. */
   protected static Vector factoryList = new Vector();
 
-  
+  /**
+   * Gets a table in the database by name. 
+   * @param tableName The name of the table.
+   * @return The table if it exists. Otherwise, return null.
+   */
   public static DBFactory getFactoryByName(String tableName) {
     Print.logDebug("Searching for Factory: " + tableName);
     for (Iterator i = factoryList.iterator(); i.hasNext();) {
@@ -87,20 +110,55 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /** The name of the table. */
   private String tableName = null;
+  
+  /** 
+   * The array containing all the defined columns. These columns 
+   * does not necesserily exist in the table.
+   * 
+   */
   private DBField field[] = null;
+  
+  /** The array containing all the primary keys of the table. */
   private DBField priKeys[] = null;
+  
+  /** The array containing all the alternate keys of the table. */
   private DBField altKeys[] = null;
+  
+  /** The type of a key. */
   private int keyType = KEY_PRIMARY;
+  
+  /** The class of a key. */
   private Class keyClass = null;
+  
+  /** The class of a record. */
   private Class rcdClass = null;
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Creates a table with the tableName, fields, the type of the keys as given
+   * by parameters. The class of record (rcdClass) and the class of the key (keyClass)
+   * are initialized to null.
+   * @param tableName The name of the table.
+   * @param field An array containing all the fields of the table.
+   * @param keyType The type of the key.
+   */
   public DBFactory(String tableName, DBField field[], int keyType) {
     this(tableName, field, keyType, null, null);
   }
 
+  /**
+   * Creates a table with the table name, fields, the type and the class of the keys, and 
+   * the class of record as given by parameters.  This table is then added to the array of 
+   * tables (factoryList) of the database.
+   * @param tableName The name of the table.
+   * @param field An array containing all the fields of the table.
+   * @param keyType The type of the key.
+   * @param rcdClass The class of the record.
+   * @param keyClass The class of the key.
+   */
   public DBFactory(String tableName, DBField field[], int keyType, Class rcdClass, Class keyClass) {
     this.tableName = tableName;
     this.field = field;
@@ -128,6 +186,13 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Gets all the columns currently in a table and puts them in an array.  
+   * Each colum has a name, a type, and whether it is a primary key.
+   * @return An array containing all the columns of the database.
+   * @throws DBException When there are any errors occur in the process
+   *         of getting the columns.  
+   */
   protected DBField[] getTableColumns() throws DBException {
     String showCols = "SHOW COLUMNS FROM " + this.getTableName();
     Statement stmt = null;
@@ -165,6 +230,7 @@ public class DBFactory {
     return (DBField[]) dbf.toArray(new DBField[dbf.size()]);
   }
 
+  
   public boolean validateColumns() {
 
     /* defined columns */
@@ -212,10 +278,21 @@ public class DBFactory {
     return fn;
   }
 
+  /**
+   * Gets all the defined columns.
+   * @return An array containing all the columns in a table.
+   */
   public DBField[] getFields() {
     return this.field;
   }
 
+  /**
+   * Gets the index of a column by name in the array (DBField[]) that contains all the 
+   * defined columns.
+   * @param name The name of the column.
+   * @return The index of the column in the array (DBField[]) containing all the 
+   *         defined columns. If the name of the column is not found, returns -1.
+   */
   public int getFieldIndex(String name) {
     if (name != null) {
       String realName = this.getMappedFieldName(name);
@@ -229,11 +306,20 @@ public class DBFactory {
     return -1;
   }
 
+  /**
+   * Gets a defined column by name. 
+   * @param name The name of the column.
+   * @return The specified column. If the column does not exist, returns null.
+   */
   public DBField getField(String name) {
     int x = this.getFieldIndex(name);
     return (x >= 0) ? this.getFields()[x] : null;
   }
 
+  /**
+   * Gets the names of all defined columns and saves them to a String array.
+   * @return A String array containing the names of all columns in the table.
+   */
   public String[] getFieldNames() {
     DBField f[] = this.getFields();
     String fn[] = new String[f.length];
@@ -243,6 +329,7 @@ public class DBFactory {
     return fn;
   }
 
+  
   public DBField[] getFieldsWithBoolean(String key, boolean value) {
     Vector af = new Vector();
     for (int i = 0; i < this.field.length; i++) {
