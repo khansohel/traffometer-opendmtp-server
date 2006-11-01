@@ -120,10 +120,10 @@ public class DBFactory {
    */
   private DBField field[] = null;
   
-  /** The array containing all the primary keys of the table. */
+  /** The array containing all the columns whose keys are primary keys of the table. */
   private DBField priKeys[] = null;
   
-  /** The array containing all the alternate keys of the table. */
+  /** The array containing all the columns whose keys are alternate keys of the table. */
   private DBField altKeys[] = null;
   
   /** The type of a key. */
@@ -230,7 +230,19 @@ public class DBFactory {
     return (DBField[]) dbf.toArray(new DBField[dbf.size()]);
   }
 
-  
+  /**
+   * Checks to see if the defined columns matches the columns currently in the
+   * table. First, it checks to see if the number of defined columns is the same
+   * of the number of columns in the table. Then it column individually. This 
+   * method may have a BUG. When comparing columns individually, it assumes that 
+   * the two array, one containing defined columns and one containing columns in 
+   * the table, are sorted. If they were sorted, the method works as expected. 
+   * Otherwise, the method does not work as expected. This can be fixed by sorting
+   * the two array before comparing them.
+   * @return False if the number of defined column differs from the number of 
+   * column currently in the table or if the name of the columns between the two 
+   * are different. Otherwise, returns true.
+   */
   public boolean validateColumns() {
 
     /* defined columns */
@@ -340,6 +352,17 @@ public class DBFactory {
     return (DBField[]) af.toArray(new DBField[af.size()]);
   }
 
+  /**
+   * Gets all defined columns and puts them to an array of type DBField[]. 
+   * The difference between this and the getField method is that this method's
+   * parameter is an array containing all column names. The parameter of the
+   * getField accepts only a single name as its parameter. If the name is invalid,
+   * no column will be returned. Thus, the size of the returned array may be less 
+   * the size of the parameter array.
+   * @param fieldNames An array containing all column names.
+   * @return An array containing all defined columns whose names (valid names) are specified in
+   * specified in the parameter.
+   */
   public DBField[] getNamedFields(String fieldNames[]) {
     Vector fields = new Vector();
     for (int i = 0; i < fieldNames.length; i++) {
@@ -356,10 +379,20 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Gets all of the columns whose keys are the primary keys in the table.
+   * @return A DBField array containing columns whose keys are primar keys
+   * in the table.
+   */
   public DBField[] getKeyFields() {
     return this.priKeys; // should never be null
   }
 
+  /**
+   * Gets the names of the columns whose keys are the primary keys in the table.
+   * @return A String array containing the names of the columns whose keys are
+   * primary keys in the table.
+   */
   public String[] getKeyNames() {
     DBField f[] = this.getKeyFields();
     String kn[] = new String[f.length];
@@ -369,6 +402,11 @@ public class DBFactory {
     return kn;
   }
 
+  /**
+   * Gets the names of the columns whose keys are the primary keys in the table. 
+   * @return A string containing all the names of the colums whose keys are
+   * the primary keys in the table. Names are delimited by commas.
+   */
   public String getSelectKeyNames() {
     DBField f[] = this.getKeyFields();
     StringBuffer sb = new StringBuffer();
@@ -381,10 +419,19 @@ public class DBFactory {
     return sb.toString();
   }
 
+  
   public String getKeyType() {
     return DBFactory.getKeyTypeName(this.keyType);
   }
 
+  /**
+   * Gets the type of a key. A type can be primary, unique, or index. 
+   * The type is unknown when it is not one of the three types mentioned.
+   * @param type The number corresponding to a specific type (1 for primary,
+   * 2 for unique, and 3 for index).
+   * @return The type of the key. Returns "UNKNOWN" if it is not one of the 
+   * three types mentioned.
+   */
   public static String getKeyTypeName(int type) {
     switch (type) {
     case KEY_PRIMARY:
@@ -398,6 +445,7 @@ public class DBFactory {
     }
   }
 
+  
   public Class getKeyClass() {
     return this.keyClass;
   }
