@@ -29,7 +29,7 @@ package org.opendmtp.util;
 
 
 /**
- * GPS latitude/longitude and algorithms to operate on such.
+ * Provides GPS latitude/longitude and algorithms to operate on such.
  * @author Martin D. Flynn
  *
  */
@@ -38,122 +38,125 @@ public class GeoPoint implements Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Boolean value indicating whether or not Haversine Distance Formula should be used.
+   * Contains a boolean value indicating whether or not Haversine Distance Formula should be used.
    */
   private static boolean UseHaversineDistanceFormula = true;
 
   // ------------------------------------------------------------------------
 
   /**
-   * Constant value for epsilon. 
+   * Contains a constant value for epsilon. 
    */
   protected static final double EPSILON = 1.0E-7;
 
   /**
-   * Constant value for the maximum latitude. 
+   * Contains a constant value for the maximum latitude. 
    */
   public static final double MAX_LATITUDE = 90.0;
+  
   /**
-   * Constant value for the minimum latitude.
+   * Contains a constant value for the minimum latitude.
    */
   public static final double MIN_LATITUDE = -90.0;
 
   /**
-   * Constant value for the maximum longitude.
+   * Contains a constant value for the maximum longitude.
    */
   public static final double MAX_LONGITUDE = 180.0;
   /**
-   *Constant value for the minimum longitude. 
+   * Contains a constant value for the minimum longitude. 
    */
   public static final double MIN_LONGITUDE = -180.0;
 
   /**
-   * String separator for latitude/longitude values. 
+   * Contains a string separator for latitude/longitude values. 
    */
   public static final String PointSeparator = "/";
 
   // ------------------------------------------------------------------------
 
   /**
-   * The type mask format.
+   * Contains the type mask format.
    */
   public static final int FORMAT_TYPE_MASK = 0x0F; // format type mask
   /**
-   * The decimal format.
+   * Contains the decimal format.
    */
   public static final int FORMAT_DEC = 0x01; // decimal format
   /**
-   * The decimal name format.
+   * Contains the decimal name format.
    */
   public static final String FORMAT_DEC_NAME = "Decimal"; // decimal format
   /**
-   * The dms (degrees, minutes, seconds) format.
+   * Contains the dms (degrees, minutes, seconds) format.
    */
   public static final int FORMAT_DMS = 0x02; // DMS format
   /**
-   * The dms (degrees, minutes, seconds) name format.
+   * Contains the dms (degrees, minutes, seconds) name format.
    */
   public static final String FORMAT_DMS_NAME = "Deg/Min/Sec"; // DMS format
   /**
-   * The axis mask format.
+   * Contains the axis mask format.
    */
   public static final int FORMAT_AXIS_MASK = 0xF0; // axis mask
   /**
-   * The latitude format.
+   * Contains the latitude format.
    */
   public static final int FORMAT_LATITUDE = 0x10; // latitude
   /**
-   * The longitude format.
+   * Contains the longitude format.
    */
   public static final int FORMAT_LONGITUDE = 0x20; // longitude
 
   /**
-   * The full name for north.
+   * Contains the full name for north.
    */
   public static final String NORTH_NAME = "North";
   /**
-   * Abbreviation for north.
+   * Contains the abbreviation for north.
    */
   public static final String NORTH_ABBR = "N";
   /**
-   * The full name for south.
+   * Contains the full name for south.
    */
   public static final String SOUTH_NAME = "South";
   /**
-   * Abbreviation for south.
+   * Contains the abbreviation for south.
    */
   public static final String SOUTH_ABBR = "S";
   /**
-   * The full name for east.
+   * Contains the full name for east.
    */
   public static final String EAST_NAME = "East";
   /**
-   * Abbreviation for east.
+   * Contains the abbreviation for east.
    */
   public static final String EAST_ABBR = "E";
   /**
-   * The full name for west.
+   * Contains the full name for west.
    */
   public static final String WEST_NAME = "West";
+  
   /**
-   * Abbreviation for west. 
+   * Contains the abbreviation for west. 
    */
   public static final String WEST_ABBR = "W";
 
   /**
-   * Abbreviation for north-east. 
+   * Contains the abbreviation for north-east. 
    */
   public static final String NE_ABBR = NORTH_ABBR + EAST_ABBR;
+  
   /**
-   * Abbreviation for norht-west.
+   * Contains the abbreviation for norht-west.
    */
   public static final String NW_ABBR = NORTH_ABBR + WEST_ABBR;
   /**
-   * Abbreviation for south-east.
+   * Contains the abbreviation for south-east.
    */
   public static final String SE_ABBR = SOUTH_ABBR + EAST_ABBR;
   /**
-   * Abbreviation for south-west.
+   * Contains the abbreviation for south-west.
    */
   public static final String SW_ABBR = SOUTH_ABBR + WEST_ABBR;
 
@@ -176,116 +179,116 @@ public class GeoPoint implements Cloneable {
   // http://mathforum.org/library/drmath/view/52070.html
 
   /**
-   * The value of PI.
+   * Contains the value of PI.
    */
   public static final double PI = Math.PI;
   /**
-   * Radians conversion factor.
+   * Contains the radians conversion factor.
    */
   public static final double RADIANS = PI / 180.0;
   /**
-   * Radius of the earth in km at the equator.
+   * Contains the radius of the earth in km at the equator.
    */
   public static final double EARTH_EQUATORIAL_RADIUS_KM = 6378.1370; // Km: a
   /**
-   * Polar radius of the earth in km.
+   * Contains the polar radius of the earth in km.
    */
   public static final double EARTH_POLOR_RADIUS_KM = 6356.752314; // Km: b
   /**
-   * Earth's mean radius in km. 
+   * Contains the earth's mean radius in km. 
    */
   public static final double EARTH_MEAN_RADIUS_KM = 6371.0088; // Km: (2a + b)/3
 
   /**
-   * The number of feet in one mile.
+   * Contains the number of feet in one mile.
    */
   public static final double FEET_PER_MILE = 5280.0;
   /**
-   * The ratio of miles per kilometer.
+   * Contains the ratio of miles per kilometer.
    */
   public static final double MILES_PER_KILOMETER = 0.621371192;
   /**
-   * The ratio of kilometers per mile.
+   * Contains the ratio of kilometers per mile.
    */
   public static final double KILOMETERS_PER_MILE = 1.0 / MILES_PER_KILOMETER; // 1.609344
   /**
-   * The ratio of meters per feet.
+   * Contains the ratio of meters per feet.
    */
   public static final double METERS_PER_FOOT = 0.3048;
   /**
-   * The ratio of feet per meter.
+   * Contains the ratio of feet per meter.
    */
   public static final double FEET_PER_METER = 1.0 / METERS_PER_FOOT; // 3.280839895;
   /**
-   * The ratio of feet per kilometer.
+   * Contains the ratio of feet per kilometer.
    */
   public static final double FEET_PER_KILOMETER = FEET_PER_METER * 1000.0; // 3280.84
   /**
-   * The ratio of nautical miles per kilometer.
+   * Contains the ratio of nautical miles per kilometer.
    */
   public static final double NAUTICAL_MILES_PER_KILOMETER = 0.539956803;
   /**
-   * The ratio of kilometers per nautical miles.
+   * Contains the ratio of kilometers per nautical miles.
    */
   public static final double KILOMETERS_PER_NAUTICAL_MILE = 1.0 / NAUTICAL_MILES_PER_KILOMETER;
   /**
-   * The ratio of meters per mile.
+   * Contains the ratio of meters per mile.
    */
   public static final double METERS_PER_MILE = METERS_PER_FOOT * FEET_PER_MILE; // 1609.344
 
   /**
-   * Stores a value identifying kilometers units.
+   * Contains a value identifying kilometers units.
    */
   public static final int KILOMETERS = 0;
   /**
-   * The constant name for kilometers.
+   * Contains the constant name for kilometers.
    */
   public static final String KILOMETERS_NAME = "KILOMETERS";
   /**
-   * Stores a value identifying meters units.
+   * Contains a value identifying meters units.
    */
   public static final int METERS = 1;
   /**
-   * The constant name for meters.
+   * Contains the constant name for meters.
    */
   public static final String METERS_NAME = "METERS";
   /**
-   * Stores a value identifying miles units.
+   * Contains a value identifying miles units.
    */
   public static final int MILES = 2;
   /**
-   * The constant name for miles.
+   * Contains the constant name for miles.
    */
   public static final String MILES_NAME = "MILES";
   /**
-   * Stores a value identifying feet units.
+   * Contains a value identifying feet units.
    */
   public static final int FEET = 3;
   /**
-   * The constant name for feet.
+   * Contains the constant name for feet.
    */
   public static final String FEET_NAME = "FEET";
   /**
-   * Stores a value identifying nautical miles units.
+   * Contains a value identifying nautical miles units.
    */
   public static final int NAUTICAL_MILES = 4;
   /**
-   * The constant name for nautical miles.
+   * Contains the constant name for nautical miles.
    */
   public static final String NAUTICAL_MILES_NAME = "NAUTICAL_MILES";
 
   // ------------------------------------------------------------------------
 
   /**
-   * Units name abbreviation for kilometers per hour.
+   * Contains the units name abbreviation for kilometers per hour.
    */
   public static final String SPEED_KPH = "kph";
   /**
-   * Units name abbreviation for miles per hour.
+   * Contains the units name abbreviation for miles per hour.
    */
   public static final String SPEED_MPH = "mph";
   /**
-   * Units name for knots.
+   * Contains the units name for knots.
    */
   public static final String SPEED_KNOTS = "knots";
 
@@ -310,15 +313,15 @@ public class GeoPoint implements Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Units for distance in kilometers. 
+   * Contains the units for distance in kilometers. 
    */
   public static final String DISTANCE_KM = "km";
   /**
-   * Units for distance in miles.
+   * Contains the units for distance in miles.
    */
   public static final String DISTANCE_MILES = "miles";
   /**
-   * Units for distance in knots.
+   * Contains the units for distance in knots.
    */
   public static final String DISTANCE_KNOTS = "knots"; // for distance?
 
@@ -343,22 +346,22 @@ public class GeoPoint implements Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Stores the latitude value for the GeoPoint.
+   * Contains the latitude value for the GeoPoint.
    */
   private double latitude = 0.0;
   /**
-   * Stores the longitude value for the GeoPoint.
+   * Contains the longitude value for the GeoPoint.
    */
   private double longitude = 0.0;
 
   /**
-   *  Default constructor, does nothing.
+   *  Constructs a default instance of GeoPoint.
    */
   public GeoPoint() {
   }
 
   /**
-   * Copy constructor, copies values from gp to the new GeoPoint.
+   * Constructs an instance of GeoPoint by copying values from gp to the new GeoPoint.
    * @param gp The GeoPoint to be copied.
    */
   public GeoPoint(GeoPoint gp) {
@@ -368,7 +371,7 @@ public class GeoPoint implements Cloneable {
   }
 
   /**
-   * Constructor with parameters for latitude and longitude, this constructor creates a new GeoPoint with the corresponding values for latitude and longitude.
+   * Constructs an instance of GeoPoint with the corresponding values for latitude and longitude.
    * @param latitude A value for latitude.
    * @param longitude A value for longitude.
    */
@@ -379,7 +382,7 @@ public class GeoPoint implements Cloneable {
   }
 
   /**
-   * Constructor with parameters for latitude and longitude in DMS (degrees, minutes, seconds) format, this constructor creates a new GeoPoint with the corresponding values for latitude and longitude.
+   * Constructs an instance of GeoPoint with the corresponding dms (degrees, minutes seconds) values for latitude and longitude.
    * @param latDeg Degrees of the latitude.
    * @param latMin Minutes of the latitude.
    * @param latSec Seconds of the latitude.
@@ -397,7 +400,7 @@ public class GeoPoint implements Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Determines if the GeoPoint is valid. 
+   * Checks if the GeoPoint is valid. 
    * <br>The GeoPoint must be reasonably far from 0 lat, 0 long, and cannot exceed maximum latitude and longitudes to be valid.
    * @return True if the GeoPoint is valid, false otherwise.
    */
@@ -548,15 +551,15 @@ public class GeoPoint implements Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * The value 2 to the power of 24. 
+   * Contains the value 2 to the power of 24. 
    */
   private static final double POW_24 = 16777216.0; // 2^24
   /**
-   * The value 2 to the power of 28.
+   * Contains the value 2 to the power of 28.
    */
   private static final double POW_28 = 268435456.0; // 2^28
   /**
-   * The value 2 to the power of 32.
+   * Contains the value 2 to the power of 32.
    */
   private static final double POW_32 = 4294967296.0; // 2^32
 
