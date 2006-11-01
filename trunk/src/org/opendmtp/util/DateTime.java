@@ -38,7 +38,7 @@ import java.util.TimeZone;
 
 /**
  * 
- * Provides Date Time utilities.
+ * Provides useful date/time utilities.
  * 
  * @author Martin D. Flynn
  * @author Pavel V. Senin
@@ -87,7 +87,7 @@ public class DateTime implements Comparable, Cloneable {
    */
   public static final long SECONDS_PER_DAY = MINUTES_PER_DAY * SECONDS_PER_MINUTE;
   /**
-   * Number of minits within one week.
+   * Number of minutes within one week.
    */
   public static final long MINUTES_PER_WEEK = DAYS_PER_WEEK * MINUTES_PER_DAY;
 
@@ -228,7 +228,7 @@ public class DateTime implements Comparable, Cloneable {
   public static final int DECEMBER = DEC;
 
   /**
-   * Monthes names constant array.
+   * Months names constant array.
    */
   private static final String MONTH_NAME[][] = { { "January", "Jan" }, { "February", "Feb" },
       { "March", "Mar" }, { "April", "Apr" }, { "May", "May" }, { "June", "Jun" },
@@ -255,7 +255,7 @@ public class DateTime implements Comparable, Cloneable {
    * Returns all month names as array.
    * 
    * @param abbrev specifies which names to return, full or short ones.
-   * @return array containing monthes names.
+   * @return array containing Months names.
    */
   public static String[] getMonthNames(boolean abbrev) {
     String mo[] = new String[MONTH_NAME.length];
@@ -269,7 +269,7 @@ public class DateTime implements Comparable, Cloneable {
    * Returns all month names as Map with month names as keys and numeric values as mapped objects.
    * 
    * @param abbrev specifies which names to return, full or short ones.
-   * @return map containing monthes names.
+   * @return map containing Months names.
    */
   public static Map getMonthNameMap(boolean abbrev) {
     Map map = new OrderedMap();
@@ -282,7 +282,7 @@ public class DateTime implements Comparable, Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Specifies number of days within specific monthes.
+   * Specifies number of days within specific month.
    */
   private static final int MONTH_DAYS[] = { 31, // Jan
       29, // Feb
@@ -324,60 +324,60 @@ public class DateTime implements Comparable, Cloneable {
   }
 
   /**
-   * Numeric cinstant for Sunday.
+   * Numeric constant for Sunday.
    */
   public static final int SUN = 0;
   /**
-   * Numeric cinstant for Monday.
+   * Numeric constant for Monday.
    */
   public static final int MON = 1;
   /**
-   * Numeric cinstant for Tuesday.
+   * Numeric constant for Tuesday.
    */
   public static final int TUE = 2;
   /**
-   * Numeric cinstant for Wednesday.
+   * Numeric constant for Wednesday.
    */
   public static final int WED = 3;
   /**
-   * Numeric cinstant for Thursday.
+   * Numeric constant for Thursday.
    */
   public static final int THU = 4;
   /**
-   * Numeric cinstant for Friday.
+   * Numeric constant for Friday.
    */
   public static final int FRI = 5;
   /**
-   * Numeric cinstant for Saturday.
+   * Numeric constant for Saturday.
    */
   public static final int SAT = 6;
 
   /**
-   * Numeric cinstant for Sunday.
+   * Numeric constant for Sunday.
    */
   public static final int SUNDAY = SUN;
   /**
-   * Numeric cinstant for Monday.
+   * Numeric constant for Monday.
    */
   public static final int MONDAY = MON;
   /**
-   * Numeric cinstant for Tuesday.
+   * Numeric constant for Tuesday.
    */
   public static final int TUESDAY = TUE;
   /**
-   * Numeric cinstant for Wednesday.
+   * Numeric constant for Wednesday.
    */
   public static final int WEDNESDAY = WED;
   /**
-   * Numeric cinstant for Thursday.
+   * Numeric constant for Thursday.
    */
   public static final int THURSDAY = THU;
   /**
-   * Numeric cinstant for Friday.
+   * Numeric constant for Friday.
    */
   public static final int FRIDAY = FRI;
   /**
-   * Numeric cinstant for Saturday.
+   * Numeric constant for Saturday.
    */
   public static final int SATURDAY = SAT;
 
@@ -1214,7 +1214,7 @@ public class DateTime implements Comparable, Cloneable {
   }
 
   /**
-   * Stes time zone.
+   * Sets time zone.
    * 
    * @param tz time zone to set.
    */
