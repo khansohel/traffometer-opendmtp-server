@@ -82,8 +82,7 @@ public class DBField
      * instance of the DBField.  The properties of the
      * passed DBField are then copied to the private
      * data values of the constructed DBField.
-     * @param DBField Another instance of the DBField
-     * for the purposes of making a copy.
+     * @param other Another instance of the DBField class.
      */
     public DBField(DBField other)
     {
@@ -175,7 +174,7 @@ public class DBField
     /**
      * Returns a boolean true if the field is flagged as
      * being an primary key and false otherwise.
-     * @return
+     * @return boolean True if a primary key, false otherwise.
      */
     public boolean isPriKey()
     {
@@ -185,7 +184,7 @@ public class DBField
     /**
      * Returns a boolean true if the field is flagged as
      * being an alternate key and false otherwise.
-     * @return
+     * @return boolean True is an alternate key, false otherwise.
      */
     public boolean isAltKey()
     {
@@ -212,7 +211,7 @@ public class DBField
     
     /**
      * Getter method returning the private dataType value.
-     * @return
+     * @return String dataType.
      */
     public String getDataType()
     {

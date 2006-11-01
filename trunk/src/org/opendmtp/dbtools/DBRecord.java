@@ -46,9 +46,9 @@ import org.opendmtp.util.StringTools;
 //import javax.servlet.http.*;
 
 /**
- * The <code>DBRecord</code> class defines a database record
+ * Defines a database record
  * value along with all necessary methods to keep track of
- * the any changes to the record.  This includes metadata,
+ * any changes to the record.  This includes metadata,
  * locking methods to ensure integrity of the data.
  * 
  * @author Josh
@@ -128,8 +128,9 @@ public abstract class DBRecord
     }
 
     /**
-     * <code>DBRecord</code> constructor taking an instance of the
-     * <code>DBRecordKey</code> class as a parameter.
+     * DBRecord constructor taking an instance of the
+     * DBRecordKey class as a parameter.  Instantiates
+     * the current record to the record passed.
      * 
      * @param key instance of the DBRecordKey class.
      */
