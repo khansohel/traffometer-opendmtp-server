@@ -34,8 +34,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * This class provides a way to invoke an object's methods by name.  This object can even be used
- * to run the named method of the target object in a new thread.
+ * Provides a way to invoke an object method by name.  Can be used to run the named method of the
+ * target object in a new thread.
  * @author Martin D. Flynn
  * @author Mark Stillwell
  */
@@ -64,8 +64,8 @@ public class MethodAction implements ActionListener, Runnable {
   // args : method arguments (or null of no arguments)
 
   /**
-   * Creates a new MethodAction object that can be used to run the method of the given name of the 
-   * given object in a new thread.
+   * Creates a new MethodAction object that can be used to invoke the method of the given name of
+   * the given object.
    * @param targ an object
    * @param methName the name of a method of the given object
    * @throws ClassNotFoundException if the class of the given object can not be found
@@ -77,8 +77,8 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Creates a new MethodAction object that can be used to run the method with the given name and
-   * argument types of the given object in a new thread.
+   * Creates a new MethodAction object that can be used to invoke the method with the given name and
+   * argument types of the given object.
    * @param targ an object
    * @param methName the name of a method of the given object
    * @param argClass an array of the argument types of the given method
@@ -91,8 +91,8 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Creates a new MethodAction object that can be used to run the method with the given name and 
-   * argument types of the given object using arguments of the given values in a new thread.
+   * Creates a new MethodAction object that can be used to invoke the method with the given name and 
+   * argument types of the given object using arguments of the given values.
    * @param targ an object
    * @param methName the name of a method of the given object
    * @param argClass an array of the argument types of the method
@@ -121,7 +121,7 @@ public class MethodAction implements ActionListener, Runnable {
   // ------------------------------------------------------------------------
 
   /**
-   * Returns a MethodAction object that can by used to run the get method for the field with
+   * Returns a MethodAction object that can by used to invoke the get method for the field with
    * the given name of the given object.
    * @param targ an object with a field of the given name
    * @param fieldName the name of a field
@@ -136,13 +136,13 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Returns a string derived from the return value of the get method of the field with the
-   * given name in the given object.
+   * Returns a string derived from the return value of the get accessor method of the field with the
+   * given name of the given object.
    * @param targ an object
    * @param fieldName the name of a field of the given object
    * @return a string derived from the value of the field of the given object with the given name
    * @throws ClassNotFoundException if the class of the given object can not be found
-   * @throws NoSuchMethodException if the object does not have an accessor method for the field
+   * @throws NoSuchMethodException if the object does not have a get accessor method for the field
    * @throws Throwable if the invoked accessor method throws something
    */
   public static String InvokeGetter(Object targ, String fieldName) 
@@ -151,13 +151,13 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Returns a MethodAction object that can by used to run the set method for the field with
-   * the given name of the given object.
+   * Returns a MethodAction object that can by used to invoke the set accessor method for the field 
+   * with the given name of the given object.
    * @param targ an object with a field of the given name
    * @param fieldName the name of a field
    * @return a MethodAction object
    * @throws ClassNotFoundException if the class of the given object can not be found
-   * @throws NoSuchMethodException if the given class does not have a method with the given name
+   * @throws NoSuchMethodException if the object does not have a set accessor method for the field
    */
   public static MethodAction SetterMethod(Object targ, String fieldName)
       throws NoSuchMethodException, ClassNotFoundException {
@@ -166,13 +166,13 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Invokes the set method of the field with the given name in the given object, passing a string
-   * representing the value to set.
+   * Invokes the set accessor method of the field with the given name in the given object, passing a
+   * string representing the value to set.
    * @param targ an object
    * @param fieldName the name of a field of the given object
-   * @param value a string representing the value to set the field with the given name to
+   * @param value a string representing the value to set the field with the given name
    * @throws ClassNotFoundException if the class of the given object can not be found
-   * @throws NoSuchMethodException if the object does not have an accessor method for the field
+   * @throws NoSuchMethodException if the object does not have a set accessor method for the field
    * @throws Throwable if the invoked accessor method throws something
    */
   public static void InvokeSetter(Object targ, String fieldName, String value)
@@ -181,9 +181,9 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Returns a string created by capitalizing the first letter of fieldName appending it to prefix.
-   * If prefix is "get" or "set" and fieldName is the name of a private field of a javabean, then 
-   * the return value is the name of a standard javabean accessor method. 
+   * Returns a string created by capitalizing the first letter of fieldName and appending it to 
+   * prefix. If prefix is "get" or "set" and fieldName is the name of a private field of a javabean, then 
+   * then the return value is the name of a standard javabean accessor method. 
    * @param prefix the string prefix
    * @param fieldName the name of the field of a javabean
    * @return the name of an accessor method for the field with the given name
@@ -206,8 +206,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Sets the arguments to the method of the target object which can be invoked by this 
-   * MethodAction object.
+   * Sets the arguments to the target method of the target object.
    * @param args an array of argument values
    */
   public void setArgs(Object args[]) {
@@ -215,8 +214,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Gets the current arguments to the method of the target object which can be invoked by this 
-   * MethodAction object.
+   * Gets the current arguments to the target method of the target object.
    * @return an array of argument values
    */
   public Object[] getArgs() {
@@ -226,8 +224,7 @@ public class MethodAction implements ActionListener, Runnable {
   // ------------------------------------------------------------------------
 
   /**
-   * Invokes the method of the target object which can be invoked by this MethodAction object using
-   * the given arguments.
+   * Invokes the target method of the target object using the given arguments.
    * @param args an array of argument values
    * @return the return value of the target method of the target object
    * @throws Throwable if the invoked method throws something
@@ -238,7 +235,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Invokes the method of the target object which can be invoked by this MethodAction object.
+   * Invokes the target method of the target object.
    * @return the return value of the invoked method
    * @throws Throwable if the invoked method throws something
    */
@@ -269,7 +266,7 @@ public class MethodAction implements ActionListener, Runnable {
 
   /**
    * Returns the last return value of the invoked method of the target object. Returns null if the
-   * method has not been invoked.   
+   * target method has not been invoked.   
    * @return the return value of the invoked method
    */
   public Object getReturnValue() {
@@ -305,7 +302,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Causes runnable to have its run method called in the dispatch thread of the EventQueue. 
+   * Causes runnable to have its run method invoked in the dispatch thread of the EventQueue. 
    * This will happen after all pending events are processed.
    * @param r a runnable object
    */
@@ -314,7 +311,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Causes runnable to have its run  method called in the dispatch thread of the EventQueue. 
+   * Causes runnable to have its run  method invoked in the dispatch thread of the EventQueue. 
    * This will happen after all pending events are processed.  This call blocks until this has 
    * happened.  This method will throw an Error if called from the event dispatcher thread.
    * @param r a runnable object
@@ -328,14 +325,14 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Causes this object to have its run  method called in the dispatch thread of the EventQueue. 
+   * Causes this object to have its run method invoked in the dispatch thread of the EventQueue. 
    */
   public void invokeLater() {
     MethodAction.invokeLater(this);
   }
 
   /**
-   * Causes this object to have its run  method called in the dispatch thread of the EventQueue. 
+   * Causes this object to have its run  method invoked in the dispatch thread of the EventQueue. 
    * This will happen after all pending events are processed.  This call blocks until this has 
    * happened.  This method will throw an Error if called from the event dispatcher thread.
    * @throws InterruptedException if another thread has interrupted this thread
@@ -346,7 +343,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Invokes the target method of the target object when a Thread runs this object.
+   * Invokes the target method of the target object.
    */
   public void run() {
     try {
