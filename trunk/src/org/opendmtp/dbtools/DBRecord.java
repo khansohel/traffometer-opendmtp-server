@@ -51,7 +51,7 @@ import org.opendmtp.util.StringTools;
  * any changes to the record.  This includes metadata,
  * locking methods to ensure integrity of the data.
  * 
- * @author Josh
+ * @author Martin D. Flynn, Joshua Stupplebeen
  */
 public abstract class DBRecord
 {
@@ -180,7 +180,7 @@ public abstract class DBRecord
      * class with no input values.  If the input value is
      * null getFactory returns null.
      * 
-     * @param dbr DBRecord
+     * @param dbr DBRecord to retrieve DBFactory.
      * @return returns an instance of the DBFactory class,
      * or null.
      */
@@ -230,7 +230,7 @@ public abstract class DBRecord
      * data fields.  The maximum size of the array is the integer max.
      * @param fact DBFactory
      * @param rs ResultSet
-     * @param max int
+     * @param max Max size of the array.
      * @return returns an array of DBRecords
      * @throws MethodNotFoundException
      */
@@ -273,9 +273,9 @@ public abstract class DBRecord
     /**
      * Selects an array of DBRecords by calling the DBRecord select
      * method, passing the parameters:  (DBFactory,String,null).
-     * @param fact DBFactory
-     * @param where String
-     * @return returns an array of DBRecords
+     * @param fact DBFactory.
+     * @param where Table name.
+     * @return returns an array of DBRecords.
      */
     protected static DBRecord[] select(DBFactory fact, String where)
         throws DBException
@@ -286,11 +286,11 @@ public abstract class DBRecord
     /**
      * Selects an array of DBRecords, modeling the common SQL statement
      * SELECT, FROM, WHERE.  
-     * @param fact
-     * @param where
-     * @param addtnlSel
+     * @param fact DBFactory.
+     * @param where Table name.
+     * @param addtnlSel String.
      * @return returns an array of DBRecords
-     * @throws DBException
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     protected static DBRecord[] select(DBFactory fact, String where, String addtnlSel)
         throws DBException
@@ -392,7 +392,7 @@ public abstract class DBRecord
     /**
      * Returns the boolean value indicating whether the current
      * record has been changed since the last iteration.
-     * @return boolean
+     * @return boolean Determines if the current record has changed.
      */
     public boolean hasChanged()
     {
@@ -414,9 +414,9 @@ public abstract class DBRecord
     /**
      * Sets the changed flag to true for the fieldName passed as a parameter.
      * 
-     * @param fieldName
-     * @param oldVal
-     * @param newVal
+     * @param fieldName Field name.
+     * @param oldVal Old field value.
+     * @param newVal New field value.
      */
     public void setChanged(String fieldName, Object oldVal, Object newVal)
     {
@@ -458,7 +458,7 @@ public abstract class DBRecord
      * Removes the c1 DBChangeListener from the Vector of
      * changeNotifications.  Does not check to identify if
      * the List contains c1 before calling the removal method.
-     * @param cl
+     * @param cl DBChangeListener.
      */
     public void removeChangedNotification(DBChangeListener cl)
     {
@@ -470,7 +470,7 @@ public abstract class DBRecord
     /**
      * Iterates through the changedNotifications Vector firing a
      * change notification for the fieldName passed.
-     * @param fieldName
+     * @param fieldName Field name.
      */
     public void fireChangeNotification(String fieldName)
     {
@@ -484,7 +484,6 @@ public abstract class DBRecord
 
     /**
      * Interface implementing the public fieldChanged method.
-     *
      */
     public static interface DBChangeListener
     {
@@ -497,6 +496,7 @@ public abstract class DBRecord
      * Calls the _reload method to reload the record data from the database.
      * Returns the reloaded DBRecord.
      * Returns null if the key is not found or if a database error occurs.
+     * @return DBRecord The reloaded record data.
      */
     public DBRecord reload()
     {
@@ -514,8 +514,8 @@ public abstract class DBRecord
      * database.  Generates the SELECT->FROM->WHERE, SQL code to reload the
      * record data.  Throws a DBException if the key is not found or if
      * a database error occurs.  Returns the reloaded DBRecord.
-     * @return DBRecord
-     * @throws DBException
+     * @return DBRecord The reloaded record data.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     protected DBRecord _reload()
         throws DBException
@@ -555,8 +555,8 @@ public abstract class DBRecord
      * was updated.
      * Generates the SQL code "ORDER BY" to order the records contained
      * in the table by the latest timestamp.
-     * @param factory DBFactory
-     * @throws DBException
+     * @param factory DBFactory to retrieve update time.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     public static long getLastUpdateTime(DBFactory factory)
         throws DBException
@@ -605,7 +605,7 @@ public abstract class DBRecord
 
     /**
      * Returns the field which was last updated.
-     * @return DBField that was last updated.
+     * @return DBField Field that was last updated.
      */
     public static DBField newField_lastUpdateTime()
     {
@@ -614,7 +614,7 @@ public abstract class DBRecord
 
     /**
      * Returns a long representing the last time the field was updated.
-     * @return long Representing the last update time.
+     * @return long The last update time.
      */
     public long getLastUpdateTime()
     {
@@ -625,7 +625,7 @@ public abstract class DBRecord
     /**
      * Sets the current Field's lastUpdateTime to the
      * long passed as a parameter.
-     * @param time
+     * @param time Current time.
      */
     protected void setLastUpdateTime(long time)
     {
@@ -637,7 +637,7 @@ public abstract class DBRecord
 
     /**
      * Returns a copy of the last DBField to be updated by a user.
-     * @return DBField
+     * @return DBField Updated DBField parameters.
      */
     public static DBField newField_lastUpdateUser()
     {
@@ -647,7 +647,7 @@ public abstract class DBRecord
     /**
      * Returns the last user who updated the current field.
      * If the field has not been updated then the method returns null.
-     * @return String
+     * @return String Last user to update.
      */
     public String getLastUpdateUser()
     {
@@ -658,7 +658,7 @@ public abstract class DBRecord
     /**
      * Sets the last user to update the field to the String passed
      * as a parameter.
-     * @param user
+     * @param user Last user to update.
      */
     public void setLastUpdateUser(String user)
     {
@@ -670,9 +670,10 @@ public abstract class DBRecord
 
     /**
      * Attempts to insert the current Field into the Database table
-     * by calling the _insert method.  Throws a DBException if there is
-     * a duplicate key present or if a database error occurs.
-     * @throws DBException
+     * by calling the _insert method.
+     * 
+     * @throws DBException Throws a DBException if there is a duplicate
+     * key present or if a database error occurs.
      */
     public void insert() throws DBException
     {
@@ -692,10 +693,10 @@ public abstract class DBRecord
     
     /**
      * Generates SQL code to insert the current Field into the
-     * database table.  Throws a DBException if a database error occurs,
-     * and throws an SQLException if an sql error occurs.
-     * @throws SQLException
-     * @throws DBException
+     * database table.
+     * 
+     * @throws SQLException Throws an SQLException if an sql error occurs.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     protected void _insert()
         throws SQLException, DBException
@@ -733,7 +734,7 @@ public abstract class DBRecord
     /**
      * Calls the overridden update(String updFlds[]) method
      * passing a null parameter.
-     * @throws DBException
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     public void update()
         throws DBException
@@ -743,9 +744,9 @@ public abstract class DBRecord
 
     /**
      * Attempts to update the current Field by calling the _update method.
-     * Throws a DBException if a database error occurs.
-     * @param updFlds
-     * @throws DBException
+     * 
+     * @param updFlds Array of fields to update.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     public void update(String updFlds[])
         throws DBException
@@ -762,9 +763,9 @@ public abstract class DBRecord
     /**
      * Attempts to update the current Field values to the current
      * user and the current timestamp.
-     * @param updFlds
-     * @throws SQLException
-     * @throws DBException
+     * @param updFlds Array of fields to update.
+     * @throws SQLException Throws an SQLException if an sql error occurs.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     protected void _update(String updFlds[])
         throws SQLException, DBException
@@ -813,7 +814,7 @@ public abstract class DBRecord
      * Saves the current key and Field configuration by calling the update function
      * if the field exists in the database table, or inserts the field into the
      * table if it does not.
-     * @throws DBException
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     public void save()
         throws DBException
@@ -830,11 +831,11 @@ public abstract class DBRecord
 
     /**
      * Updates the fieldName with the passed String fieldName
-     * and the integer value.  Throws a DBException if there is 
-     * a database error.
+     * and the integer value.
+     * 
      * @param fldName fieldName
-     * @param value int
-     * @throws DBException
+     * @param value int value to update field.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     public void updateField(String fldName, int value)
         throws DBException
@@ -844,11 +845,11 @@ public abstract class DBRecord
 
     /**
      * Updates the fieldName with the passed String fieldName
-     * and long value.  Throws a DBException if there is a
-     * database error.
-     * @param fldName
-     * @param value
-     * @throws DBException
+     * and long value.
+     * 
+     * @param fldName Field name.
+     * @param value Long value to update field.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     public void updateField(String fldName, long value)
         throws DBException
@@ -858,12 +859,11 @@ public abstract class DBRecord
 
     /**
      * Updates the fieldName with the passed String fldName
-     * and String value.  Throws a DBException if there is a
-     * database error.
-     * database error.
-     * @param fldName
-     * @param value
-     * @throws DBException
+     * and String value.
+     * 
+     * @param fldName Field name.
+     * @param value String value to update field.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     public void updateField(String fldName, String value)
         throws DBException
@@ -873,11 +873,11 @@ public abstract class DBRecord
     
     /**
      * Updates the fieldName with the passed String fldname
-     * and String value.  Throws a DBException if there is a
-     * database error.
-     * @param fldName
-     * @param value
-     * @throws DBException
+     * and String value.
+     * 
+     * @param fldName Field name.
+     * @param value String value to update field.
+     * @throws DBException Throws a DBException if a database error occurs.
      */
     protected void _updateField(String fldName, String value)
         throws DBException
@@ -907,6 +907,11 @@ public abstract class DBRecord
     private static int      lockSeq        = 0;
     private static int      unlockSeq      = 0;
 
+    /**
+     * Returns a boolean value indicating if the tables are able
+     * to be locked.
+     * @return boolean Determines if table locking is enabled.
+     */
     public static boolean isTableLockingEnabled()
     {
         if (DBConnection.ALWAYS_NEW_CONNECTION) {
@@ -921,17 +926,31 @@ public abstract class DBRecord
         }
     }
 
+    /**
+     * Returns an int indicating the locklevel.
+     * @return int Locklevel.
+     */
     public static int getLockLevel()
     {
         return lockLevel.size();
     }
 
+    /**
+     * Returns a boolean value indicating if the Record is locked for writing.
+     * @return boolean Determines if the table has been write locked.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public boolean lockWrite()
         throws DBException
     {
         return this.lock(new String[] { this._getFactory().getTableName() }, null);
     }
 
+    /**
+     * Returns a boolean value indicating if the Record is locked for reading.
+     * @return boolean Determines if the table has been read locked.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public boolean lockRead()
         throws DBException
     {
@@ -939,6 +958,14 @@ public abstract class DBRecord
         return this.lock(null, new String[] { this._getFactory().getTableName() });
     }
 
+    /**
+     * Attempts to lock the database table from both reading and writing.
+     * 
+     * @param writeTables Which tables to write lock.
+     * @param readTables Which tables to read lock.
+     * @return boolean Determines if the tables have been locked.
+     * @throws DBException Throws a DBException if there is a database error.
+     */
     public boolean lock(String writeTables[], String readTables[])
         throws DBException
     {
@@ -948,6 +975,14 @@ public abstract class DBRecord
         return DBRecord.lockTables(writeTables, readTables);
     }
 
+    /**
+     * Returns a boolean indicating if the locking of the database table
+     * was successful.
+     * @param writeTables Which tables to write lock.
+     * @param readTables Which tables to read lock.
+     * @return boolean Determines if the tables have been locked.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public static boolean lockTables(String writeTables[], String readTables[])
         throws DBException
     {
@@ -1005,12 +1040,25 @@ public abstract class DBRecord
         
     }
 
+    /**
+     * Attempts to unlock the database Field for reading and writing
+     * by calling the unlockTables method.
+     * 
+     * @return boolean Determines if the tables have been unlocked.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public boolean unlock()
         throws DBException
     {
         return DBRecord.unlockTables();
     }
 
+    /**
+     * Attempts to unlock the database tables for reading and writing.
+     * 
+     * @return boolean Determines if the tables have been unlocked.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public static boolean unlockTables()
         throws DBException
     {
@@ -1043,6 +1091,16 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Generates SQL code to extract the Statement field from the database
+     * table.
+     * 
+     * @param fact DBFactory.
+     * @param where Table name.
+     * @return Statement SQL statement.
+     * @throws SQLException Throws an SQLException if an sql error occurs.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     protected static Statement getStatement(DBFactory fact, String where)
         throws SQLException, DBException
     {
@@ -1054,6 +1112,16 @@ public abstract class DBRecord
         // Note: this returned Statement must be closed when finished
     }
 
+    /**
+     * Executes the SQL statement passed as a string parameter.
+     * Establishes a connection with the server utilizing the
+     * DBConnection class.
+     * 
+     * @param sql
+     * @return Statement
+     * @throws SQLException Throws an SQLException if an sql error occurs.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     protected Statement execute(String sql)
         throws SQLException, DBException
     {
@@ -1061,6 +1129,14 @@ public abstract class DBRecord
         // Note: this returned Statement must be closed when finished
     }
 
+    /**
+     * Executes the SQL update passed as a String parameter.
+     * Establishes a connection with the database utilizing the
+     * DBConnection class.
+     * @param sql SQL statement.
+     * @throws SQLException Throws an SQLException if an sql error occurs.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     protected void executeUpdate(String sql)
         throws SQLException, DBException
     {
@@ -1069,11 +1145,24 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Gets the field value from an OrderedMap utilizing the (fldName, value)
+     * mapping scheme.
+     */
     public Object getFieldValue(String fldName)
     {
         return this.getRecordKey().getFieldValues().getFieldValue(fldName);
     }
 
+    /**
+     * If the field object is of boolean type its value is returned,
+     * if it is of number type the method returns true if the number
+     * does not equal zero and false if it does.  If the object is
+     * neither of these types the boolean value dft is returned (default).
+     * @param fldName Field name.
+     * @param dft Default boolean value.
+     * @return boolean Field boolean value.
+     */
     public boolean getFieldValue(String fldName, boolean dft)
     {
         Object obj = this.getRecordKey().getFieldValues().getFieldValue(fldName);
@@ -1087,24 +1176,52 @@ public abstract class DBRecord
         }
     }
 
+    /**
+     * Attempts to return the int value of the field object if it is a number,
+     * else the method returns the int dft (default).
+     * @param fldName Field name.
+     * @param dft Default int value.
+     * @return int Field int value.
+     */
     public int getFieldValue(String fldName, int dft)
     {
         Object obj = this.getRecordKey().getFieldValues().getFieldValue(fldName);
         return (obj instanceof Number)? ((Number)obj).intValue() : dft;
     }
 
+    /**
+     * Attempts to return the value of the field object if it is a long, else the
+     * method returns the default long value.
+     * @param fldName Field name.
+     * @param dft Default long value.
+     * @return long Field long value.
+     */
     public long getFieldValue(String fldName, long dft)
     {
         Object obj = this.getRecordKey().getFieldValues().getFieldValue(fldName);
         return (obj instanceof Number)? ((Number)obj).longValue() : dft;
     }
 
+    /**
+     * Attempts to return the value of the field object if it is a float,
+     * else the method returns the default float value.
+     * @param fldName Field name.
+     * @param dft Default float value.
+     * @return float Field float value.
+     */
     public float getFieldValue(String fldName, float dft)
     {
         Object obj = this.getRecordKey().getFieldValues().getFieldValue(fldName);
         return (obj instanceof Number)? ((Number)obj).floatValue() : dft;
     }
 
+    /**
+     * Attempts to return the value of the field object if it is a double,
+     * else the method returns the default double value.
+     * @param fldName Field name.
+     * @param dft Default double value.
+     * @return double Field double value.
+     */
     public double getFieldValue(String fldName, double dft)
     {
         Object obj = this.getRecordKey().getFieldValues().getFieldValue(fldName);
@@ -1113,31 +1230,62 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Sets the field's value to the typeless value passed.
+     * @param fldName Field name.
+     * @param value Object value.
+     */
     public void setFieldValue(String fldName, Object value)
     {
         this.getRecordKey().getFieldValues().setFieldValue(fldName, value);
     }
 
+    /**
+     * Sets the field's value to the int value passed.
+     * @param fldName Field name.
+     * @param value int value.
+     */
     public void setFieldValue(String fldName, int value)
     {
         this.getRecordKey().getFieldValues().setFieldValue(fldName, value);
     }
 
+    /**
+     * Sets the field's value to the long value passed.
+     * @param fldName Field name.
+     * @param value long value.
+     */
     public void setFieldValue(String fldName, long value)
     {
         this.getRecordKey().getFieldValues().setFieldValue(fldName, value);
     }
 
+    /**
+     * Sets the field's value to the double value passed.
+     * @param fldName Field name.
+     * @param value Double value.
+     */
     public void setFieldValue(String fldName, double value)
     {
         this.getRecordKey().getFieldValues().setFieldValue(fldName, value);
     }
 
+    /**
+     * Sets the field's value to the boolean value passed.
+     * @param fldName Field Name.
+     * @param value Boolean value.
+     */
     public void setFieldValue(String fldName, boolean value)
     {
         this.getRecordKey().getFieldValues().setFieldValue(fldName, value);
     }
-    
+
+    /**
+     * Sets the field values to the set of field values passed as
+     * a parameter.
+     * @param rs ResultSet containing Record field data.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public void setFieldValues(ResultSet rs) 
         throws DBException
     {
@@ -1153,21 +1301,37 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
     
+    /**
+     * Sets the lastCaughtSQLException to the exception passed.
+     */
     protected void setLastCaughtSQLException(SQLException sqe)
     {
         this.lastSQLException = sqe;
     }
     
+    /**
+     * Clears the lastCaughtSQLException.
+     *
+     */
     public void clearLastCaughtSQLException()
     {
         this.setLastCaughtSQLException(null);
     }
     
+    /**
+     * Returns the lastCaughtSQLException.
+     * @return SQLException lastCaughtSQLException.
+     */
     public SQLException getLastCaughtSQLException()
     {
         return this.lastSQLException;
     }
     
+    /**
+     * Attempts to determine whether the last SQLException was caught.
+     * @param code Integer Error code.
+     * @return boolean Determines whether the last SQLException was caught.
+     */
     public boolean isLastCaughtSQLExceptionErrorCode(int code)
     {
         SQLException sqe = this.getLastCaughtSQLException();
@@ -1183,11 +1347,19 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Sets the isValidating flag to the boolean value passed as a parameter.
+     */
     protected void setValidating(boolean validate)
     {
         this.isValidating = validate;
     }
     
+    /**
+     * Returns the validating flag indicating whether the field is in the
+     * process of validating.
+     * @return boolean isValidating flag.
+     */
     protected boolean isValidating()
     {
         return this.isValidating;
@@ -1195,6 +1367,17 @@ public abstract class DBRecord
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Attempts to determine if the current recordKey is equal to the
+     * key of the object passed as a parameter.
+     * If the object is a DBRecord or if the object is not a subclass
+     * or interface of the current class, the method returns false.
+     * If the current class is a superclass or interface of the object
+     * passed then the keys are compared.
+     * @param obj Object's key compared to the current Record key.
+     * @return boolean Determines if the current key is equal to the object's
+     * key.
+     */
     public boolean equals(Object obj)
     {
         if (!(obj instanceof DBRecord)) {
@@ -1207,6 +1390,10 @@ public abstract class DBRecord
         }
     }
 
+    /**
+     * Converts the current record key to a String.
+     * @return String The current Record Key.
+     */
     public String toString() // what the user sees
     {
         return this.getRecordKey().toString();
@@ -1216,12 +1403,20 @@ public abstract class DBRecord
 
     private static String currentUser = "";
 
+    /**
+     * Determines the name of the current user.
+     * @return String Current user's name.
+     */
     public static String GetCurrentUser()
     {
         if (currentUser == null) { currentUser = ""; }
         return currentUser;
     }
 
+    /**
+     * Sets the current user's name.
+     * @param user Current user's name.
+     */
     public static void SetCurrentUser(String user)
     {
         currentUser = (user != null)? user : "";
@@ -1229,6 +1424,9 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Formats GPS location data returning it as a String.
+     */
     public static String FormatGPS(double location)
     {
         return StringTools.format(location, "#0.#####");
@@ -1236,6 +1434,11 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Creates an instance of the DBRecord class setting the fields according
+     * to the DBRecordKey passed.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     /* package */ static DBRecord _createDBRecord(DBRecordKey rcdKey)
         throws DBException
     {
