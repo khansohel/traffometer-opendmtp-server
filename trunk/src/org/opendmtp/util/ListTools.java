@@ -50,6 +50,7 @@ public class ListTools {
 
   /**
    * Calculates the value for the offset constrained by length.
+   * 
    * @param ofs The offset value.
    * @param length The length value.
    * @return The constrained value of the offset (either less than length or zero).
@@ -68,10 +69,11 @@ public class ListTools {
 
   /**
    * Calculates the value of length constrained by the parameters.
+   * 
    * @param ofs The offset value.
    * @param len A value of length.
    * @param length The length value being constrained.
-   * @return The constrained value for length. 
+   * @return The constrained value for length.
    */
   private static int _constrainLength(int ofs, int len, int length) {
     if (len < 0) {
@@ -89,6 +91,7 @@ public class ListTools {
 
   /**
    * Converts an Object array to a list.
+   * 
    * @param a The Object array.
    * @return The list corresponding to the Object array.
    */
@@ -98,6 +101,7 @@ public class ListTools {
 
   /**
    * Converts an Object array to a list.
+   * 
    * @param a The object array to be converted.
    * @param list Either null or the list ot have the Object array inserted into.
    * @return The list corresponding to the Object array.
@@ -107,12 +111,14 @@ public class ListTools {
   }
 
   /**
-   * Converts an Object array to a list. 
+   * Converts an Object array to a list.
+   * 
    * @param a The object array to be converted.
    * @param ofs An offset value for the Object array.
    * @param len A length value for the Object array.
    * @param list Either null or the list to have the Object array contents inserted into.
-   * @return The list corresponding to the Object array limited by the parameters for offset and length.
+   * @return The list corresponding to the Object array limited by the parameters for offset and
+   *         length.
    */
   public static java.util.List toList(Object a[], int ofs, int len, java.util.List list) {
     java.util.List v = (list != null) ? list : new Vector();
@@ -129,7 +135,8 @@ public class ListTools {
 
   /**
    * Converts an enumeration to a list.
-   * @param e The enumeration to be converted. 
+   * 
+   * @param e The enumeration to be converted.
    * @return The list resulting from the conversion of the enumeration.
    */
   public static java.util.List toList(Enumeration e) {
@@ -138,7 +145,8 @@ public class ListTools {
 
   /**
    * Converts an enumeration to a list.
-   * @param e The enumeration to be converted. 
+   * 
+   * @param e The enumeration to be converted.
    * @param list Either null or the list to have the enumeration contents inserted into.
    * @return The list resulting from the conversion of the enumeration.
    */
@@ -156,6 +164,7 @@ public class ListTools {
 
   /**
    * Converts an iterator to a list.
+   * 
    * @param i The iterator to be converted.
    * @return The list resulting from the conversion of the iterator.
    */
@@ -165,6 +174,7 @@ public class ListTools {
 
   /**
    * Converts an iterator to a list.
+   * 
    * @param i The iterator to be converted.
    * @param list Either null or the list to have the iterator's contents inserted into.
    * @return The list resulting from the conversion of the iterator.
@@ -183,6 +193,7 @@ public class ListTools {
 
   /**
    * Converts a set to a list.
+   * 
    * @param s The set to be converted.
    * @return The list resulting from the conversion of the set.
    */
@@ -192,6 +203,7 @@ public class ListTools {
 
   /**
    * Converts a set to a list.
+   * 
    * @param s The set to be converted.
    * @param list Either null or the list to have the set's contents inserted into.
    * @return The list resulting from the conversion of the set.
@@ -204,6 +216,7 @@ public class ListTools {
 
   /**
    * Converts a StringTokenizer to a list.
+   * 
    * @param st The StringTokenizer to be converted.
    * @return The list resulting from the conversion of the StringTokenizer.
    */
@@ -213,6 +226,7 @@ public class ListTools {
 
   /**
    * Converts a StringTokenizer to a list.
+   * 
    * @param st The StringTokenizer to be converted.
    * @param list Either null or the list to have the StringTokenizer's contents inserted into.
    * @return The list resulting from the conversion of the StringTokenizer.
@@ -231,6 +245,7 @@ public class ListTools {
 
   /**
    * Converts a list to a list.
+   * 
    * @param ls The list to be converted to a list.
    * @return The list resulting from the coversion of the list to a list.
    */
@@ -240,6 +255,7 @@ public class ListTools {
 
   /**
    * Converts a list to a list.
+   * 
    * @param ls The list to be converted to a list.
    * @param list Either null or the list to have the list's contents inserted into.
    * @return The list resulting from the coversion of the list to a list.
@@ -256,6 +272,7 @@ public class ListTools {
 
   /**
    * Checks if the list passed is of class type.
+   * 
    * @param list The list to be checked.
    * @param type A class type.
    * @return True if list is a class type, false otherwise.
@@ -282,6 +299,7 @@ public class ListTools {
 
   /**
    * Converts the list to an Object array.
+   * 
    * @param list The list to be converted.
    * @return The Object array resulting from converting list.
    */
@@ -291,6 +309,7 @@ public class ListTools {
 
   /**
    * Converts the list to an array of class type.
+   * 
    * @param list The list to be converted.
    * @param type The desired type of the array.
    * @return The array resulting from the conversion of list to an array of type specified.
@@ -310,10 +329,12 @@ public class ListTools {
 
   /**
    * Converts the array to an object array subject to the values specified for offset and length.
+   * 
    * @param arry The array to be converted.
    * @param ofs The offset value.
    * @param len The length value.
-   * @return The array resulting from the conversion of the passed array subject to the values specified for offset and length.
+   * @return The array resulting from the conversion of the passed array subject to the values
+   *         specified for offset and length.
    */
   public static Object[] toArray(Object arry[], int ofs, int len) {
     if (arry != null) {
@@ -334,6 +355,7 @@ public class ListTools {
 
   /**
    * Converts the array to a set.
+   * 
    * @param a The array to be converted.
    * @return The resulting conversion of the array into a set.
    */
@@ -343,6 +365,7 @@ public class ListTools {
 
   /**
    * Converts the array to a set.
+   * 
    * @param a The array to be converted.
    * @param set Either null or the set to have the array's contents inserted into.
    * @return The set resulting from the conversion of the array.
@@ -353,6 +376,7 @@ public class ListTools {
 
   /**
    * Converts the array to a set subject to the specified values for offset and length.
+   * 
    * @param a The array to be converted.
    * @param ofs The offset value.
    * @param len The length value.
@@ -374,6 +398,7 @@ public class ListTools {
 
   /**
    * Converts an array into a map.
+   * 
    * @param arry The array to be converted.
    * @return The map resulting from the conversion of the array.
    */
@@ -405,6 +430,7 @@ public class ListTools {
 
   /**
    * Inserts the object into the list and returns the resulting list.
+   * 
    * @param list The list to have an element inserted.
    * @param obj The object to be inserted into the list.
    * @return The resulting list after the insertion.
@@ -415,6 +441,7 @@ public class ListTools {
 
   /**
    * Inserts the object into the list at the specified index and returns the resulting list.
+   * 
    * @param list The list to have an element inserted.
    * @param obj The object to be inserted.
    * @param ndx The index for the inserted object.
@@ -429,6 +456,7 @@ public class ListTools {
 
   /**
    * Removes the object at the specified index from the list.
+   * 
    * @param list The list to have an item removed.
    * @param ndx The index of the object being removed.
    * @return The resulting list after the operation.
@@ -442,6 +470,7 @@ public class ListTools {
 
   /**
    * Inserts the object into the array.
+   * 
    * @param list The array to have an object inserted into.
    * @param obj The object to be inserted.
    * @return The resulting array after the insertion.
@@ -452,6 +481,7 @@ public class ListTools {
 
   /**
    * Inserts the object into the array at the specified index.
+   * 
    * @param list The array to have an object inserted into.
    * @param obj The object to be inserted.
    * @param index The index where the object should be inserted.
@@ -483,6 +513,7 @@ public class ListTools {
 
   /**
    * Removes the object in the array at the specified index.
+   * 
    * @param list The array having object removed.
    * @param ndx The index of the item in the array that will be removed.
    * @return The resulting array after the remove operation.
@@ -508,6 +539,7 @@ public class ListTools {
 
   /**
    * Finds the index to the Object specified in the list.
+   * 
    * @param list The list to be searched.
    * @param item The object to have its index found.
    * @return The index of the Object specified.
@@ -523,6 +555,7 @@ public class ListTools {
 
   /**
    * Finds the index to the specified string (case-insensitive) in the list.
+   * 
    * @param list The list to be searched.
    * @param item The string to have its index found.
    * @return The index of the string specified.
@@ -549,6 +582,7 @@ public class ListTools {
 
   /**
    * Finds the index of the item in the array.
+   * 
    * @param list The array to be searched.
    * @param item The item to have its index found.
    * @return The index corresponding to the item.
@@ -558,7 +592,9 @@ public class ListTools {
   }
 
   /**
-   * Finds and returns the index corresponding to the item in the array subject to the offset and length values specified.
+   * Finds and returns the index corresponding to the item in the array subject to the offset and
+   * length values specified.
+   * 
    * @param list The array to be searched.
    * @param ofs The offset value.
    * @param len The length value.
@@ -597,6 +633,7 @@ public class ListTools {
 
   /**
    * Finds the index of the string specified (case-insensitive) in the list of strings.
+   * 
    * @param list The list to be searched.
    * @param item The string to have its index found.
    * @return The index corresponding to the item.
@@ -622,6 +659,7 @@ public class ListTools {
 
   /**
    * Checks to see if the list contains the item.
+   * 
    * @param list The list to be searched.
    * @param item The item to be found.
    * @return True if the item is in the list, false otherwise.
@@ -632,6 +670,7 @@ public class ListTools {
 
   /**
    * Checks to see if the string (case-insensitive) is in the list.
+   * 
    * @param list The list to be searched.
    * @param item The string item to be found.
    * @return True if the item is in the list, false otherwise.
@@ -642,6 +681,7 @@ public class ListTools {
 
   /**
    * Checks to see if the item specified is in the array.
+   * 
    * @param list The array to be searched.
    * @param item The item to be found.
    * @return True if the item is in the array, false otherwise.
@@ -652,11 +692,13 @@ public class ListTools {
 
   /**
    * Checks to see if the array contains the item, subject to the offset and lengths specified.
+   * 
    * @param list The array to be searched.
    * @param ofs The offset value.
    * @param len The length value.
    * @param item The item to be found.
-   * @return True if the item is in the array subject to the offset and lengths specified, false otherwise.
+   * @return True if the item is in the array subject to the offset and lengths specified, false
+   *         otherwise.
    */
   public static boolean contains(Object list[], int ofs, int len, Object item) {
     return (ListTools.indexOf(list, ofs, len, item) >= 0);
@@ -664,6 +706,7 @@ public class ListTools {
 
   /**
    * Checks to see if the array contains the string (case-insensitive).
+   * 
    * @param list The array to be searched.
    * @param item The item to be found.
    * @return True if the item is in the list, false otherwise.
@@ -676,6 +719,7 @@ public class ListTools {
 
   /**
    * Sorts the list according to the comparator specified.
+   * 
    * @param list The list to be sorted.
    * @param comp The comparator to be used to sort the list.
    * @return The list sorted using the comparator.
@@ -686,6 +730,7 @@ public class ListTools {
 
   /**
    * Sorts the list using the comparator in either forward or reverse order.
+   * 
    * @param list The list to be sorted.
    * @param comp The comparator to be used to sort the list.
    * @param forwardOrder True means the sort will be in forward order; false in backward order.
@@ -710,6 +755,7 @@ public class ListTools {
 
   /**
    * Sorts the array in forward order using the comparator specified.
+   * 
    * @param list The array to be sorted.
    * @param comp The comparator used to sort the array.
    * @return The array sorted using the comparator in either forward order.
@@ -720,6 +766,7 @@ public class ListTools {
 
   /**
    * Sorts the array using the comparator in either forward or reverse order.
+   * 
    * @param list The array to be sorted.
    * @param comp The comparator to be used to sort the array.
    * @param forwardOrder True means the sort will be in forward order; false in backward order.
@@ -744,6 +791,7 @@ public class ListTools {
 
   /**
    * Provides implementation for a comparator of Strings.
+   * 
    * @author Martin D. Flynn
    * 
    */
@@ -758,7 +806,8 @@ public class ListTools {
     }
 
     /**
-	 * Constructs an instance of StringComparator with ascending or descending order.
+     * Constructs an instance of StringComparator with ascending or descending order.
+     * 
      * @param ascending True for ascending order, False for descending order.
      */
     public StringComparator(boolean ascending) {
@@ -767,9 +816,10 @@ public class ListTools {
 
     /**
      * Compares two strings.
+     * 
      * @param o1 The first object being compared.
-	 * @param o2 The second object being compared.
-	 * @return int The integer representation of the comparison.
+     * @param o2 The second object being compared.
+     * @return int The integer representation of the comparison.
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     public int compare(Object o1, Object o2) {
@@ -780,8 +830,9 @@ public class ListTools {
 
     /**
      * Compares the object in scope to the object parameter.
+     * 
      * @param obj The object this is being compared to.
-	 * @return True if the objects are considered equal, false otherwise.
+     * @return True if the objects are considered equal, false otherwise.
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object obj) {
@@ -794,6 +845,7 @@ public class ListTools {
 
   /**
    * Provides implementation for a reverse order comparator.
+   * 
    * @author Martin D. Flynn
    * 
    */
@@ -801,21 +853,22 @@ public class ListTools {
     private Comparator otherComp = null;
 
     /**
-	 * Constructs an instance of ReverseOrderComparator from the comparator specified.
+     * Constructs an instance of ReverseOrderComparator from the comparator specified.
+     * 
      * @param comp A comparator to be used in creating the ReverseOrderComparator.
      */
     public ReverseOrderComparator(Comparator comp) {
       this.otherComp = (comp != null) ? comp : new StringComparator();
     }
 
-	/**
-	 * Compares the object in scope to the object parameter.
-	 * @param obj The object this is being compared to.
-	 * @return True if the objects are considered equal, false otherwise.
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+    /**
+     * Compares the object in scope to the object parameter.
+     * 
+     * @param obj The object this is being compared to.
+     * @return True if the objects are considered equal, false otherwise.
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
-    public int compare(Object o1, Object o2) 
-	{
+    public int compare(Object o1, Object o2) {
       int compVal = this.otherComp.compare(o1, o2);
       if (compVal > 0) {
         return -1;
@@ -826,14 +879,14 @@ public class ListTools {
       return 0;
     }
 
-	/**
-	 * Compares the object in scope to the object parameter.
-	 * @param obj The object this is being compared to.
-	 * @return True if the objects are considered equal, false otherwise.
-	 * @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * Compares the object in scope to the object parameter.
+     * 
+     * @param obj The object this is being compared to.
+     * @return True if the objects are considered equal, false otherwise.
+     * @see java.lang.Object#equals(java.lang.Object)
      */
-    public boolean equals(Object obj) 
-	{
+    public boolean equals(Object obj) {
       if (obj instanceof ReverseOrderComparator) {
         ReverseOrderComparator descComp = (ReverseOrderComparator) obj;
         return this.otherComp.equals(descComp.otherComp);
@@ -846,6 +899,7 @@ public class ListTools {
 
   /**
    * Reverses the order of the array in place.
+   * 
    * @param list The array to have its order reversed.
    * @return The resulting reversed array.
    */
@@ -864,6 +918,7 @@ public class ListTools {
 
   /**
    * Reverses the order of the list in place.
+   * 
    * @param list The list to have its order reversed.
    * @return The resulting reversed list.
    */
@@ -876,6 +931,7 @@ public class ListTools {
 
   /**
    * Provides implementation of proxy to a collection.
+   * 
    * @author Martin D. Flynn
    * 
    */
@@ -883,7 +939,8 @@ public class ListTools {
     private Collection delegate = null;
 
     /**
-	 * Constructs a new CollectionProxy using the passed collection.
+     * Constructs a new CollectionProxy using the passed collection.
+     * 
      * @param c A collection to be used in creating the CollectionProxy.
      */
     public CollectionProxy(Collection c) {
@@ -892,8 +949,9 @@ public class ListTools {
 
     /**
      * Adds the object to the internal collection.
+     * 
      * @param o The object to be added.
-	 * @return True if the object was added successfully, false otherwise.
+     * @return True if the object was added successfully, false otherwise.
      * @see java.util.Collection#add(java.lang.Object)
      */
     public boolean add(Object o) {
@@ -902,12 +960,12 @@ public class ListTools {
 
     /**
      * Adds the collection to the internal collection.
+     * 
      * @param c The collection to be added.
-	 * @return True if the collection was added successfully, false otherwise.
+     * @return True if the collection was added successfully, false otherwise.
      * @see java.util.Collection#addAll(java.util.Collection)
      */
-    public boolean addAll(Collection c) 
-	{
+    public boolean addAll(Collection c) {
       return this.delegate.addAll(c);
     }
 
@@ -922,8 +980,9 @@ public class ListTools {
 
     /**
      * Checks to see if the internal collection contains the object.
-	 * @param o The object to be found.
-	 * @return True if the object is in the internal collection, false otherwise.
+     * 
+     * @param o The object to be found.
+     * @return True if the object is in the internal collection, false otherwise.
      * 
      * @see java.util.Collection#contains(java.lang.Object)
      */
@@ -932,20 +991,21 @@ public class ListTools {
     }
 
     /**
-	 * Checks to see if the internal collection contains the collection passed.
-	 * @param c The collection to be found.
-	 * @return True if the collection is in the internal collection, false otherwise.
+     * Checks to see if the internal collection contains the collection passed.
+     * 
+     * @param c The collection to be found.
+     * @return True if the collection is in the internal collection, false otherwise.
      * @see java.util.Collection#containsAll(java.util.Collection)
      */
-    public boolean containsAll(Collection c) 
-	{
+    public boolean containsAll(Collection c) {
       return this.delegate.containsAll(c);
     }
 
     /**
      * Checks to see if the specified object is an equivalent CollectionProxy.
+     * 
      * @param o An object to be compared to the local object.
-	 * @return True if the object is an equivalent CollectionProxy, false otherwise.
+     * @return True if the object is an equivalent CollectionProxy, false otherwise.
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public boolean equals(Object o) {
@@ -959,7 +1019,8 @@ public class ListTools {
 
     /**
      * Returns the hashcode of the internal collection.
-	 * @return The hascode value of the internal collection.
+     * 
+     * @return The hascode value of the internal collection.
      * 
      * @see java.lang.Object#hashCode()
      */
@@ -969,6 +1030,7 @@ public class ListTools {
 
     /**
      * Checks to see if the internal collection is empty.
+     * 
      * @return True if the internal collection is empty, false otherwise.
      * @see java.util.Collection#isEmpty()
      */
@@ -978,7 +1040,8 @@ public class ListTools {
 
     /**
      * Returns the iterator for the internal collection.
-	 * @return The iterator for the internal collection.
+     * 
+     * @return The iterator for the internal collection.
      * 
      * @see java.util.Collection#iterator()
      */
@@ -988,8 +1051,9 @@ public class ListTools {
 
     /**
      * Removes the object specified from the internal collection.
+     * 
      * @param o The object to be removed.
-	 * @return True if the object was removed, false otherwise.
+     * @return True if the object was removed, false otherwise.
      * @see java.util.Collection#remove(java.lang.Object)
      */
     public boolean remove(Object o) {
@@ -998,8 +1062,10 @@ public class ListTools {
 
     /**
      * Removes all of the contents of the passed collection from the internal collection.
+     * 
      * @param c The collection of values to be removed.
-	 * @return True if the collection of values was removed from the internal collection, false otherwise.
+     * @return True if the collection of values was removed from the internal collection, false
+     *         otherwise.
      * @see java.util.Collection#removeAll(java.util.Collection)
      */
     public boolean removeAll(Collection c) {
@@ -1007,9 +1073,11 @@ public class ListTools {
     }
 
     /**
-     * Retains only the elements in internal collection that are contained in the specified collection.
+     * Retains only the elements in internal collection that are contained in the specified
+     * collection.
+     * 
      * @param c The collection of elements to be retained.
-	 * @return True if this collection changed as a result of the call, false otherwise.
+     * @return True if this collection changed as a result of the call, false otherwise.
      * @see java.util.Collection#retainAll(java.util.Collection)
      */
     public boolean retainAll(Collection c) {
@@ -1018,6 +1086,7 @@ public class ListTools {
 
     /**
      * Returns the size of the internal collection.
+     * 
      * @return The size of the internal collection.
      * @see java.util.Collection#size()
      */
@@ -1027,6 +1096,7 @@ public class ListTools {
 
     /**
      * Converts the internal collection to an array.
+     * 
      * @return The array corresponding to the internal collection.
      * @see java.util.Collection#toArray()
      */
@@ -1036,7 +1106,9 @@ public class ListTools {
 
     /**
      * Converts the internal collection to an array using the array specified.
-	 * @param a The array into which the elements of this collection are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose.
+     * 
+     * @param a The array into which the elements of this collection are to be stored, if it is big
+     *        enough; otherwise, a new array of the same runtime type is allocated for this purpose.
      * @return The array corresponding to the internal collection.
      * @see java.util.Collection#toArray(T[])
      */
