@@ -347,6 +347,7 @@ public abstract class DBRecord
      * Overloaded getRecordCount method which takes in a StringBuffer
      * as a parameter and converts it to a string, in order to call the
      * getRecordCount method.
+     * @return long RecordCount
      */
     protected static long getRecordCount(DBFactory fact, StringBuffer where)
         throws SQLException, DBException
@@ -390,18 +391,32 @@ public abstract class DBRecord
     /**
      * Returns the boolean value indicating whether the current
      * record has been changed since the last iteration.
+     * @return boolean
      */
     public boolean hasChanged()
     {
         return this.changed;
     }
 
+    /**
+     * Sets the changed flag to true and calls the fireChangeNotification
+     * method which notifies that the field has been changed.
+     * Takes the fieldName that has changed as a parameter.
+     * @param fieldName
+     */
     public void setChanged(String fieldName)
     {
         this.changed = true;
         this.fireChangeNotification(fieldName);
     }
 
+    /**
+     * Sets the changed flag to true for the fieldName passed as a parameter.
+     * 
+     * @param fieldName
+     * @param oldVal
+     * @param newVal
+     */
     public void setChanged(String fieldName, Object oldVal, Object newVal)
     {
         if (oldVal == newVal) {
