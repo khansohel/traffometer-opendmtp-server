@@ -1238,6 +1238,12 @@ public class DateTime implements Comparable, Cloneable {
    * 
    */
   public interface TimeZoneProvider {
+
+    /**
+     * Returns time zone.
+     * 
+     * @return time zone.
+     */
     public TimeZone getTimeZone();
   }
 
