@@ -91,12 +91,12 @@ public abstract class DBRecord
     // ------------------------------------------------------------------------
 
     /**
-     * String constant marking last update time.
+     * String constant indicating the last update time.
      */
     public static final String FLD_lastUpdateTime   = "lastUpdateTime";
     
     /**
-     * String constant denoting the last user who updated.
+     * String constant indicating the last user who updated.
      */
     public static final String FLD_lastUpdateUser   = "lastUpdateUser";
 
@@ -433,11 +433,19 @@ public abstract class DBRecord
         }
     }
 
+    /**
+     * Sets the changed flag to false.
+     */
     public void clearChanged()
     {
         this.changed = false;
     }
 
+    /**
+     * Adds the c1 DBChangeListener parameter to the
+     * Vector of changeNotifications.
+     * @param cl DBChangeListener
+     */
     public void addChangedNotification(DBChangeListener cl)
     {
         if (this.changeNotification == null) { this.changeNotification = new Vector(); }
@@ -446,6 +454,12 @@ public abstract class DBRecord
         }
     }
 
+    /**
+     * Removes the c1 DBChangeListener from the Vector of
+     * changeNotifications.  Does not check to identify if
+     * the List contains c1 before calling the removal method.
+     * @param cl
+     */
     public void removeChangedNotification(DBChangeListener cl)
     {
         if (this.changeNotification != null) {
@@ -453,6 +467,11 @@ public abstract class DBRecord
         }
     }
 
+    /**
+     * Iterates through the changedNotifications Vector firing a
+     * change notification for the fieldName passed.
+     * @param fieldName
+     */
     public void fireChangeNotification(String fieldName)
     {
         if (this.changeNotification != null) {
@@ -463,6 +482,10 @@ public abstract class DBRecord
         }
     }
 
+    /**
+     * Interface implementing the public fieldChanged method.
+     *
+     */
     public static interface DBChangeListener
     {
         public void fieldChanged(DBRecord rcd, String fieldName);
@@ -470,6 +493,11 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Calls the _reload method to reload the record data from the database.
+     * Returns the reloaded DBRecord.
+     * Returns null if the key is not found or if a database error occurs.
+     */
     public DBRecord reload()
     {
         // returns 'null' if key does not exist, or if a DB error occurred
@@ -481,6 +509,14 @@ public abstract class DBRecord
         }
     }
     
+    /**
+     * Automates the SQL code generation to reload the record data from the
+     * database.  Generates the SELECT->FROM->WHERE, SQL code to reload the
+     * record data.  Throws a DBException if the key is not found or if
+     * a database error occurs.  Returns the reloaded DBRecord.
+     * @return DBRecord
+     * @throws DBException
+     */
     protected DBRecord _reload()
         throws DBException
     {
@@ -514,6 +550,14 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Returns a long representing the last timestamp at which the record 
+     * was updated.
+     * Generates the SQL code "ORDER BY" to order the records contained
+     * in the table by the latest timestamp.
+     * @param factory DBFactory
+     * @throws DBException
+     */
     public static long getLastUpdateTime(DBFactory factory)
         throws DBException
     {
@@ -559,17 +603,30 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Returns the field which was last updated.
+     * @return DBField that was last updated.
+     */
     public static DBField newField_lastUpdateTime()
     {
         return new DBField(FLD_lastUpdateTime, Long.TYPE, DBField.TYPE_UINT32, "title=Last_Update_Time");
     }
 
+    /**
+     * Returns a long representing the last time the field was updated.
+     * @return long Representing the last update time.
+     */
     public long getLastUpdateTime()
     {
         Long v = (Long)this.getFieldValue(FLD_lastUpdateTime);
         return (v != null)? v.longValue() : -1L;
     }
 
+    /**
+     * Sets the current Field's lastUpdateTime to the
+     * long passed as a parameter.
+     * @param time
+     */
     protected void setLastUpdateTime(long time)
     {
         long t = (time >= 0L)? time : 0L;
@@ -578,17 +635,31 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Returns a copy of the last DBField to be updated by a user.
+     * @return DBField
+     */
     public static DBField newField_lastUpdateUser()
     {
         return new DBField(FLD_lastUpdateUser, String.class, DBField.TYPE_STRING(32), "title=Last_Update_User");
     }
 
+    /**
+     * Returns the last user who updated the current field.
+     * If the field has not been updated then the method returns null.
+     * @return String
+     */
     public String getLastUpdateUser()
     {
         String v = (String)this.getFieldValue(FLD_lastUpdateUser);
         return (v != null)? v : null;
     }
 
+    /**
+     * Sets the last user to update the field to the String passed
+     * as a parameter.
+     * @param user
+     */
     public void setLastUpdateUser(String user)
     {
         String u = (user != null)? user : "";
@@ -597,8 +668,13 @@ public abstract class DBRecord
     
     // ------------------------------------------------------------------------
 
-    public void insert()
-        throws DBException
+    /**
+     * Attempts to insert the current Field into the Database table
+     * by calling the _insert method.  Throws a DBException if there is
+     * a duplicate key present or if a database error occurs.
+     * @throws DBException
+     */
+    public void insert() throws DBException
     {
         try {
             this._insert();
@@ -614,6 +690,13 @@ public abstract class DBRecord
         }
     }
     
+    /**
+     * Generates SQL code to insert the current Field into the
+     * database table.  Throws a DBException if a database error occurs,
+     * and throws an SQLException if an sql error occurs.
+     * @throws SQLException
+     * @throws DBException
+     */
     protected void _insert()
         throws SQLException, DBException
     {
@@ -647,12 +730,23 @@ public abstract class DBRecord
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Calls the overridden update(String updFlds[]) method
+     * passing a null parameter.
+     * @throws DBException
+     */
     public void update()
         throws DBException
     {
         this.update(null);
     }
 
+    /**
+     * Attempts to update the current Field by calling the _update method.
+     * Throws a DBException if a database error occurs.
+     * @param updFlds
+     * @throws DBException
+     */
     public void update(String updFlds[])
         throws DBException
     {
@@ -665,6 +759,13 @@ public abstract class DBRecord
         }
     }
     
+    /**
+     * Attempts to update the current Field values to the current
+     * user and the current timestamp.
+     * @param updFlds
+     * @throws SQLException
+     * @throws DBException
+     */
     protected void _update(String updFlds[])
         throws SQLException, DBException
     {
@@ -708,6 +809,12 @@ public abstract class DBRecord
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Saves the current key and Field configuration by calling the update function
+     * if the field exists in the database table, or inserts the field into the
+     * table if it does not.
+     * @throws DBException
+     */
     public void save()
         throws DBException
     {
@@ -721,24 +828,57 @@ public abstract class DBRecord
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Updates the fieldName with the passed String fieldName
+     * and the integer value.  Throws a DBException if there is 
+     * a database error.
+     * @param fldName fieldName
+     * @param value int
+     * @throws DBException
+     */
     public void updateField(String fldName, int value)
         throws DBException
     {
         this._updateField(fldName, String.valueOf(value));
     }
 
+    /**
+     * Updates the fieldName with the passed String fieldName
+     * and long value.  Throws a DBException if there is a
+     * database error.
+     * @param fldName
+     * @param value
+     * @throws DBException
+     */
     public void updateField(String fldName, long value)
         throws DBException
     {
         this._updateField(fldName, String.valueOf(value));
     }
 
+    /**
+     * Updates the fieldName with the passed String fldName
+     * and String value.  Throws a DBException if there is a
+     * database error.
+     * database error.
+     * @param fldName
+     * @param value
+     * @throws DBException
+     */
     public void updateField(String fldName, String value)
         throws DBException
     {
         this._updateField(fldName, StringTools.quoteString(value));
     }
     
+    /**
+     * Updates the fieldName with the passed String fldname
+     * and String value.  Throws a DBException if there is a
+     * database error.
+     * @param fldName
+     * @param value
+     * @throws DBException
+     */
     protected void _updateField(String fldName, String value)
         throws DBException
     {
