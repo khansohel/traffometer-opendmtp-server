@@ -85,7 +85,7 @@ public class ThreadLocalMap extends ThreadLocal implements Map {
 
   /**
    * Overides <tt>initialValue()</tt> of superclass (<tt>ThreadLocal</tt>). Creates a new
-   * instance when this thread first access the class object. If exception occurs, return a new
+   * instance when this thread first access the class object. If exception occurs, returns a new
    * instance of <tt>Hashtable</tt>.
    * 
    * @return New instance of <tt>mapClass</tt>.

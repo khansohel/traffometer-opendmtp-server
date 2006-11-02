@@ -169,7 +169,7 @@ public class ThreadPool {
 
   /**
    * Overides <tt>equals()</tt> method by checking if the two objects are the same one instead of
-   * checking the content. return True if same object, or false otherwise.
+   * checking the content. Returns True if same object, or false otherwise.
    * 
    * @param other The object to be compared.
    * @return True if the same object, or false otherwise. 
@@ -260,9 +260,6 @@ public class ThreadPool {
 
   /**
    * Inner class definition for an extended thread which is associated with a <tt>ThreadPool</tt>.
-   * 
-   * @author Martin D. Flynn
-   * @author Guanghong Yang
    */
   private static class ThreadJob extends Thread {
     private Runnable job = null;
