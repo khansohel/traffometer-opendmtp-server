@@ -20,17 +20,11 @@
 //  2006/03/26  Martin D. Flynn
 //      Initial release
 // ----------------------------------------------------------------------------
+
 package org.opendmtp.server.base;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-
-import org.opendmtp.util.*;
-import org.opendmtp.codes.*;
-import org.opendmtp.server.db.*;
+import org.opendmtp.codes.ServerErrors;
+import org.opendmtp.util.StringTools;
 
 /**
  * Exception class for packet errors.

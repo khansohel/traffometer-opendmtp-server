@@ -22,15 +22,13 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.base;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-
-import org.opendmtp.util.*;
-import org.opendmtp.codes.*;
-import org.opendmtp.server.db.*;
+import org.opendmtp.codes.Encoding;
+import org.opendmtp.codes.ServerErrors;
+import org.opendmtp.server.db.Payload;
+import org.opendmtp.server.db.PayloadTemplate;
+import org.opendmtp.util.Base64;
+import org.opendmtp.util.GeoPoint;
+import org.opendmtp.util.StringTools;
 
 /**
  * Defines a packet class to describe data transfer and commuinication. 
@@ -68,164 +66,227 @@ public class Packet {
   // dialog packets
   
   /**
-   * End of block/transmission, "no more to say".
+   * End of block/transmission packet, "no more to say".
    */
   public static final int PKT_CLIENT_EOB_DONE = 0x00; // End of block/transmission, "no more to say"
   
   /**
-   * End of block/transmission, "I have more to say".
+   * End of block/transmission packet, "I have more to say".
    */
   public static final int PKT_CLIENT_EOB_MORE = 0x01; // End of block/transmission, "I have more to say"
 
   // identification packets
   
   /**
-   * Unique identifier.
+   * Unique identifier packet.
    */
   public static final int PKT_CLIENT_UNIQUE_ID = 0x11; // Unique identifier
   
   /**
-   * Account identifier.
+   * Account identifier packet.
    */
   public static final int PKT_CLIENT_ACCOUNT_ID = 0x12; // Account identifier
   
   /**
-   * Device identifier.
+   * Device identifier packet.
    */
   public static final int PKT_CLIENT_DEVICE_ID = 0x13; // Device identifier
 
   // standard fixed format event packets
   
   /**
-   * Standard GPS.
+   * Standard GPS packet.
    */
   public static final int PKT_CLIENT_FIXED_FMT_STD = 0x30; // Standard GPS
   
   /**
-   * High Resolution GPS.
+   * High Resolution GPS packet.
    */
   public static final int PKT_CLIENT_FIXED_FMT_HIGH = 0x31; // High Resolution GPS
 
   // DMTP service provider format event packets
+  /**
+   * Service provider packet 0.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_0 = 0x50; //
+  
+  /**
+   * Service provider packet 1.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_1 = 0x51; //
+
+  /**
+   * Service provider packet 2.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_2 = 0x52; //
+  
+  /**
+   * Service provider packet 3.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_3 = 0x53; //
+  
+  /**
+   * Service provider packet 4.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_4 = 0x54; //
+  
+  /**
+   * Service provider packet 5.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_5 = 0x55; //
+  
+  /**
+   * Service provider packet 6.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_6 = 0x56; //
+  
+  /**
+   * Service provider packet 7.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_7 = 0x57; //
+  
+  /**
+   * Service provider packet 8.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_8 = 0x58; //
+  
+  /**
+   * Service provider packet 9.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_9 = 0x59; //
+  
+  /**
+   * Service provider packet A.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_A = 0x5A; //
+  
+  /**
+   * Service provider packet B.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_B = 0x5B; //
+  
+  /**
+   * Service provider packet C.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_C = 0x5C; //
+  
+  /**
+   * Service provider packet D.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_D = 0x5D; //
+  
+  /**
+   * Service provider packet E.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_E = 0x5E; //
+  
+  /**
+   * Service provider packet F.
+   */
   public static final int PKT_CLIENT_DMTSP_FMT_F = 0x5F; //
 
   // custom format event packets
   
   /**
-   * Custom format data #0.
+   * Custom format event packet #0.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_0 = 0x70; // Custom format data #0
   
   /**
-   * Custom format data #1.
+   * Custom format event packet #1.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_1 = 0x71; // Custom format data #1
   
   /**
-   * Custom format data #2.
+   * Custom format event packet #2.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_2 = 0x72; // Custom format data #2
   
   /**
-   * Custom format data #3.
+   * Custom format event packet #3.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_3 = 0x73; // Custom format data #3
   
   /**
-   * Custom format data #4.
+   * Custom format event packet #4.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_4 = 0x74; // Custom format data #4
   
   /**
-   * Custom format data #5.
+   * Custom format event packet #5.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_5 = 0x75; // Custom format data #5
   
   /**
-   * Custom format data #6.
+   * Custom format event packet #6.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_6 = 0x76; // Custom format data #6
   
   /**
-   * Custom format data #7.
+   * Custom format event packet #7.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_7 = 0x77; // Custom format data #7
   
   /**
-   * Custom format data #8.
+   * Custom format event packet #8.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_8 = 0x78; // Custom format data #8
   
   /**
-   * Custom format data #9.
+   * Custom format event packet #9.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_9 = 0x79; // Custom format data #9
   
   /**
-   * Custom format data #A.
+   * Custom format event packet #A.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_A = 0x7A; // Custom format data #A
   
   /**
-   * Custom format data #B.
+   * Custom format event packet #B.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_B = 0x7B; // Custom format data #B
   
   /**
-   * Custom format data #C.
+   * Custom format event packet #C.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_C = 0x7C; // Custom format data #C
   
   /**
-   * Custom format data #D.
+   * Custom format event packet #D.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_D = 0x7D; // Custom format data #D
   
   /**
-   * Custom format data #E.
+   * Custom format event packet #E.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_E = 0x7E; // Custom format data #E
   
   /**
-   * Custom format data #F.
+   * Custom format event packet #F.
    */
   public static final int PKT_CLIENT_CUSTOM_FORMAT_F = 0x7F; // Custom format data #F
 
   // Property packet
   /**
-   * Property value.
+   * Property value packet.
    */
   public static final int PKT_CLIENT_PROPERTY_VALUE = 0xB0; // Property value
 
   // Custom format packet
   /**
-   * Custom format definition (24 bit field def).
+   * Custom format definition packet(24 bit field def).
    */
   public static final int PKT_CLIENT_FORMAT_DEF_24 = 0xCF; // Custom format definition (24 bit field def)
 
   // Diagnostic/Error packets
   /**
-   * Diagnostic codes.
+   * Diagnostic code packet.
    */
   public static final int PKT_CLIENT_DIAGNOSTIC = 0xD0; // Diagnostic codes
   
   /**
-   * Error codes.
+   * Error code packet.
    */
   public static final int PKT_CLIENT_ERROR = 0xE0; // Error codes
 
@@ -235,47 +296,47 @@ public class Packet {
   /* End-Of-Block packets */
   
   /**
-   * End of transmission, query response.
+   * End of transmission, query response packet.
    */
   public static final int PKT_SERVER_EOB_DONE = 0x00; // ""       : End of transmission, query response
   
   /**
-   * End of transmission, speak freely.
+   * End of transmission, speak freely packet.
    */
   public static final int PKT_SERVER_EOB_SPEAK_FREELY = 0x01; // ""       : End of transmission, speak freely
 
   // Acknowledge packet
   /**
-   * Acknowledge.
+   * Acknowledge packet.
    */
   public static final int PKT_SERVER_ACK = 0xA0; // "%*u"    : Acknowledge
 
   // Property packets
   /**
-   * Get property.
+   * Get property packet.
    */
   public static final int PKT_SERVER_GET_PROPERTY = 0xB0; // "%2u"    : Get property
   
   /**
-   * Set property.
+   * Set property packet.
    */
   public static final int PKT_SERVER_SET_PROPERTY = 0xB1; // "%2u%*b" : Set property
 
   // File upload packet
   /**
-   * File upload.
+   * File upload packet.
    */
   public static final int PKT_SERVER_FILE_UPLOAD = 0xC0; // "%1x%3u%*b" : File upload
 
   // Error packets
   /**
-   * Error codes.
+   * Error code packet.
    */
   public static final int PKT_SERVER_ERROR = 0xE0; // "%2u"    : NAK/Error codes
 
   // End-Of-Transmission
   /**
-   * End transmission (socket will be closed).
+   * End transmission packet(socket will be closed).
    */
   public static final int PKT_SERVER_EOT = 0xFF; // ""       : End transmission (socket will be closed)
 
@@ -606,7 +667,7 @@ public class Packet {
    * @param devId Not needed for server packets.
    * @param isClient Boolean is client packet.
    * @param pkt String actual packet.
-   * @throws PacketParseException.
+   * @throws PacketParseException Packet error.
    */
   public Packet(DeviceID devId, boolean isClient, String pkt) throws PacketParseException {
     this(devId, isClient, StringTools.getBytes(pkt));
@@ -617,7 +678,7 @@ public class Packet {
    * @param devId Not needed for server packets.
    * @param isClient Boolean is client packet.
    * @param pkt Byte array actual packet.
-   * @throws PacketParseException.
+   * @throws PacketParseException Packet error.
    */
   public Packet(DeviceID devId, boolean isClient, byte pkt[]) throws PacketParseException {
     // 'pkt' always contains only a single packet

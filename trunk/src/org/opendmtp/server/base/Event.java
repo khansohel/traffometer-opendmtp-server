@@ -24,15 +24,18 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.base;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
 
-import org.opendmtp.util.*;
-import org.opendmtp.codes.*;
-import org.opendmtp.server.db.*;
+
+import org.opendmtp.codes.ServerErrors;
+import org.opendmtp.codes.StatusCodes;
+
+import org.opendmtp.server.db.Payload;
+import org.opendmtp.server.db.PayloadTemplate;
+import org.opendmtp.util.DateTime;
+import org.opendmtp.util.GeoEvent;
+import org.opendmtp.util.GeoPoint;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.StringTools;
 
 /**
  * Defines an event object for openDMTP use.
@@ -62,7 +65,7 @@ public class Event {
   /**
    * Event object constructor does packet validation.
    * @param pkt Event packet object.
-   * @throws PacketParseException
+   * @throws PacketParseException Packet error.
    */
   public Event(Packet pkt) throws PacketParseException {
     super();
@@ -109,7 +112,7 @@ public class Event {
   }
 
   /**
-   * Returns geoEvent containing fieldnames and values.
+   * Returns geoEvent possibly containing fieldnames and values.
    * @return geoEvent.
    */
   public GeoEvent getGeoEvent() {
@@ -126,7 +129,7 @@ public class Event {
   }
 
   /**
-   * Returns event value associated with FLD_sequenceLength.
+   * Returns length of event value associated with FLD_sequenceLength.
    * @return integer value length of sequence packet counter.
    */
   public int getSequenceLength() {
@@ -144,7 +147,7 @@ public class Event {
   }
 
   /**
-   * Sets event value in a string value pair.
+   * Sets event value in a key value pair.
    * @param fldName String field name.
    * @param val Long integer event value.
    * @param ndx Integer field index for position.
@@ -154,7 +157,7 @@ public class Event {
   }
 
   /**
-   * Sets event value in a string value pair.
+   * Sets event value in a key value pair.
    * @param fldName String field name.
    * @param val Long integer event value.
    */
@@ -163,7 +166,7 @@ public class Event {
   }
 
   /**
-   * Sets event value in a string value pair.
+   * Sets event value in a key value pair.
    * @param fldName String field name.
    * @param val Double event value.
    * @param ndx Integer field index for position.
@@ -173,7 +176,7 @@ public class Event {
   }
 
   /**
-   * Sets event value in a string value pair.
+   * Sets event value in a key value pair.
    * @param fldName String field name.
    * @param val Double event value.
    */

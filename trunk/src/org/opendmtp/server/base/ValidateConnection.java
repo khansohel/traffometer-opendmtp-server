@@ -22,13 +22,9 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.base;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-
-import org.opendmtp.util.*;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.RTConfig;
+import org.opendmtp.util.StringTools;
 
 /**
  * Connection validation class.
@@ -106,7 +102,12 @@ public class ValidateConnection {
   // ------------------------------------------------------------------------
 
   /**
-   * 
+   * Guessing? Returns profile mask of minutes with connection.
+   * @param maxConnections Maximum connections.
+   * @param maxPerMinute Maximum connections per minute.
+   * @param profileMask Byte array for profile mask.
+   * @param shiftSec Long integer seconds to shift.
+   * @return byte array containing new profile mask.
    */
   public byte[] markConnection(int maxConnections, int maxPerMinute, byte profileMask[],
       long shiftSec) {
@@ -243,6 +244,7 @@ public class ValidateConnection {
   // ------------------------------------------------------------------------
   /**
    * Main method for ValidateConnection class.
+   * @param argv Command line parameters.
    */
   public static void main(String argv[]) {
     RTConfig.setCommandLineArgs(argv);

@@ -22,13 +22,7 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.base;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-
-import org.opendmtp.util.*;
+import org.opendmtp.util.StringTools;
 
 /**
  * Class defines Unique ID object to uniquely identify device.
