@@ -29,7 +29,7 @@ import org.opendmtp.util.Print;
 
 
 /**
- * AccountID, seems to provide access to existing AccountDB information to check if it is
+ * Seems to provide access to existing AccountDB information and is used to check if it is
  * active, name, and a toString method.  Uses a private variable but and a private static 
  * constructor, but public accessors and a public static method to "load account".
  * 
@@ -38,12 +38,7 @@ import org.opendmtp.util.Print;
  */
 public class AccountID {
 
-  // - AccountID
-  // - AccountID name [key]
-  // - Owner name
-  // - Contact email
-  // - Event notification email
-  // - Account level of service
+  
 
   /**
    * Identification, used for varification.
@@ -51,7 +46,7 @@ public class AccountID {
   private AccountDB db = null;
 
   /**
-   * Returns a AccountDB from the DMTPServer.DBFactory.  
+   * Returns AccountDB specified from the DMTPServer.DBFactory.  
    * If not found returns null.
    * 
    * @param acctName containing the accountID.
