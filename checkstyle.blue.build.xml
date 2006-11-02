@@ -50,9 +50,8 @@
          <include name="org/opendmtp/util/DBRecordKey.java"/>
          <include name="org/opendmtp/dbtools/TestTable.java"/>
          <include name="org/opendmtp/server/base/AccountID.java"/>
-         <include name="org/opendmtp/util/DMTPClientPacketHandler.java"/>
+         <include name="org/opendmtp/server/base/DMTPClientPacketHandler.java"/>
          <include name="org/opendmtp/util/DMTPServer.java"/>
-       	 <include name="org/opendmtp/util/AbstractClientPacketHandler.java"/>
          <include name="org/opendmtp/util/DeviceID.java"/>
        </fileset>
        <formatter type="plain"/>
