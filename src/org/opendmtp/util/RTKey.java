@@ -27,11 +27,10 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.util;
 
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
-import java.awt.*;
-import java.awt.color.*;
+import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Holds the key names for run time properties.

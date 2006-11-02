@@ -27,12 +27,12 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.util;
 
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
-import java.awt.*;
-import java.awt.color.*;
-import java.net.*;
+import java.io.File;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Provides support for runtime properties in RTProperties class.

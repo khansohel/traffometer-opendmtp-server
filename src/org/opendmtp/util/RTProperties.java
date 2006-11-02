@@ -29,11 +29,16 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.util;
 
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
-import java.awt.*;
-import java.awt.color.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
 
 /**
  * Holds the runtime properties of the server.
