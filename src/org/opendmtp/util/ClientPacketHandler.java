@@ -27,21 +27,55 @@ package org.opendmtp.util;
 
 import java.net.InetAddress;
 
+/**
+ * Interface specifying socket packet handler for OpenDMTP clients.
+ * 
+ * @author Martin D. Flynn
+ * @author Robert S. Brewer
+ */
 public interface ClientPacketHandler {
 
-  // called when new client session initiated
+  /**
+   * Called when new client session initiated.
+   * 
+   * @param inetAddr IP address of client.
+   * @param isTCP flag indicating whether session is over TCP.
+   * @param isText flag indicating whether session is text.
+   */
   public void sessionStarted(InetAddress inetAddr, boolean isTCP, boolean isText);
 
-  // return actual packet length based on this partial packet
+  /**
+   * Returns actual packet length based on this partial packet.
+   * 
+   * @param packet partial packet to be checked.
+   * @param packetLen length of partial packet.
+   * @return Actual packet length.
+   */
   public int getActualPacketLength(byte packet[], int packetLen); // non-text
 
-  // process packet and return response
+  /**
+   * Process packet and return response, the core of the packet handler.
+   * 
+   * @param cmd packet to be processed.
+   * @return an array containing packet information for output.
+   * @throws Exception if problem encountered while handling packet.
+   */
   public byte[] getHandlePacket(byte cmd[]) throws Exception;
 
-  // return true to terminate session
+  /**
+   * Should return true to terminate session.
+   * 
+   * @return true if session is to be terminated, otherwise false.
+   */
   public boolean terminateSession();
 
-  // called after client session terminated
+  /**
+   * Called after client session is terminated.
+   * 
+   * @param err Possible error encountered in termination?
+   * @param readCount Record of number of packets read?
+   * @param writeCount Record of number of packets written?
+   */
   public void sessionTerminated(Throwable err, long readCount, long writeCount);
 
 }
