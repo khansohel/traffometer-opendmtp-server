@@ -34,6 +34,12 @@ import java.awt.*;
 import java.awt.color.*;
 import java.net.*;
 
+/**
+ * Provides support for runtime properties in RTProperties class.
+ * 
+ * @author Martin D. Flynn
+ * @author Nam Nguyen
+ */
 public class RTConfig
 {
 
@@ -43,9 +49,16 @@ public class RTConfig
     //static { startupInit(); }
 
     // ------------------------------------------------------------------------
-
+    /**
+     * Holds the name of the local host.
+     */
     private static String localhostName = null;
 
+    /**
+     * Returns the name of the local host.
+     * 
+     * @return The name of the local host.
+     */
     public static String getHostName()
     {
         /* host name */
@@ -63,12 +76,33 @@ public class RTConfig
 
     // ------------------------------------------------------------------------
     
+    /**
+     * Holds the value "cmdline".
+     */
     private static final String CMDLINE     = "cmdline";
+    /**
+     * Holds the value CMDLINE + "_".
+     */
     private static final String CMDLINE_    = CMDLINE + "_";
+    /**
+     * Holds the value "webapp".
+     */
     private static final String WEBAPP      = "webapp";
+    /**
+     * Holds the value WEBAPP + "_";.
+     */
     private static final String WEBAPP_     = WEBAPP + "_";
+    /**
+     * Holds the value ".conf".
+     */
     private static final String _CONF       = ".conf";
 
+    /**
+     * Creates a command line configuration with the specified name.
+     * 
+     * @param name The name of the configuration.
+     * @return A string that represents the command line configuration.
+     */
     private static String createCmdLineConf(String name)
     {
         if (name != null) {
@@ -78,6 +112,12 @@ public class RTConfig
         }
     }
 
+    /**
+     * Creates a web application configuration with the specified name.
+     * 
+     * @param ctx The name of the configuration.
+     * @return A string that represents the web application configuration.
+     */
     private static String createWebAppConf(String ctx)
     {
         if (ctx != null) {
@@ -89,13 +129,34 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Holds numerical value 0.
+     */
     private static final int    THREAD_LOCAL        = 0;
+    /**
+     * Holds numerical value 1.
+     */
     private static final int    SERVLET_CONFIG      = 1;
+    /**
+     * Holds numerical value 2.
+     */
     private static final int    SERVLET_CONTEXT     = 2;
+    /**
+     * Holds numerical value 3.
+     */
     private static final int    COMMAND_LINE        = 3;
+    /**
+     * Holds numerical value 4.
+     */
     private static final int    CONFIG_FILE         = 4;
+    /**
+     * Holds numerical value 5.
+     */
     private static final int    SYSTEM              = 5;
-
+    
+    /**
+     * Holds instances of RTProperties for different types of configuration.
+     */
     private static RTProperties CFG_PROPERTIES[] = new RTProperties[] {
         null,                                       // ThreadLocal properties
         null,                                       // ServletConfig properties
@@ -105,6 +166,11 @@ public class RTConfig
         new RTProperties(System.getProperties()),   // System properties
     };
     
+    /**
+     * Returns the local thread's configuration properties.
+     * 
+     * @return The local thread's configuration properties.
+     */
     public static RTProperties getThreadProperties()
     {
         if (CFG_PROPERTIES[THREAD_LOCAL] == null) {
@@ -117,21 +183,40 @@ public class RTConfig
         return CFG_PROPERTIES[THREAD_LOCAL];
     }
     
+    /**
+     * Returns servlet context properties.
+     * 
+     * @return Servlet context properties.
+     */
     public static RTProperties getServletContextProperties()
     {
         return CFG_PROPERTIES[SERVLET_CONTEXT]; // will be null until this is fully implemented
     }
     
+    /**
+     * Returns servlet configuration properties.
+     * 
+     * @return Servlet configuration properties.
+     */
     public static RTProperties getServletConfigProperties()
     {
         return CFG_PROPERTIES[SERVLET_CONFIG]; // will be null until this is fully implemented
     }
     
+    /**
+     * Returns command line properties.
+     * @return Command line properties.
+     */
     public static RTProperties getCommandLineProperties()
     {
         return CFG_PROPERTIES[COMMAND_LINE]; // may be null if not initialized
     }
     
+    /**
+     * Returns configuration file properties.
+     * 
+     * @return Configuration file properties.
+     */
     public static RTProperties getConfigFileProperties()
     {
         if (CFG_PROPERTIES[CONFIG_FILE] == null) {
@@ -142,11 +227,22 @@ public class RTConfig
         return CFG_PROPERTIES[CONFIG_FILE];
     }
     
+    /**
+     * Returns system properties.
+     * 
+     * @return System properties.
+     */
     public static RTProperties getSystemProperties()
     {
         return CFG_PROPERTIES[SYSTEM]; // always defined
     }
     
+    /**
+     * Returns the configurations that has the specific property.
+     * 
+     * @param key The property to look for.
+     * @return Configurations that has the specific property.
+     */
     public static RTProperties getPropertiesForKey(String key)
     {
         if (key != null) {
@@ -173,12 +269,22 @@ public class RTConfig
     }
     
     // ------------------------------------------------------------------------
-    
+    /**
+     * Sets the command line properties.
+     * 
+     * @param argv The arguments to be set in command line.
+     */
     public static void setCommandLineArgs(String argv[])
     {
         RTConfig.setCommandLineArgs(argv, false);
     }
     
+    /**
+     * Sets the command line properties.
+     * 
+     * @param argv The arguments to be set in command line.
+     * @param testMode Specifies that this is whether a test or not.
+     */
     public static void setCommandLineArgs(String argv[], boolean testMode)
     {
         if (argv != null) {
@@ -198,6 +304,11 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Sets the servlet context properties.
+     * 
+     * @param props A map holding properties to be used.
+     */
     public static void setServletContextProperties(Map props)
     {
         // Don't do anything right now except initialize RTConfig
@@ -211,6 +322,11 @@ public class RTConfig
         Print.logInfo("DebugMode == " + RTConfig.isDebugMode());
     }
     
+    /**
+     * Removes all properties of a specific servlet context.
+     * 
+     * @param servlet The argument is not used in this function.
+     */
     public static void clearServletContextProperties(Object servlet)
     {
         CFG_PROPERTIES[SERVLET_CONTEXT] = null;
@@ -218,17 +334,29 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Does not do anything right now except initialize RTConfig.
+     * Ideally, this will use some kind of map indexed by the servlet
+     * class to store the servlet specific properties.  The stack
+     * will then be examined to find the appropriate Class type and
+     * then the corresponding properties will be used.
+     * 
+     * @param servlet a servlet class.
+     * @param props map of properties.
+     */
     public static void setServletConfigProperties(Object servlet, Map props)
     {
         // Don't do anything right not except initialize RTConfig
         // --------------------------------------------------------------
-        // Ideally, this will use some kind of map indexed by the servlet
-        // class to store the servlet specific properties.  The stack
-        // will then be examined to find the appropriate Class type and
-        // then the corresponding properties will be used.
+         
         startupInit();
     }
     
+    /**
+     * Removes all properties of a specific servlet configuration.
+     * 
+     * @param servlet The argument is not used in this function.
+     */
     public static void clearServletConfigProperties(Object servlet)
     {
         CFG_PROPERTIES[SERVLET_CONFIG] = null;
@@ -236,13 +364,24 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Specifies whether the initialization at startup was performed.
+     */
     private static boolean _didStartupInit = false;
     
+    /**
+     * Specifies whether the connection is initialized or not.
+     * 
+     * @return True if the connection is initialized, False otherwise.
+     */
     public static boolean isInitialized()
     {
         return _didStartupInit;
     }
     
+    /**
+     * Initializes the connection.
+     */
     public static synchronized void startupInit()
     {
         
@@ -295,6 +434,11 @@ public class RTConfig
 
     }
     
+    /**
+     * Returns the configuration file properties.
+     * 
+     * @return The configuration file properties.
+     */
     protected static File getConfigFile()
     {
         
@@ -403,6 +547,12 @@ public class RTConfig
 
     }
     
+    /**
+     * Returns the configuration file properties that matches the specified name.
+     * 
+     * @param name The specific property to look for.
+     * @return The configuration file properties.
+     */    
     protected static File _getConfigFile(String name)
     {
         
@@ -447,6 +597,12 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Loads the properties from input stream.
+     * 
+     * @param name The name of the configuration.
+     * @return List of properties loaded.
+     */
     public static Properties loadResourceProperties(String name)
     {
         try {
@@ -467,12 +623,23 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
-    
+    /**
+     * Specifies whether a property exists.
+     * 
+     * @param key The property to look for.
+     * @return True if the property exists, False otherwise.
+     */
     public static boolean hasProperty(String key)
     {
         return (getPropertiesForKey(key) != null);
     }
 
+    /**
+     * Specifies whether some properties exists.
+     * 
+     * @param key The properties to look for.
+     * @return True if the property exists, False otherwise.
+     */
     public static boolean hasProperty(String key[])
     {
         if (key != null) {
@@ -485,18 +652,37 @@ public class RTConfig
     }
 
     // ------------------------------------------------------------------------
-
+    /**
+     * Returns the value of a specified property.
+     * 
+     * @param key The property to look for.
+     * @return The value of the specified property.
+     */
     public static Object getProperty(String key)
     {
         return getProperty(key, null);
     }
     
+    /**
+     * Returns the value of a specified property.
+     * Returns dft if the value is null.
+     * 
+     * @param key The property to look for.
+     * @param dft The value to return if property has value null.
+     * @return The value of the specified property.
+     */
     public static Object getProperty(String key, Object dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getProperty(key, dft) : dft;
     }
 
+    /**
+     * Sets the value of a property.
+     * 
+     * @param key The property to look for.
+     * @param value The new value for the property.
+     */
     public static void setProperty(String key, Object value)
     {
         getConfigFileProperties().setProperty(key, value);
@@ -505,6 +691,11 @@ public class RTConfig
         }
     }
     
+    /**
+     * Adds, removes or changes the values of the current properties.
+     * 
+     * @param props The list of properties to be added into the current list.
+     */
     public static void setProperties(Properties props)
     {
         getConfigFileProperties().setProperties(props);
@@ -512,7 +703,13 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
-    // Extract a Map containing a group of key/values from the config file properties
+    /**
+     * Extracts a Map containing a group of key/values from the config file properties.
+     * 
+     * @param keyEnd A substring that identifies which properties to extract.
+     * @param valEnd The value to be set for the extracted properties.
+     * @return The extracted from the runtime configuration Map containing a group of key/values.
+     */
     public static Map extractMap(String keyEnd, String valEnd)
     {
         return getConfigFileProperties().extractMap(keyEnd, valEnd);
@@ -520,17 +717,39 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Returns the value of a specified property.
+     * 
+     * @param key The property to look for.
+     * @return String representation of the value.
+     */
     public static String getString(String key)
     {
         return getString(key, null);
     }
 
+    /**
+     * Returns the value of a specified property.
+     * Returns dft if the value is null.
+     * 
+     * @param key The property to look for.
+     * @param dft The value to return in case the property's value is null.
+     * @return String representation of the value.
+     */
     public static String getString(String key, String dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getString(key, dft) : dft;
     }
     
+    /**
+     * Returns the value of specified properties.
+     * Returns dft if the value is null.
+     * 
+     * @param key The properties to look for.
+     * @param dft The value to return in case the property's value is null.
+     * @return String representation of the value.
+     */
     public static String getString(String key[], String dft)
     {
         if (key != null) {
@@ -542,24 +761,52 @@ public class RTConfig
         return dft;
     }
 
+    /**
+     * Sets the value of a property.
+     * 
+     * @param key The property to look for.
+     * @param value The new value.
+     */
     public static void setString(String key, String value)
     {
         getConfigFileProperties().setString(key, value);
     }
 
     // ------------------------------------------------------------------------
-    
+    /**
+     * Returns the value of the specified property as an array of string.
+     * This is for the case when the value is a list of words separated by comma.
+     * 
+     * @param key The property to look for.
+     * @return The value of the specified property as an array of string.
+     */
     public static String[] getStringArray(String key)
     {
         return getStringArray(key, null);
     }
     
+    /**
+     * Returns the value of the specified property as an array of string.
+     * This is for the case when the value is a list of words separated by comma.
+     * 
+     * @param key The property to look for.
+     * @param dft An array of string to to be returned if the property's value is null.
+     * @return The value of the specified property as an array of string.
+     */
     public static String[] getStringArray(String key, String dft[])
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getStringArray(key, dft) : dft;
     }
 
+    /**
+     * Returns the value of the specified properties as an array of string.
+     * This is for the case when the value is a list of words separated by comma.
+     * 
+     * @param key The properties to look for.
+     * @param dft An array of string to to be returned if the property's value is null.
+     * @return The value of the specified property as an array of string.
+     */
     public static String[] getStringArray(String key[], String dft[])
     {
         if (key != null) {
@@ -573,6 +820,12 @@ public class RTConfig
         return dft;
     }
 
+    /**
+     * Assigns the specified property to a value.
+     * 
+     * @param key The property to be changed.
+     * @param val An array representation of the value.
+     */
     public static void setStringArray(String key, String val[])
     {
         getConfigFileProperties().setStringArray(key, val);
@@ -580,6 +833,14 @@ public class RTConfig
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Returns value of the specified property if its a file.
+     * Creates a new file if the value is not of type file
+     * Returns null otherwise if value is null.
+     * 
+     * @param key The property to look for
+     * @return The value of the specified property if its a file.
+     */
     public static File getFile(String key)
     {
         return getFile(key, null);
@@ -587,13 +848,30 @@ public class RTConfig
 
     // do not include this method, otherwise "getFile(file, null)" would be ambiguous
     //public File getFile(String key, String dft)
-
+    /**
+     * Returns value of the specified property if its a file.
+     * Creates a new file if the value is not of type file.
+     * Returns dft otherwise if value is null.
+     * 
+     * @param key The property to look for
+     * @param dft The file to return if value is null.
+     * @return The value of the specified property if its a file.
+     */
     public static File getFile(String key, File dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getFile(key, dft) : dft;
     }
 
+    /**
+     * Returns value of the specified properties if its a file.
+     * Creates a new file if the value is not of type file.
+     * Returns dft otherwise if value is null.
+     * 
+     * @param key The properties to look for
+     * @param dft The file to return if value is null.
+     * @return The value of the specified property if its a file.
+     */
     public static File getFile(String key[], File dft)
     {
         if (key != null) {
@@ -605,24 +883,52 @@ public class RTConfig
         return dft;
     }
 
+    /**
+     * Sets the value of the specified property.
+     * 
+     * @param key The property to look for.
+     * @param value The new value.
+     */
     public static void setFile(String key, File value)
     {
         getConfigFileProperties().setFile(key, value);
     }
 
     // ------------------------------------------------------------------------
-    
+    /**
+     * Returns value of the specified property if its of type double.
+     * Returns null otherwise.
+     * 
+     * @param key The property to look for
+     * @return The value of the specified property if its of type double.
+     */
     public static double getDouble(String key)
     {
         return getDouble(key, 0.0);
     }
     
+    /**
+     * Returns value of the specified property if its of type double.
+     * Returns dft otherwise.
+     * 
+     * @param key The property to look for
+     * @param dft The value of type double to return if value is null.
+     * @return The value of the specified property if its of type double.
+     */
     public static double getDouble(String key, double dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getDouble(key, dft) : dft;
     }
-
+    
+    /**
+     * Returns value of the specified properties if its of type double.
+     * Returns dft otherwise.
+     * 
+     * @param key The property to look for
+     * @param dft The value of type double to return if value is null.
+     * @return The value of the specified property if its of type double.
+     */    
     public static double getDouble(String key[], double dft)
     {
         if (key != null) {
@@ -634,24 +940,52 @@ public class RTConfig
         return dft;
     }
 
+    /**
+     * Sets the value of the specified property to a double number.
+     * 
+     * @param key The property to look for.
+     * @param value The new value.
+     */
     public static void setDouble(String key, double value)
     {
         getConfigFileProperties().setDouble(key, value);
     }
 
     // ------------------------------------------------------------------------
-    
+    /**
+     * Returns value of the specified property if its of type float.
+     * Returns null otherwise.
+     * 
+     * @param key The property to look for
+     * @return The value of the specified property if its of type float.
+     */   
     public static float getFloat(String key)
     {
         return getFloat(key, 0.0F);
     }
 
+    /**
+     * Returns value of the specified property if its of type float.
+     * Returns dft otherwise.
+     * 
+     * @param key The property to look for
+     * @param dft The value of type float to return if value is null.
+     * @return The value of the specified property if its of type float.
+     */
     public static float getFloat(String key, float dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getFloat(key, dft) : dft;
     }
 
+    /**
+     * Returns value of the specified properties if its of type float.
+     * Returns dft otherwise.
+     * 
+     * @param key The properties to look for
+     * @param dft The value of type float to return if value is null.
+     * @return The value of the specified property if its of type float.
+     */
     public static float getFloat(String key[], float dft)
     {
         if (key != null) {
@@ -663,24 +997,52 @@ public class RTConfig
         return dft;
     }
 
+    /**
+     * Sets the value of the specified property to a float number.
+     * 
+     * @param key The property to look for.
+     * @param value The new value.
+     */
     public static void setFloat(String key, float value)
     {
         getConfigFileProperties().setFloat(key, value);
     }
 
     // ------------------------------------------------------------------------
-    
+    /**
+     * Returns value of the specified property if its of type long.
+     * Returns null otherwise.
+     * 
+     * @param key The property to look for
+     * @return The value of the specified property if its of type long.
+     */
     public static long getLong(String key)
     {
         return getLong(key, 0L);
     }
 
+    /**
+     * Returns value of the specified property if its of type long.
+     * Returns dft otherwise.
+     * 
+     * @param key The property to look for
+     * @param dft The value of type long to return if value is null.
+     * @return The value of the specified property if its of type long.
+     */
     public static long getLong(String key, long dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getLong(key, dft) : dft;
     }
 
+    /**
+     * Returns value of the specified properties if its of type long.
+     * Returns dft otherwise.
+     * 
+     * @param key The properties to look for
+     * @param dft The value of type long to return if value is null.
+     * @return The value of the specified property if its of type long.
+     */
     public static long getLong(String key[], long dft)
     {
         if (key != null) {
@@ -692,24 +1054,52 @@ public class RTConfig
         return dft;
     }
 
+    /**
+     * Sets the value of the specified property to a long number.
+     * 
+     * @param key The property to look for.
+     * @param value The new value.
+     */
     public static void setLong(String key, long value)
     {
         getConfigFileProperties().setLong(key, value);
     }
 
     // ------------------------------------------------------------------------
-    
+    /**
+     * Returns value of the specified property if its of type int.
+     * Returns null otherwise.
+     * 
+     * @param key The property to look for
+     * @return The value of the specified property if its of type int.
+     */
     public static int getInt(String key)
     {
         return getInt(key, 0);
     }
 
+    /**
+     * Returns value of the specified property if its of type int.
+     * Returns dft otherwise.
+     * 
+     * @param key The property to look for
+     * @param dft The value of type int to return if value is null.
+     * @return The value of the specified property if its of type int.
+     */
     public static int getInt(String key, int dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
         return (rtp != null)? rtp.getInt(key, dft) : dft;
     }
 
+    /**
+     * Returns value of the specified properties if its of type int.
+     * Returns dft otherwise.
+     * 
+     * @param key The properties to look for
+     * @param dft The value of type int to return if value is null.
+     * @return The value of the specified property if its of type int.
+     */
     public static int getInt(String key[], int dft)
     {
         if (key != null) {
@@ -721,18 +1111,38 @@ public class RTConfig
         return dft;
     }
 
+    /**
+     * Sets the value of the specified property to a int number.
+     * 
+     * @param key The property to look for.
+     * @param value The new value.
+     */
     public static void setInt(String key, int value)
     {
         getConfigFileProperties().setInt(key, value);
     }
 
     // ------------------------------------------------------------------------
-    
+    /**
+     * Returns value of the specified property if its of type boolean.
+     * Returns null otherwise.
+     * 
+     * @param key The property to look for
+     * @return The value of the specified property if its of type boolean.
+     */
     public static boolean getBoolean(String key)
     {
         return getBoolean(key, hasProperty(key));
     }
 
+    /**
+     * Returns value of the specified property if its of type boolean.
+     * Returns dft otherwise.
+     * 
+     * @param key The property to look for
+     * @param dft The value of type boolean to return if value is null.
+     * @return The value of the specified property if its of type boolean.
+     */ 
     public static boolean getBoolean(String key, boolean dft)
     {
         RTProperties rtp = getPropertiesForKey(key);
@@ -749,6 +1159,14 @@ public class RTConfig
         //return (rtp != null)? rtp.getBoolean(key, dft) : dft;
     }
 
+    /**
+     * Returns value of the specified properties if its of type boolean.
+     * Returns dft otherwise.
+     * 
+     * @param key The properties to look for
+     * @param dft The value of type boolean to return if value is null.
+     * @return The value of the specified property if its of type boolean.
+     */ 
     public static boolean getBoolean(String key[], boolean dft)
     {
         if (key != null) {
@@ -760,6 +1178,12 @@ public class RTConfig
         return dft;
     }
     
+    /**
+     * Sets the value of the specified property to a boolean number.
+     * 
+     * @param key The property to look for.
+     * @param value The new value.
+     */
     public static void setBoolean(String key, boolean value)
     {
         getConfigFileProperties().setBoolean(key, value);
@@ -767,24 +1191,43 @@ public class RTConfig
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Sets admin mode property.
+     * 
+     * @param admin The value for admin mode property.
+     */
     public static void setAdminMode(boolean admin)
     {
         setBoolean(RTKey.ADMIN_MODE, admin);
     }
     
+    /**
+     * Indicates whether admin mode is on or not.
+     * 
+     * @return True if admin mode is on, False otherwise.
+     */
     public static boolean isAdminMode()
     {
         return getBoolean(RTKey.ADMIN_MODE);
     }
 
     // ------------------------------------------------------------------------
-
+    /**
+     * Sets debug mode property.
+     * 
+     * @param debug The value for debug mode property.
+     */
     public static void setDebugMode(boolean debug)
     {
         setBoolean(RTKey.DEBUG_MODE, debug);
     }
     
     //private static int _debug_recursion = 0;
+    /**
+     * Indicates whether debug mode is on or not.
+     * 
+     * @return True if debug mode is on, False otherwise.
+     */
     public static boolean isDebugMode()
     {
         //if (_debug_recursion > 0) { Thread.dumpStack(); System.exit(0); }
@@ -794,12 +1237,21 @@ public class RTConfig
     }
 
     // ------------------------------------------------------------------------
-
+    /**
+     * Sets test mode property.
+     * 
+     * @param test The value for test mode property.
+     */
     public static void setTestMode(boolean test)
     {
         setBoolean(RTKey.TEST_MODE, test);
     }
     
+    /**
+     * Indicates whether test mode is on or not.
+     * 
+     * @return True if test mode is on, False otherwise.
+     */
     public static boolean isTestMode()
     {
         return getBoolean(RTKey.TEST_MODE);
@@ -808,14 +1260,27 @@ public class RTConfig
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
         
+    /**
+     * Indicates whether the server is running as a web application or not.
+     */
     private static Boolean isRunningAsWebApp = null;
 
+    /**
+     * Sets the value of "isWebApp" property.
+     * 
+     * @param webapp The value for "isWebApp" property.
+     */
     public static void setWebApp(boolean webapp)
     {
         setBoolean(RTKey.IS_WEBAPP, webapp);
         isRunningAsWebApp = null; // <== to bypass Boolean check
     }
     
+    /**
+     * Indicates whether it is a web application or not.
+     * 
+     * @return True it is a web application, False otherwise.
+     */
     public static boolean isWebApp()
     {
         
@@ -835,10 +1300,19 @@ public class RTConfig
 
     }
 
+    /**
+     * Holds the list of Web Application names.
+     */
     private static String WebAppClassNames[] = {
         "javax.servlet.http.HttpServlet", // as long as the servlet didn't override 'service'
         "org.apache.catalina.core.ApplicationFilterChain"
     };
+    
+    /**
+     * Indicates whether it is a web application or not.
+     * 
+     * @return True it is a web application, False otherwise.
+     */
     protected static boolean _isWebApp_1()
     {
         // We should also check the invocation stack
@@ -869,6 +1343,11 @@ public class RTConfig
         return false;
     }
     
+    /**
+     * Indicates whether it is a web application or not.
+     * 
+     * @return True it is a web application, False otherwise.
+     */
     protected static boolean _isWebApp_2()
     {
         return (getServletClass() != null);
@@ -876,8 +1355,15 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
-    
+    /**
+     * Defines the main class.
+     */
     private static Class Main_class = null;
+    
+    /**
+     * Returns the value of the main class.
+     * @return Value of the main class.
+     */
     public static Class getMainClass()
     {
         if (Main_class == null) {
@@ -894,10 +1380,23 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
-    
+    /**
+     * Holds the name of servlet class.
+     */
     private static String SERVLET_CLASS = "javax.servlet.Servlet"; // GenericServlet
+    /**
+     * Indicates whether servlet is initialized or not.
+     */
     private static boolean Servlet_init = false;
+    /**
+     * Holds the class name of servlet_class.
+     */
     private static Class Servlet_class = null;
+    /**
+     * Returns the class name of servlet_class.
+     * 
+     * @return The class name of servlet_class.
+     */
     public static Class getServletClass()
     {
         
@@ -930,6 +1429,11 @@ public class RTConfig
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Runs operating system tests from the commandline and prints results.
+     * 
+     * @param argv Command line arguments.
+     */
     public static void main(String argv[])
     {
         RTConfig.setCommandLineArgs(argv);
