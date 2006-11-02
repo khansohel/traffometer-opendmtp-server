@@ -37,6 +37,13 @@ import java.sql.*;
 
 import org.opendmtp.util.*;
 
+/**
+ * Representation of a database table. It contains methods and subclasses for creating and manipulating the table's  
+ * the table's components such as columns, rows, primary keys. 
+ * @author Martin D. Flynn
+ * @author Kiet Huynh
+ *
+ */
 public class DBFactory {
 
   // ------------------------------------------------------------------------
@@ -126,7 +133,7 @@ public class DBFactory {
   /** The array containing all the columns whose keys are alternate keys of the table. */
   private DBField altKeys[] = null;
   
-  /** The type of a key. */
+  /** The type of a key. Is is initialized to primary key which I think it shouldn't be.*/
   private int keyType = KEY_PRIMARY;
   
   /** The class of a key. */
@@ -283,6 +290,12 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Maps old name to new name. However, I am not sure what Martin tries to
+   * map.
+   * @param fn The new name.
+   * @return return the new name.
+   */
   public String getMappedFieldName(String fn) { // map old name to new name
     if (this.getTableName().equals("AssetEvent") && fn.equals("alarmCode")) {
       return "statusCode";
@@ -341,7 +354,12 @@ public class DBFactory {
     return fn;
   }
 
-  
+  /**
+   * I don't know what this method does. 
+   * @param key 
+   * @param value
+   * @return A DBField array containing all the fields.
+   */
   public DBField[] getFieldsWithBoolean(String key, boolean value) {
     Vector af = new Vector();
     for (int i = 0; i < this.field.length; i++) {
@@ -419,7 +437,10 @@ public class DBFactory {
     return sb.toString();
   }
 
-  
+  /**
+   * Gets the type of the key.
+   * @return The type of the key.
+   */
   public String getKeyType() {
     return DBFactory.getKeyTypeName(this.keyType);
   }
@@ -445,11 +466,19 @@ public class DBFactory {
     }
   }
 
-  
+  /**
+   * Gets the class of the key.
+   * @return The class of the key.
+   */
   public Class getKeyClass() {
     return this.keyClass;
   }
 
+  /**
+   * Create an instance of DBRecordKey.
+   * @return An instance of DBRRecordKey.
+   * @throws DBException If any errors occur.
+   */
   public DBRecordKey createKey() throws DBException {
     if (this.keyClass != null) {
       try {
@@ -464,6 +493,16 @@ public class DBFactory {
     return null;
   }
 
+  /**
+   * Sets the name and value for all the columns whose keys are primary key. The
+   * names and the values are in the Resultset which come from an SQL statement 
+   * execution.
+   * @param rs Any ResultSet
+   * @return A instance of DBRecordKey is looped. Thus, I think any array should
+   * be returned or the method should be "void". Thus, I am not sure what Martin 
+   * wanted to do in this method.
+   * @throws DBException
+   */
   protected DBRecordKey createKey(ResultSet rs) throws DBException {
     DBRecordKey key = this.createKey(); // may throw DBException
     if (rs != null) {
@@ -482,20 +521,38 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Gets all columns whose keys are alternate keys and saves them in an array
+   * of type DBField.
+   * @return A DBField array contains all columns whose keys are alternate keys.
+   */
   public DBField[] getAltKeyFields() {
     return this.altKeys;
   }
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Gets a class of the record.
+   */
   public Class getRecordClass() {
     return this.rcdClass;
   }
 
+  /**
+   * Gets the name of a table.
+   * @return The name of the table.
+   */
   public String getTableName() {
     return this.tableName;
   }
 
+  /**
+   * Check to see if the table exists in the database. 
+   * @return True if the table exists. If the table or the database does not
+   * exit, return false.
+   * @throws DBException. If any errors occur.
+   */
   public boolean tableExists() throws DBException {
     try {
       StringBuffer sb = new StringBuffer();
@@ -521,31 +578,66 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Creates a log file.  
+   * @author Martin D. Flynn
+   * @author Kiet Huynh
+   */
   public static class ValidationLog {
+    
+    /** The name of the table. */
     private String tableName = "";
+    /** The header of the log. */
     private String header = "";
+    /** The output string buffer. */
     private StringBuffer out = null;
+    /** Boolean variable indicating if "warnings" is included or not. */
     private boolean inclWarn = true;
+    /** The number of errors. */
     private int hasErrors = 0;
 
+    /**
+     * Initializes table name and the "inclWarn" when an object of this class
+     * is created.
+     * @param tableName The name of the table.
+     * @param inclWarn Boolean variable indicating if "warnings" is included or not.
+     */
     public ValidationLog(String tableName, boolean inclWarn) {
       this.tableName = (tableName != null) ? tableName : "";
       this.inclWarn = inclWarn;
       this.out = new StringBuffer();
     }
 
+    /** 
+     * Sets the header of the log.
+     * @param header The header of the log.
+     */
     public void logHeader(String header) {
       this.header = (header != null) ? header : "";
     }
 
+    /**
+     * Checks if the log has a header.
+     * @return True if the log has a header. Otherwise, returns false.
+     */
     public boolean hasHeader() {
       return !this.header.equals("");
     }
 
+    /**
+     * Appends a message to the log file. 
+     * @param msg The message to be appended.
+     */
     public void logInfo(String msg) {
       this.out.append("\n  [INFO] " + msg);
     }
 
+    /**
+     * Appends warnings to the log if "inclWarn" is true. 
+     * The number of errors in incremented by 1 of a log
+     * is appended.
+     * @param msg The message to be appended.
+     */
     public void logWarn(String msg) {
       if (this.inclWarn) {
         this.out.append("\n  [WARN] " + msg);
@@ -553,26 +645,56 @@ public class DBFactory {
       }
     }
 
+    /**
+     * Appends warning to the log if the errors is severe no matter what value
+     * of the "inclWarn". The number of errors in incremented by 1 of a log
+     * is appended.
+     * @param msg The message to be appended.
+     */
     public void logSevere(String msg) {
       this.out.append("\n  [SEVERE] " + msg);
       this.hasErrors++;
     }
 
+    /**
+     * Checks if there are any errors.
+     * @return True if there are any errors. Otherwise, false.
+     */
     public boolean hasErrors() {
       return (this.hasErrors > 0);
     }
 
+    /**
+     * Convert the log to a string.
+     * @return The string representing the log.
+     */
     public String toString() {
       return this.header + this.out.toString();
     }
   }
 
+  /**
+   * Handles exceptions when a table is validated. 
+   * @author Martin D. Flynn
+   * @author Kiet Huynh
+   *
+   */
   public static class ValidationNotImplementedException extends Exception {
+    
+    /**
+     * ValidationNotImplentedException is instantiated.
+     * @param msg Error message.
+     */
     public ValidationNotImplementedException(String msg) {
       super(msg);
     }
   }
 
+  /**
+   * Validates a table. I am not sure what in the table Martin tries to validate.
+   * @param inclWarn Specifies whether warning should be include in the log.
+   * @return True if the table passes the validation. Otherwise, return false.
+   */
   public boolean validateTable(boolean inclWarn) {
     // This method is intended to be executed from the command line
     String TN = this.getTableName();
@@ -651,6 +773,14 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Creates a database table. The name of the table is the value of the instance variable 
+   * "tableName", all the fields are the values of the instance variables "field", "priKeys",
+   * "altKeys".
+   * @throws SQLException If any database access errors occur.
+   * @throws DBException If any dababase access errors occur. MySQl is
+   *         not running or it can't find the MySQL server.
+   */
   public void createTable() throws DBException {
     try {
       this._createTable();
@@ -660,6 +790,14 @@ public class DBFactory {
     }
   }
 
+  /**
+   * Creates a database table. The name of the table is the value of the instance variable 
+   * "tableName", all the fields are the values of the instance variables "field", "priKeys",
+   * "altKeys".
+   * @throws SQLException If any database access errors occur.
+   * @throws DBException If any dababase access errors occur. MySQl is
+   *         not running or it can't find the MySQL server.
+   */
   protected void _createTable() throws SQLException, DBException {
     StringBuffer sb = new StringBuffer();
     // MySQL: create table <TableName> ( <Fields...>, <KeyType> ( <Keys...> ), <KeyIndex> altindex ( <AltKeys...> ) )
@@ -711,6 +849,14 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Drop a database table if it exists. The name of the table is the value of the instance 
+   * variable "tableName".
+   * @throws SQLException If any database access errors occur, usually because table does
+   * not exist.
+   * @throws DBException If any dababase access errors occur. MySQl is
+   *         not running or it can't find the MySQL server.
+   */
   public void dropTable() throws DBException {
     try {
       this._dropTable();
@@ -720,6 +866,14 @@ public class DBFactory {
     }
   }
 
+  /**
+   * Drop a database table if it exists. The name of the table is the value of the instance 
+   * variable "tableName".
+   * @throws SQLException If any database access errors occur, usually because table does
+   * not exist.
+   * @throws DBException If any dababase access errors occur. MySQl is
+   *         not running or it can't find the MySQL server.
+   */
   protected void _dropTable() throws SQLException, DBException {
     String drop = "DROP TABLE IF EXISTS " + this.getTableName();
     // MySQL: drop table if exists <TableName>
@@ -728,10 +882,50 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Writes the contents of the database table into a file. The method
+   * should also throws IOException and SQLException so the caller can know
+   * which type of errors has occured. The file format is:
+   * <ul>
+   * <li>
+   * The first line of the file contains the fields' name. It has the format:
+   * <p># NameOfField1, NameOfField2, NameOfField3,...</p>
+   * </li>
+   * <li>
+   * Records or rows of the table starting from the second line. It has the format:
+   * <p>Value1, Value2, Value3, ...</p>
+   * </li>
+   * </ul>
+   * 
+   * @param toFile The file to which the contents of the table will be written.
+   * @throws DBException If the dababase access errors occur. MySQl is
+   *         not running or it can't find the MySQL server or If the database 
+   *         access errors occur. 
+   */
   public void dumpTable(File toFile) throws DBException {
     this._dumpTable(toFile);
   }
 
+  /**
+   * Writes the contents of the database table into a file. The method
+   * should also throws IOException and SQLException so the caller can know
+   * which type of errors has occured. The file format is:
+   * <ul>
+   * <li>
+   * The first line of the file contains the fields' name. It has the format:
+   * <p># NameOfField1, NameOfField2, NameOfField3,...</p>
+   * </li>
+   * <li>
+   * Records or rows of the table starting from the second line. It has the format:
+   * <p>Value1, Value2, Value3, ...</p>
+   * </li>
+   * </ul>
+   * 
+   * @param toFile The file to which the contents of the table will be written.
+   * @throws DBException If the dababase access errors occur. MySQl is
+   *         not running or it can't find the MySQL server or If the database 
+   *         access errors occur. 
+   */
   protected void _dumpTable(File toFile) throws DBException {
     DBField fields[] = this.getFields();
     FileOutputStream dumpOutStream = null;
@@ -805,15 +999,33 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Reads input from a sql dump files. 
+   * @author Martin D. Flynn
+   * @author Kiet Huynh
+   */
   protected static class MySQLDumpReader {
+    
+    /** The number that indicate end-0f-file. */
     private int pushedByte = -1;
+    /** The File Input Stream. */
     private FileInputStream fis = null;
 
+    /**
+     * Initializes input file when an instance of this class is created.
+     * @param file The name of the input file.
+     * @throws IOException When any IO errors occur.
+     */
     public MySQLDumpReader(File file) throws IOException {
       super();
       this.fis = new FileInputStream(file);
     }
 
+    /**
+     * Reads a line from the file.   
+     * @return The line read.
+     * @throws IOException
+     */
     public String readLineString() throws IOException {
       byte buff[] = this.readLineBytes();
       if (buff != null) {
@@ -826,6 +1038,11 @@ public class DBFactory {
       }
     }
 
+    /**
+     * Reads a single line from the input file.
+     * @return An array containing the line read.
+     * @throws IOException When any IO errors occur.
+     */
     public byte[] readLineBytes() throws IOException {
       byte buff[] = new byte[10 * 1024];
       int len = 0;
@@ -882,6 +1099,11 @@ public class DBFactory {
       }
     }
 
+    /**
+     * Reads in a single character of the file. 
+     * @return The character read or -1 if end-of-file is reached.
+     * @throws IOException If any IO errors occur.
+     */
     private int read() throws IOException {
       int b = -1;
       if (this.pushedByte >= 0) {
@@ -894,6 +1116,10 @@ public class DBFactory {
       return (b == -1) ? -1 : (b & 0xFF);
     }
 
+    /**
+     * Closes the input stream.
+     * @throws IOException When there are any IO errors occur.
+     */
     public void close() throws IOException {
       this.fis.close();
     }
@@ -901,10 +1127,33 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /** The extention of the dump file that will be loaded. */
   protected static String LOAD_EXT_DUMP = ".dump";
+  /** The extention of the sql file that will be loaded. */
   protected static String LOAD_EXT_SQL = ".sql";
+  /** The extention of the text file that will be loaded */
   protected static String LOAD_EXT_TXT = ".txt";
 
+  /**
+   * Creates a database table from a input file. The file can have extension .txt, sql,
+   * .dmp. If the file is not a text file, convert 
+   * it to the text file. Then the method reads in the contents of the text  
+   * file and uses it to construct SQL statments. It then executes the SQL statements
+   * to create the desired table.
+   * @param fromFile The file name of the text file whose contents will be used to 
+   * created the database. The file format is:
+   * <ul>
+   * <li>
+   * The first line of the file contains the fields' name. It has the format:
+   * <p># NameOfField1, NameOfField2, NameOfField3,...</p>
+   * </li>
+   * <li>
+   * Records or rows of the table starting from the second line. It has the format:
+   * <p>Value1, Value2, Value3, ...</p>
+   * </li>
+   * </ul>
+   * @throws DBException If the file extension is not recognized.
+   */
   public void loadTable(File fromFile) throws DBException {
     String fn = fromFile.getName();
     if (fn.endsWith(LOAD_EXT_DUMP)) {
@@ -927,6 +1176,25 @@ public class DBFactory {
     }
   }
 
+  /**
+   * Creates a database table. The method first reads in the contents of the text  
+   * file and uses it to construct SQL statments. It then executes the SQL statements
+   * to create the desired table.
+   * @param oldFieldNames 
+   * @param fromFile The file name of the text file whose contents will be used to 
+   * created the database. The file format is:
+   * <ul>
+   * <li>
+   * The first line of the file contains the fields' name. It has the format:
+   * <p># NameOfField1, NameOfField2, NameOfField3,...</p>
+   * </li>
+   * <li>
+   * Records or rows of the table starting from the second line. It has the format:
+   * <p>Value1, Value2, Value3, ...</p>
+   * </li>
+   * </ul>
+   * @throws DBException If there are errors reading the file or any database errors.
+   */
   protected void _loadTable(String oldFieldNames[], File fromFile) throws DBException {
     DBField newFields[] = this.getFields();
     MySQLDumpReader fr = null;
@@ -1067,6 +1335,11 @@ public class DBFactory {
 
   }
 
+  /**
+   * Reads all columns' names from a SQL table file and saves them to a String array.
+   * @param tableSQLFile The name of the SQL table file.
+   * @return A String array containing all columns' name.
+   */
   private String[] readSQLDumpColumns(File tableSQLFile) {
 
     /* table */
@@ -1116,10 +1389,29 @@ public class DBFactory {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Executes the given SQL statement, which may be an INSERT, UPDATE, 
+   * or DELETE or an SQL statement that returns nothing.
+   * @param sql Any SQL statement.
+   * @throws SQLException If database access errors occurs or the given 
+   *         SQL statement return a ResutlSet.
+   * @throws DBException If MySQL is not runnig, or it can't find the 
+   *         MySQL statement.
+   */
   protected void executeUpdate(String sql) throws SQLException, DBException {
     DBConnection.getDefaultConnection().executeUpdate(sql);
   }
 
+  /**
+   * Executes the SQL statement.
+   * @param sql Any SQL statment.
+   * @return The result of execution. You must then use the methods
+   * getResultSet or getUpdateCount to retrieve the result, and getMoreResults 
+   * to move to any subsequent result(s).
+   * @throws SQLException If any database access errors occur.
+   * @throws DBException If any dababase access errors occur. MySQl is
+   *         not running or it can't find the MySQL server.
+   */
   protected Statement execute(String sql) throws SQLException, DBException {
     return DBConnection.getDefaultConnection().execute(sql);
   }
@@ -1127,6 +1419,12 @@ public class DBFactory {
   // ------------------------------------------------------------------------
   // ------------------------------------------------------------------------
 
+  /**
+   * Adds a prefix to a field name. The first character of the field name is
+   * capitalized. For example, the field name is "minute" and the prefix is "Time".
+   * Then after adding the prefix, it becomes "TimeMinute".
+   * @return A String containing a prefix and the field name.
+   */
   protected static String _beanMethodName(String prefix, String fieldName) {
     StringBuffer sb = new StringBuffer(prefix);
     sb.append(fieldName.substring(0, 1).toUpperCase());
@@ -1134,6 +1432,12 @@ public class DBFactory {
     return sb.toString();
   }
 
+  /**
+   * Returns a scope of a method. The scope is either public, protected, private,
+   * or package.
+   * @param mods The modifier.
+   * @return The scopes of the method.
+   */
   protected static String _methodScope(int mods) {
     if ((mods & Modifier.PUBLIC) == 1) {
       return "public";
@@ -1237,6 +1541,9 @@ public class DBFactory {
   // ------------------------------------------------------------------------
   // ------------------------------------------------------------------------
 
+  /**
+   * Creates hibernate XML. Currently experimental purpose only.
+   */
   public void createHibernateXML() {
     // currently experimental purposes only
     String tableName = this.getTableName();
