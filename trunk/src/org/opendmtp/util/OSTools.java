@@ -28,7 +28,7 @@ package org.opendmtp.util;
 import java.io.File;
 
 /**
- * Provides utility methods for dealing with operating system related issues.
+ * Provides utility methods for determining the operating system and calling classes.
  * @author Martin D. Flynn
  * @author Mark Stillwell
  */

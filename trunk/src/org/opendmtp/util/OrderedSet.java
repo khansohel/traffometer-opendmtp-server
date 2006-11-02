@@ -421,7 +421,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
    * @param ndx the index at which to insert the first element in the specified collection.
    * @param c the collection whose elements to be inserted into this list.
    * @return true if this list changed as a result of the call.
-   * @thros UnsupportedOperationException if this method is called.
+   * @throws UnsupportedOperationException if this method is called.
    */
   public boolean addAll(int ndx, Collection c) {
     // java.util.List (optional)
