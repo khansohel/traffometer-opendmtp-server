@@ -75,102 +75,102 @@ public class Device extends DBRecord {
   // SQL table definition below
 
   /**
-   * Table Name.
+   * The Table Name.
    */
   public static final String TABLE_NAME = "Device";  
   
   /**
-   * Account ID.
+   * The Account ID.
    */
   public static final String FLD_accountID = "accountID";
   
   /**
-   * Device ID.
+   * The Device ID.
    */
   public static final String FLD_deviceID = "deviceID";
   
   /**
-   * Unique ID.
+   * The Unique ID.
    */
   public static final String FLD_uniqueID = "uniqueID";
   
   /**
-   * Description.
+   * The Description.
    */
   public static final String FLD_description = "description";
   
   /**
-   * Serial number.
+   * The Serial number.
    */
   public static final String FLD_serialNumber = "serialNumber";
   
   /**
-   * Active.
+   * The Active status.
    */
   public static final String FLD_isActive = "isActive";
   
   /**
-   * Notification email.
+   * The Notification email.
    */
   public static final String FLD_notifyEmail = "notifyEmail";
   
   /**
-   * Supported encoding.
+   * The Supported encoding.
    */
   public static final String FLD_supportedEncodings = "supportedEncodings";
   
   /**
-   * Unit limit intervals.
+   * The Unit limit intervals.
    */
   public static final String FLD_unitLimitInterval = "unitLimitInterval";
   
   /**
-   * Maximum allowed events.
+   * The Maximum allowed events.
    */
   public static final String FLD_maxAllowedEvents = "maxAllowedEvents";
   
   /**
-   * Last total connection time.
+   * The Last total connection time.
    */
   public static final String FLD_lastTotalConnectTime = "lastTotalConnectTime";
   
   /**
-   * Total profile mask.
+   * The Total profile mask.
    */
   public static final String FLD_totalProfileMask = "totalProfileMask";
   
   /**
-   * Total maximum connections.
+   * The Total maximum connections.
    */
   public static final String FLD_totalMaxConn = "totalMaxConn";
   
   /**
-   * Total maximum connections per minute.
+   * The Total maximum connections per minute.
    */
   public static final String FLD_totalMaxConnPerMin = "totalMaxConnPerMin";
   
   /**
-   * Last duplex connection time.
+   * The Last duplex connection time.
    */
   public static final String FLD_lastDuplexConnectTime = "lastDuplexConnectTime";
   
   /**
-   * Duplex profile mask.
+   * The Duplex profile mask.
    */
   public static final String FLD_duplexProfileMask = "duplexProfileMask";
   
   /**
-   * Duplex maximum connection.
+   * The Duplex maximum connection.
    */
   public static final String FLD_duplexMaxConn = "duplexMaxConn";
   
   /**
-   * Duplex maximum connection per minute.
+   * The Duplex maximum connection per minute.
    */
   public static final String FLD_duplexMaxConnPerMin = "duplexMaxConnPerMin";
   
   /**
-   * Field information.
+   * The Field information.
    */
   private static DBField FieldInfo[] = {
       new DBField(FLD_accountID, String.class, DBField.TYPE_STRING(32), "title=Account_ID key=true"),
