@@ -36,7 +36,10 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.Vector;
 
-import org.opendmtp.util.*;
+import org.opendmtp.util.FileTools;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.StringTools;
+
 
 /**
  * Edits a table in the database. 
