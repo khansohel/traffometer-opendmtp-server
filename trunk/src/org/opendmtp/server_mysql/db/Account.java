@@ -51,42 +51,42 @@ import org.opendmtp.dbtools.*;*/
 public class Account extends DBRecord {
 
   /** 
-   * Table name. 
+   * The Table name. 
    */
   public static final String TABLE_NAME = "Account"; 
 
   /**
-   * Account ID.  
+   * The Account ID.  
    */
   public static final String FLD_accountID = "accountID";
   
   /**
-   * Password. 
+   * The Password. 
    */
   public static final String FLD_password = "password"; 
   
   /**
-   * Description. 
+   * The Description. 
    */
   public static final String FLD_description = "description";
   
   /**
-   * Active. 
+   * The Active status. 
    */
   public static final String FLD_isActive = "isActive";
   
   /**
-   *  Contact Email.
+   *  The Contact Email.
    */
   public static final String FLD_contactEmail = "contactEmail";
   
   /**
-   *  Notification Email.
+   *  The Notification Email.
    */
   public static final String FLD_notifyEmail = "notifyEmail";
   
   /**
-   * Field Information.
+   * The Field Information.
    */
   private static DBField FieldInfo[] = {
       new DBField(FLD_accountID, String.class, DBField.TYPE_STRING(32), "title=Account_ID key=true"),
