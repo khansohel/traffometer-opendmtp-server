@@ -6,9 +6,9 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,8 +23,8 @@
 //  2006/03/26  Martin D. Flynn
 //      Initial release
 //  2006/04/11  Martin D. Flynn
-//      Decimal formatting now explicitly uses "Locale.US" symbols.  This fixes 
-//      a problem that caused values such as Latitude "37,1234" from appearing 
+//      Decimal formatting now explicitly uses "Locale.US" symbols.  This fixes
+//      a problem that caused values such as Latitude "37,1234" from appearing
 //      in CSV files.
 // ----------------------------------------------------------------------------
 package org.opendmtp.util;
@@ -44,12 +44,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 
+ *
  * Provides tools for string formatting, encoding, compressing and decompressing.
- * 
- * @autor Martin D. Flynn
+ *
+ * @author Martin D. Flynn
  * @author Alexey Olkov
- * 
  */
 public class StringTools {
 
@@ -88,7 +87,7 @@ public class StringTools {
 
   /**
    * Returns characters of the string.
-   * 
+   *
    * @param s String
    * @return char[] Array of characters.
    */
@@ -99,7 +98,7 @@ public class StringTools {
 
   /**
    * Returns characters of the array of bytes.
-   * 
+   *
    * @param b byte[]
    * @return char[] an array of characters
    */
@@ -118,7 +117,7 @@ public class StringTools {
 
   /**
    * Returns a sequence of bytes of a buffer.
-   * 
+   *
    * @param sb StringBuffer
    * @return byte[] The byte array.
    */
@@ -128,7 +127,7 @@ public class StringTools {
 
   /**
    * Returns a sequence of bytes of a string.
-   * 
+   *
    * @param s String
    * @return byte[] The byte array.
    */
@@ -150,7 +149,7 @@ public class StringTools {
 
   /**
    * Returns a a sequence of bytes of a character array.
-   * 
+   *
    * @param c Array of char
    * @return byte[] a byte array
    */
@@ -169,7 +168,7 @@ public class StringTools {
 
   /**
    * Creates the string out of a byte array.
-   * 
+   *
    * @param b bytes
    * @return String
    */
@@ -179,7 +178,7 @@ public class StringTools {
 
   /**
    * Creates the string out of a byte array.
-   * 
+   *
    * @param b bytes
    * @param ofs offset
    * @param len length
@@ -203,7 +202,7 @@ public class StringTools {
 
   /**
    * Creates a string out of a char array.
-   * 
+   *
    * @param c char array
    * @return String
    */
@@ -213,7 +212,7 @@ public class StringTools {
 
   /**
    * Encloses a string with quotation marks.
-   * 
+   *
    * @param s String
    * @return a new string
    */
@@ -223,7 +222,7 @@ public class StringTools {
 
   /**
    * Adds a character in the beginning and end of the string.
-   * 
+   *
    * @param s String.
    * @param q A character to be added.
    * @return The new string.
@@ -278,7 +277,7 @@ public class StringTools {
 
   /**
    * Encloses all comma separated values with quotation marks.
-   * 
+   *
    * @param s String
    * @return new string.
    */
@@ -315,7 +314,7 @@ public class StringTools {
 
   /**
    * Encodes an array of strings into a Comma Separated Values quoted string.
-   * 
+   *
    * @param d Array of strings.
    * @param checkTextQuote true if "'" sign is required
    * @return a result string.
@@ -341,7 +340,7 @@ public class StringTools {
   /**
    * Encodes an array of strings into a Comma Separated Values quoted string with no ' mark
    * appended.
-   * 
+   *
    * @param d Array of strings.
    * @return a result string.
    */
@@ -351,7 +350,7 @@ public class StringTools {
 
   /**
    * Parses the entire quoted string.
-   * 
+   *
    * @param s String
    * @return the result string
    */
@@ -363,7 +362,7 @@ public class StringTools {
 
   /**
    * Parses the quoted string.
-   * 
+   *
    * @param ch Array of characters.
    * @param a Position in a string to start the parsing from.
    * @param sb resulting string buffer.
@@ -460,7 +459,7 @@ public class StringTools {
 
   /**
    * Converts an object into a double.
-   * 
+   *
    * @param data Object
    * @param dft double value to return as default
    * @return the result double
@@ -479,7 +478,7 @@ public class StringTools {
 
   /**
    * Converts a string into a double.
-   * 
+   *
    * @param data String
    * @param dft default value to return in case the parsing failed
    * @return the double value represented by the string argument.
@@ -490,7 +489,7 @@ public class StringTools {
 
   /**
    * Parses a filter number into a float.
-   * 
+   *
    * @param num Filter Number
    * @param dft a default value to return in case the parsing failed
    * @return a result value, or a default value if parsing failed
@@ -509,7 +508,7 @@ public class StringTools {
 
   /**
    * Parses an object into a float value.
-   * 
+   *
    * @param data Object value
    * @param dft default value to return in case the parsing failed
    * @return a float value
@@ -528,7 +527,7 @@ public class StringTools {
 
   /**
    * Parses a string into a float.
-   * 
+   *
    * @param data String value
    * @param dft default value to return in case the parsing failed
    * @return float value or a default value if the parsing failed
@@ -539,7 +538,7 @@ public class StringTools {
 
   /**
    * Parses a FilterNumber value into a float.
-   * 
+   *
    * @param num FilterNumber value
    * @param dft default value to return in case of parsing failure
    * @return a float value or a dft if the parsing failed
@@ -558,7 +557,7 @@ public class StringTools {
 
   /**
    * Parses an object into a long.
-   * 
+   *
    * @param data Object
    * @param dft a default value to return in case of parsing failure
    * @return a long value or a default value
@@ -577,7 +576,7 @@ public class StringTools {
 
   /**
    * Parses a string value into a long.
-   * 
+   *
    * @param data String value
    * @param dft default value to return in case of parsing failure
    * @return long value or a dft
@@ -588,7 +587,7 @@ public class StringTools {
 
   /**
    * Parses a FilterNumber object into a long.
-   * 
+   *
    * @param num FilterNumber value
    * @param dft default value to return in case of parsing failure
    * @return long value or dft in case the parsing failed
@@ -620,7 +619,7 @@ public class StringTools {
 
   /**
    * Parses an Object value into an integer.
-   * 
+   *
    * @param data Object value
    * @param dft default value to return in case of parsing failure
    * @return int value or dft in case parsing failed
@@ -639,7 +638,7 @@ public class StringTools {
 
   /**
    * Parses an string value into an integer.
-   * 
+   *
    * @param data string value
    * @param dft default value to return in case of parsing failure
    * @return int value or dft in case parsing failed
@@ -650,7 +649,7 @@ public class StringTools {
 
   /**
    * Parses an FilterNumber value into an integer.
-   * 
+   *
    * @param num FilterNumber value
    * @param dft default value to return in case of parsing failure
    * @return int value or dft in case parsing failed
@@ -682,7 +681,7 @@ public class StringTools {
 
   /**
    * Parses an Object value into a short.
-   * 
+   *
    * @param data Object value
    * @param dft default value to return in case of parsing failure
    * @return short value or dft in case parsing failed
@@ -702,7 +701,7 @@ public class StringTools {
 
   /**
    * Parses a string value into a short.
-   * 
+   *
    * @param data string value
    * @param dft default value to return in case of parsing failure
    * @return short value or dft in case parsing failed
@@ -713,7 +712,7 @@ public class StringTools {
 
   /**
    * Parses an FilterNumber value into a short.
-   * 
+   *
    * @param num FilterNumber value
    * @param dft default value to return in case of parsing failure
    * @return short value or dft in case parsing failed
@@ -745,7 +744,7 @@ public class StringTools {
 
   /**
    * Parses a string value into a BigInteger.
-   * 
+   *
    * @param data string value
    * @param dft default value to return in case of parsing failure
    * @return BigInteger value or dft in case parsing failed
@@ -757,7 +756,7 @@ public class StringTools {
 
   /**
    * Parses an FilterNumber value into a BigInteger.
-   * 
+   *
    * @param num FilterNumber value
    * @param dft default value to return in case of parsing failure
    * @return BigInteger value or dft in case parsing failed
@@ -787,7 +786,7 @@ public class StringTools {
 
   /**
    * Filter number.
-   * 
+   *
    * @author Martin D. Flynn
    * @author Alexey Olkov
    */
@@ -803,7 +802,7 @@ public class StringTools {
 
     /**
      * Constructor. Creates a filter number of a specified type.
-     * 
+     *
      * @param val String value
      * @param type Type
      */
@@ -890,7 +889,7 @@ public class StringTools {
 
     /**
      * Checks if the filter support a specified type.
-     * 
+     *
      * @param ct type
      * @return true if the type is supported, false otherwise
      */
@@ -928,7 +927,7 @@ public class StringTools {
 
     /**
      * Returns an input string.
-     * 
+     *
      * @return input string
      */
     public String getInputString() {
@@ -937,7 +936,7 @@ public class StringTools {
 
     /**
      * Returns a type of a number.
-     * 
+     *
      * @return Class
      */
     public Class getClassType() {
@@ -946,7 +945,7 @@ public class StringTools {
 
     /**
      * Returns a name of a class.
-     * 
+     *
      * @return String name
      */
     public String getClassTypeName() {
@@ -969,7 +968,7 @@ public class StringTools {
 
     /**
      * Checks if ths number is a hexadecimal value.
-     * 
+     *
      * @return true if it is hexadecimal, flase otherwise
      */
     public boolean isHex() {
@@ -978,7 +977,7 @@ public class StringTools {
 
     /**
      * Returns a value string.
-     * 
+     *
      * @return String value
      */
     public String getValueString() {
@@ -987,7 +986,7 @@ public class StringTools {
 
     /**
      * Returns a byte array of a hexadecimal number.
-     * 
+     *
      * @return array of bytes.
      */
     public byte[] getHexBytes() {
@@ -1002,7 +1001,7 @@ public class StringTools {
 
     /**
      * Returns a starting position of a number.
-     * 
+     *
      * @return int a starting position
      */
     public int getStart() {
@@ -1011,7 +1010,7 @@ public class StringTools {
 
     /**
      * Returns an end position of a number.
-     * 
+     *
      * @return int end position
      */
     public int getEnd() {
@@ -1020,7 +1019,7 @@ public class StringTools {
 
     /**
      * Returns the length of the value.
-     * 
+     *
      * @return int length
      */
     public int getLength() {
@@ -1047,7 +1046,7 @@ public class StringTools {
 
   /**
    * Parses an object into a boolean value.
-   * 
+   *
    * @param data Object.
    * @param dft default Boolean value to return.
    * @return resulted boolean value
@@ -1066,7 +1065,7 @@ public class StringTools {
 
   /**
    * Parses a string into a boolean value.
-   * 
+   *
    * @param data String
    * @param dft Default value o return
    * @return result boolean value
@@ -1081,7 +1080,7 @@ public class StringTools {
 
   /**
    * Checks if the string value represents boolean number.
-   * 
+   *
    * @param data String value.
    * @return true if string represents boolean, false otherwise
    */
@@ -1100,7 +1099,7 @@ public class StringTools {
 
   /**
    * Parses a string value into a Dimension object.
-   * 
+   *
    * @param data String value
    * @param dft Default value to return
    * @return Dimension object
@@ -1125,7 +1124,7 @@ public class StringTools {
 
   /**
    * Returns an index of a digit in a HEX string.
-   * 
+   *
    * @param ch a digit
    * @return index
    */
@@ -1135,7 +1134,7 @@ public class StringTools {
 
   /**
    * Returns a hex value in a specified position.
-   * 
+   *
    * @param nybble index
    * @return character
    */
@@ -1145,7 +1144,7 @@ public class StringTools {
 
   /**
    * Parses a string into a hexadecimal value represented as a byte array.
-   * 
+   *
    * @param data string
    * @param dft default value to return
    * @return byte array representing a hex value
@@ -1202,7 +1201,7 @@ public class StringTools {
 
   /**
    * Parses a string into a hex value represented as an integer.
-   * 
+   *
    * @param data string
    * @param dft default value to return
    * @return int result hex value
@@ -1213,7 +1212,7 @@ public class StringTools {
 
   /**
    * Parses a string into a hex value represented as an integer.
-   * 
+   *
    * @param data string
    * @param dft default value to return
    * @return int result hex value
@@ -1224,7 +1223,7 @@ public class StringTools {
 
   /**
    * Parses a string into a hex value represented as a long.
-   * 
+   *
    * @param data string
    * @param dft default value to return
    * @return long result hex value
@@ -1235,7 +1234,7 @@ public class StringTools {
 
   /**
    * Parses a string into a hex value represented as a long.
-   * 
+   *
    * @param data string
    * @param dft default value to return
    * @return long result hex value
@@ -1256,7 +1255,7 @@ public class StringTools {
   }
 
   /**
-   * Formaats a hexadecimal string into a 
+   * Formaats a hexadecimal string into a
    * @param b byte array
    * @return
    */
@@ -1269,11 +1268,11 @@ public class StringTools {
   }
 
   /**
-   * 
+   *
    * @param b byte array
-   * @param 
+   * @param
    * @param sb
-   * @return 
+   * @return
    */
   public static StringBuffer formatHexString(byte b[], int maxRcdLen, StringBuffer sb) {
     if (b == null) {
@@ -1338,7 +1337,7 @@ public class StringTools {
 
   /**
    * Converts a byte value into a StringBuffer representing a hex value.
-   * 
+   *
    * @param b byte value
    * @param sb String buffer
    * @return a StringBuffer containing a hex vealue.
@@ -1354,7 +1353,7 @@ public class StringTools {
 
   /**
    * Converts a byte value into a string.
-   * 
+   *
    * @param b byte value
    * @return result string
    */
@@ -1364,7 +1363,7 @@ public class StringTools {
 
   /**
    * Converts an specified part of an array of bytes into a string value representing a hex value.
-   * 
+   *
    * @param b byte array
    * @param ofs offset
    * @param len length, -1 for the entire array
@@ -1387,7 +1386,7 @@ public class StringTools {
 
   /**
    * Converts entire array of bytes into a string value representing a hex value.
-   * 
+   *
    * @param b byte array
    * @param sb a string buffer to write into
    * @return StringBuffer value
@@ -1398,7 +1397,7 @@ public class StringTools {
 
   /**
    * Converts an entire array of bytes into a string value representing a hex value.
-   * 
+   *
    * @param b byte array
    * @return string value
    */
@@ -1408,7 +1407,7 @@ public class StringTools {
 
   /**
    * Converts an specified part of an array of bytes into a string value representing a hex value.
-   * 
+   *
    * @param b byte array
    * @param ofs offset
    * @param len length, -1 for the entire array
@@ -1420,7 +1419,7 @@ public class StringTools {
 
   /**
    * Converts a long hex value into a string prefixed with zeroes.
-   * 
+   *
    * @param val long value
    * @param bitLen the length of the string in bits.
    * @return the result string
@@ -1437,7 +1436,7 @@ public class StringTools {
 
   /**
    * Converts a long hex value into a string with bitLen = 64.
-   * 
+   *
    * @param val the long value
    * @return result string
    */
@@ -1447,7 +1446,7 @@ public class StringTools {
 
   /**
    * Converts an int hex value into a string with bitLen = 32.
-   * 
+   *
    * @param val the int value
    * @return result string
    */
@@ -1458,7 +1457,7 @@ public class StringTools {
 
   /**
    * Converts a short hex value into a string with bitLen = 16.
-   * 
+   *
    * @param val the short value
    * @return result string
    */
@@ -1468,7 +1467,7 @@ public class StringTools {
 
   /**
    * Converts a byte into a string of bits.
-   * 
+   *
    * @param b a byte value
    * @param sb StringBuffer to write into
    * @return StringBuffer of bits
@@ -1492,7 +1491,7 @@ public class StringTools {
 
   /**
    * Converts a byte into a string of bits.
-   * 
+   *
    * @param b a byte value
    * @return a string of bits
    */
@@ -1503,7 +1502,7 @@ public class StringTools {
   /**
    * Converts a byte array into a string of bytes separated with spaces, starting at ofs position,
    * counting len bytes.
-   * 
+   *
    * @param b byte array
    * @param ofs offset
    * @param len amount of bytes to convert
@@ -1530,7 +1529,7 @@ public class StringTools {
 
   /**
    * Converts a byte array into a string of bytes separated with spaces.
-   * 
+   *
    * @param b a byte value
    * @param sb StringBuffer to write into
    * @return StringBuffer of bits
@@ -1553,7 +1552,7 @@ public class StringTools {
 
   /**
    * Converts a byte array into a string of bytes separated with spaces.
-   * 
+   *
    * @param b a byte value
    * @return String of bits
    */
@@ -1564,7 +1563,7 @@ public class StringTools {
   /**
    * Converts a byte array into a string of bytes separated with spaces, starting at ofs position,
    * counting len bytes.
-   * 
+   *
    * @param b byte array
    * @param ofs offset
    * @param len amount of bytes to convert
@@ -1576,7 +1575,7 @@ public class StringTools {
 
   /**
    * Encodes special characters in a string.
-   * 
+   *
    * @param text String
    * @return a String with encoded special characters.
    */
@@ -1609,7 +1608,7 @@ public class StringTools {
 
   /**
    * Decodes special characters in a text string.
-   * 
+   *
    * @param text string value
    * @return a decoded text
    */
@@ -1646,7 +1645,7 @@ public class StringTools {
 
   /**
    * Makes all words in a string start with an upper case.
-   * 
+   *
    * @param s string
    * @return result string with all words starting with upper case.
    */
@@ -1681,7 +1680,7 @@ public class StringTools {
 
   /**
    * Tests if one string has another as a prefix, ignoring the case.
-   * 
+   *
    * @param t a string
    * @param m a prefix
    * @return true if t starts with m, false otherwise
@@ -1698,7 +1697,7 @@ public class StringTools {
   /**
    * Returns the index within this string of the first occurrence of the specified substring
    * ignoring case.
-   * 
+   *
    * @param t string
    * @param m substring
    * @return if the string argument occurs as a substring within this object, then the index of the
@@ -1716,7 +1715,7 @@ public class StringTools {
 
   /**
    * Returns an index of a first occurence of a symbol in a string.
-   * 
+   *
    * @param A string
    * @param c symbol
    * @return an index of a firs occurence of a symbol in a string, -1 if such simbol is not found
@@ -1734,7 +1733,7 @@ public class StringTools {
 
   /**
    * Returns an index of a first occurence of a byte in a byte array.
-   * 
+   *
    * @param B byte array
    * @param b byte
    * @return an index of a firs occurence of a byte in a byte array, -1 if such simbol is not found
@@ -1766,7 +1765,7 @@ public class StringTools {
 
   /**
    * Writes comma separated values into separate strings.
-   * 
+   *
    * @param s text
    * @return Array of strings
    */
@@ -1776,7 +1775,7 @@ public class StringTools {
 
   /**
    * Writes values of a string separated with a specified delimiter into separate strings.
-   * 
+   *
    * @param s text
    * @param arrayDelim delimiter
    * @return Array of strings
@@ -1832,7 +1831,7 @@ public class StringTools {
   /**
    * Encodes an entire array of objects into a string of values separated with a specified
    * delimeter.
-   * 
+   *
    * @param list a list of objects
    * @param delim a delimiter symbol
    * @param alwaysQuote true if values whould be enclosed with quotation marks
@@ -1846,7 +1845,7 @@ public class StringTools {
   /**
    * Encodes an array of objects into a string of values separated with a specified delimeter
    * starting with a specified position.
-   * 
+   *
    * @param list a list of objects
    * @param ofs a postition to start with
    * @param max number of objects to parse
@@ -1878,7 +1877,7 @@ public class StringTools {
 
   /**
    * Encodes a list of objects into a string of values separated with a specified delimeter.
-   * 
+   *
    * @param list of objects
    * @param delim delimiter symbol
    * @param alwaysQuote true if values whould be enclosed with quotation marks
@@ -1891,7 +1890,7 @@ public class StringTools {
 
   /**
    * Encodes a list of objects into a string of quoted values separated with ARRAY_DELIM.
-   * 
+   *
    * @param list of objects
    * @return A string of values separated with delimiter, enclosed into quotation marks
    */
@@ -1902,7 +1901,7 @@ public class StringTools {
 
   /**
    * Encodes a list of objects into a string of quoted values separated with ARRAY_DELIM.
-   * 
+   *
    * @param list of objects
    * @param alwaysQuote true if the values should be separated with commas
    * @return A string of values separated with delimiter, enclosed into quotation marks if
@@ -1914,7 +1913,7 @@ public class StringTools {
 
   /**
    * Encodes an array of objects into a string of quoted values separated with ARRAY_DELIM.
-   * 
+   *
    * @param list array of objects
    * @return A string of values separated with delimiter, enclosed into quotation marks
    */
@@ -1924,7 +1923,7 @@ public class StringTools {
 
   /**
    * Encodes an array of objects into a string of quoted values separated with ARRAY_DELIM.
-   * 
+   *
    * @param list of objects
    * @param alwaysQuote true if the values should be separated with commas
    * @return A string of values separated with delimiter, enclosed into quotation marks if
@@ -1936,7 +1935,7 @@ public class StringTools {
 
   /**
    * Encodes an array of strings into a string of quoted values separated with ARRAY_DELIM.
-   * 
+   *
    * @param list array of strings
    * @return A string of values separated with delimiter, enclosed into quotation marks
    */
@@ -1946,7 +1945,7 @@ public class StringTools {
 
   /**
    * Encodes an array of strings into a string of quoted values separated with ARRAY_DELIM.
-   * 
+   *
    * @param list of strings
    * @param alwaysQuote true if the values should be separated with commas
    * @return A string of values separated with delimiter, enclosed into quotation marks if
@@ -1958,7 +1957,7 @@ public class StringTools {
 
   /**
    * Converts a list into string array.
-   * 
+   *
    * @param list list of objects
    * @return array of strings
    */
@@ -1977,11 +1976,11 @@ public class StringTools {
   }
 
   /**
-   * Parses a string with delimiters. 
+   * Parses a string with delimiters.
    * Does not take quoted values into account.
    * @param value text
    * @param delim delimeter symbol
-   * @return an array of string values delimited by specified character 
+   * @return an array of string values delimited by specified character
    */
 
   public static String[] parseString(String value, char delim) {
@@ -1990,7 +1989,7 @@ public class StringTools {
 
   /**
    * Parses a string with delimiters.
-   * 
+   *
    * @param value text
    * @param delim delimeter string
    * @return an array of string values delimited by specified characters
@@ -2035,7 +2034,7 @@ public class StringTools {
   // ------------------------------------------------------------------------
   /**
    * Parses a string of properties into a Map.
-   * 
+   *
    * @param props string of properties
    * @return a map of properties
    */
@@ -2045,7 +2044,7 @@ public class StringTools {
 
   /**
    * Parses a string of properties into a Map.
-   * 
+   *
    * @param props string of properties
    * @param properties a Map to write into
    * @return a map of properties
@@ -2144,18 +2143,18 @@ public class StringTools {
 
   /**
    * Indicates that when stripping charapcters, everything but the specified patter must be removed.
-   * 
+   *
    */
   public static final int STRIP_INCLUDE = 0;
   /**
    * Indicates that when stripping charapcters, the specified patter must be removed.
-   * 
+   *
    */
   public static final int STRIP_EXCLUDE = 1;
 
   /**
    * Deletes characters containing in a symbol array from a string.
-   * 
+   *
    * @param src text
    * @param chars s set of characters to remove from the string
    * @return a string without specifies characters
@@ -2170,7 +2169,7 @@ public class StringTools {
 
   /**
    * Deletes a character from a string.
-   * 
+   *
    * @param src text
    * @param chars a character to remove from the string
    * @return a string without a specifies character
@@ -2182,7 +2181,7 @@ public class StringTools {
 
   /**
    * Deletes characters containing in a string from a string.
-   * 
+   *
    * @param src text
    * @param chars a string of charactres to remove from the string
    * @return a string without a specifies character
@@ -2194,7 +2193,7 @@ public class StringTools {
 
   /**
    * Deletes a character containing from a string.
-   * 
+   *
    * @param src text
    * @param chars a Charactres to remove from the string
    * @param stripType 0 if everything but the chars should be removed, 1 otherwise
@@ -2206,7 +2205,7 @@ public class StringTools {
 
   /**
    * Deletes characters containing from a string.
-   * 
+   *
    * @param src text
    * @param chars a string of charactres to remove from the string
    * @param stripType 0 if everything but the chars should be removed, 1 otherwise
@@ -2237,7 +2236,7 @@ public class StringTools {
 
   /**
    * Replaces all occurences of a character with another one in a string.
-   * 
+   *
    * @param src text
    * @param chars characters to replace
    * @param repChar character to replace with
@@ -2249,7 +2248,7 @@ public class StringTools {
 
   /**
    * Replaces all occurences of a substring with a character.
-   * 
+   *
    * @param src text
    * @param chars substring to replace
    * @param repChar character to replace with
@@ -2261,7 +2260,7 @@ public class StringTools {
 
   /**
    * Replaces all occurences of a substring with another string.
-   * 
+   *
    * @param src text
    * @param chars substring to replace
    * @param repStr string to replace with
@@ -2289,7 +2288,7 @@ public class StringTools {
 
   /**
    * Replaces white spaces with a specified character.
-   * 
+   *
    * @param src text
    * @param repChar a character to replace with
    * @return a string with replaces white spaces
@@ -2300,7 +2299,7 @@ public class StringTools {
 
   /**
    * Replaces white spaces with a specified substring.
-   * 
+   *
    * @param src text
    * @param repStr a substyring to replace with
    * @return a string with replaces white spaces
@@ -2326,7 +2325,7 @@ public class StringTools {
 
   /**
    * Replicates a string specified number of times.
-   * 
+   *
    * @param pattern a string to replicate
    * @param count a number of copies
    * @return returns a
@@ -2346,7 +2345,7 @@ public class StringTools {
 
   /**
    * Appends a string with a specified character on the right until a specified length.
-   * 
+   *
    * @param s text
    * @param padChar a character to append with
    * @param len desired length
@@ -2364,7 +2363,7 @@ public class StringTools {
 
   /**
    * Appends the string with spaces on the right.
-   * 
+   *
    * @param s text
    * @param len a desired length
    * @return A string appended with the spaces on the right, or an initial string if len is less
@@ -2376,7 +2375,7 @@ public class StringTools {
 
   /**
    * Appends a string with a specified character on the left until a specified length.
-   * 
+   *
    * @param s text
    * @param padChar a character to append with
    * @param len desired length
@@ -2394,7 +2393,7 @@ public class StringTools {
 
   /**
    * Appends the string with spaces on the left.
-   * 
+   *
    * @param s text
    * @param len a desired length
    * @return A string appended with the spaces on the left, or an initial string if len is less then
@@ -2406,7 +2405,7 @@ public class StringTools {
 
   /**
    * Replaces all occurences of substring with another substring.
-   * 
+   *
    * @param text string
    * @param key a substring to replace
    * @param val a substring to replace with
@@ -2423,7 +2422,7 @@ public class StringTools {
 
   /**
    * Replaces all occurences of substring in a StringBuffer with another substring.
-   * 
+   *
    * @param sb StringBuffer
    * @param key a substring to replace
    * @param val a substring to replace with
@@ -2448,7 +2447,7 @@ public class StringTools {
   /**
    * Replaces all occurences of a substring matching with a regular expression, with a specified.
    * substring
-   * 
+   *
    * @param target a text
    * @param regex Regular expression
    * @param val Value to replace with
@@ -2464,7 +2463,7 @@ public class StringTools {
   /**
    * Replaces all occurences of a substring matching with a regular expression, with a specified.
    * substring
-   * 
+   *
    * @param target a StringBuffer
    * @param regexKey Regular expression
    * @param val Value to replace with
@@ -2477,7 +2476,7 @@ public class StringTools {
 
   /**
    * Returns a RegexIndex of a substring matching a specified regular expression.
-   * 
+   *
    * @param target a text
    * @param regex regular expression
    * @return a RegexIndex object corresponding to a regular expression occurence
@@ -2488,7 +2487,7 @@ public class StringTools {
 
   /**
    * Returns a RegexIndex of a substring matching a specified regular expression.
-   * 
+   *
    * @param target a text
    * @param regex regular expression
    * @param ndx starting index of a regular expression
@@ -2509,7 +2508,7 @@ public class StringTools {
 
   /**
    * Attempts to find the next subsequence of the input sequence that matches the RegexIndex.
-   * 
+   *
    * @param regNdx
    * @return found regular expression
    */
@@ -2530,10 +2529,10 @@ public class StringTools {
 
   /**
    * Represents a regular expression for determining the specific patterns in the symbolic structures.
-   * 
+   *
    * @author Martin D. Flynn
    * @author Alexey Olkov
-   * 
+   *
    */
 
   public static class RegexIndex {
@@ -2543,7 +2542,7 @@ public class StringTools {
 
     /**
      * Contructor. Sets a matcher.
-     * 
+     *
      * @param match matcher
      */
     public RegexIndex(Matcher match) {
@@ -2552,7 +2551,7 @@ public class StringTools {
 
     /**
      * Constructor. Sets end and start positions of the expression.
-     * 
+     *
      * @param start string position
      * @param end end position
      */
@@ -2563,7 +2562,7 @@ public class StringTools {
 
     /**
      * Returns matcher.
-     * 
+     *
      * @return Matcher
      */
     public Matcher getMatcher() {
@@ -2572,7 +2571,7 @@ public class StringTools {
 
     /**
      * Returns start position.
-     * 
+     *
      * @return start position.
      */
     public int getStart() {
@@ -2581,7 +2580,7 @@ public class StringTools {
 
     /**
      * Returns end position.
-     * 
+     *
      * @return end position.
      */
     public int getEnd() {
@@ -2590,7 +2589,7 @@ public class StringTools {
 
     /**
      * Converts expression into a string containing start position, /, end position.
-     * 
+     *
      * @return string
      */
     public String toString() {
@@ -2609,7 +2608,7 @@ public class StringTools {
   public static interface ReplacementMap {
     /**
      * Returns a value.
-     * 
+     *
      * @param key a string key
      * @return a mapped string value
      */
@@ -2617,7 +2616,7 @@ public class StringTools {
   }
 
   /**
-   * 
+   *
    * @param text
    * @param startDelim
    * @param endDelim
@@ -2630,7 +2629,7 @@ public class StringTools {
   }
 
   /**
-   * Inserts 
+   * Inserts
    * @param text
    * @param startDelim
    * @param endDelim
@@ -2649,9 +2648,9 @@ public class StringTools {
     }
     return insertKeyValues(text, startDelim, endDelim, repMap, htmlFilter);
   }
-  
+
 /**
- * 
+ *
  * @param text
  * @param startDelim
  * @param endDelim
@@ -2664,7 +2663,7 @@ public class StringTools {
 
   /**
    * Converts keys and values from the map into a string, separating them with specified delimiters.
-   * 
+   *
    * @param text a string
    * @param startDelim the felimeter for the beginning
    * @param endDelim
@@ -2682,9 +2681,9 @@ public class StringTools {
     };
     return insertKeyValues(text, startDelim, endDelim, rm, htmlFilter);
   }
-  
+
 /**
- * 
+ *
  * @param text
  * @param startDelim
  * @param endDelim
@@ -2697,7 +2696,7 @@ public class StringTools {
   }
 
   /**
-   * 
+   *
    * @param text
    * @param startDelim
    * @param endDelim
@@ -2753,7 +2752,7 @@ public class StringTools {
 
   /**
    * Compares first len bytes of two byte arrays.
-   * 
+   *
    * @param b1
    * @param b2
    * @param len
@@ -2787,7 +2786,7 @@ public class StringTools {
 
   /**
    * Compares a byte array to a String.
-   * 
+   *
    * @param b1
    * @param s
    * @return 1 if b1==null, -1 if b2==null, 0, if both are null; and returns the difference of first
@@ -2800,7 +2799,7 @@ public class StringTools {
 
   /**
    * Compares first len bytes of two byte arrays.
-   * 
+   *
    * @param b1 first byte array
    * @param b2 seconf byte array
    * @param len the number of bytes to compare
@@ -2812,7 +2811,7 @@ public class StringTools {
 
   /**
    * Compares a string and a byte array.
-   * 
+   *
    * @param b byte array
    * @param s String
    * @return true if byte array and string are equal
@@ -2823,7 +2822,7 @@ public class StringTools {
 
   /**
    * Looks for an index of a first unmatching byte in two byte arrays, for the first len bytes.
-   * 
+   *
    * @param b1 first byte array
    * @param b2 second byte array
    * @param len a number of bytes to scan
@@ -2857,7 +2856,7 @@ public class StringTools {
 
   /**
    * Returns a formatter from a format map.
-   * 
+   *
    * @param fmt a format to find
    * @return
    */
@@ -2888,7 +2887,7 @@ public class StringTools {
 
   /**
    * Returns the name of the class.
-   * 
+   *
    * @param c class
    * @return the string name of the class
    */
@@ -2925,7 +2924,7 @@ public class StringTools {
   private static int BASE_LEN = BASE_DIGITS.length();
 
   /**
-   * 
+   *
    * @param num
    * @return
    */
@@ -2935,7 +2934,7 @@ public class StringTools {
 
   /**
    * Compresses the string.
-   * 
+   *
    * @param num
    * @param alpha the string.
    * @return
@@ -2950,7 +2949,7 @@ public class StringTools {
   }
 
   /**
-   * 
+   *
    * @param str string.
    * @return
    */
@@ -2959,7 +2958,7 @@ public class StringTools {
   }
 
   /**
-   * 
+   *
    * @param str
    * @param alpha
    * @return
@@ -2982,7 +2981,7 @@ public class StringTools {
 
   /**
    * Returns a default character set.
-   * 
+   *
    * @return
    */
   public static String getDefaultCharset() {
@@ -3006,7 +3005,7 @@ public class StringTools {
 
   /**
    * Sets a default charset.
-   * 
+   *
    * @param charSet a charset, teh default charset is DEFAULT_CHARSET = ISO-8859-1
    */
   public static void setDefaultCharset(String charSet) {
@@ -3049,7 +3048,7 @@ public class StringTools {
 
   /**
    * Encodes special HTML character string.
-   * 
+   *
    * @param text The Object to encode [via 'toString()' method] **
    * @return The encoded string.
    */
