@@ -26,6 +26,12 @@
 package org.opendmtp.util;
 
 
+/**
+ * Provides methods for base64 encoding/decoding.
+ * 
+ * @author Martin D. Flynn
+ * @author Robert S. Brewer
+ */
 public class Base64 {
 
   // ------------------------------------------------------------------------
@@ -37,6 +43,12 @@ public class Base64 {
 
   private static final char Base64Pad = '=';
 
+  /**
+   * Provides index of character in Base64 map.
+   * 
+   * @param ch character to be looked up in map.
+   * @return index of character in map, or 0 if character is not in map.
+   */
   private static int _indexOf(char ch) {
     for (int i = 0; i < Base64Map.length; i++) {
       if (ch == Base64Map[i]) {
@@ -48,12 +60,22 @@ public class Base64 {
 
   // ------------------------------------------------------------------------
 
-  /* encode string */
+  /**
+   * Encodes a string as Base64.
+   * 
+   * @param str String to be encoded.
+   * @return base64 encoded version of string, or the empty String if null.
+   */
   public static String encode(String str) {
     return (str != null) ? Base64.encode(str.getBytes()) : "";
   }
 
-  /* encode byte array */
+  /**
+   * Encodes a byte array as Base64.
+   * 
+   * @param buff byte array to be encoded.
+   * @return base64 encoded version of bytes.
+   */
   public static String encode(byte buff[]) {
     StringBuffer sb = new StringBuffer();
     int len = buff.length;
@@ -85,7 +107,12 @@ public class Base64 {
 
   // ------------------------------------------------------------------------
 
-  /* decode string */
+  /**
+   * Decodes a base64 string into a byte array (not tested).
+   * 
+   * @param b64Str A base64 string.
+   * @return The byte array corresponding to the base64 string.
+   */
   static public byte[] decode(String b64Str) {
     // not yet tested
     StringBuffer sb = new StringBuffer();
