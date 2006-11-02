@@ -196,7 +196,7 @@ public class DBFieldValues {
    * sets all field values with values in ResultSet object.
    * 
    * @param rs result set with to be field values.
-   * @throws SQLException
+   * @throws SQLException not sure how.
    */
   public void setFieldValues(ResultSet rs) throws SQLException {
     
