@@ -30,19 +30,19 @@ import org.opendmtp.util.RTConfig;
 import org.opendmtp.util.RTKey;
 
 /**
- * Main class of the server_file package.  Configures and starts the server.
+ * Configures and starts the server using file data store.
  * 
  * @author Martin D. Flynn
  * @author George Lee
  */
 public class Main {
-  
+
   /**Version number of this OpenDMTP implementation.*/
   public static final String DMTP_VERS = "1.1.4";
 
   /**Name of the DMTP implementation.*/
   private static final String DMTP_NAME = "OpenDMTP";
-  
+
   /**The type of the DMTP server.*/
   private static final String DMTP_TYPE = "Server(File)";
 
@@ -54,10 +54,10 @@ public class Main {
 
   /**Start property of the server.*/
   public static final String ARG_START = "start";
-  
+
   /**Port property of the server.*/
   public static final String ARG_PORT = "port";
-  
+
   /**Directory to store event information.*/
   public static final String ARG_STOREDIR = "storedir";
 
@@ -78,8 +78,6 @@ public class Main {
     return port;
   }
 
-  // ------------------------------------------------------------------------
-
   /**
    * Displays usage information about this class.
    */
@@ -97,7 +95,7 @@ public class Main {
   }
 
   /**
-   * Main method for this package.  Configures and initializes the server.
+   * Configures and initializes the server using file data store.  Logs exceptions that occur while the server is running.
    * Also displays usage information about the server.
    * 
    * @param argv Command line arguments to pass to DBConfig.

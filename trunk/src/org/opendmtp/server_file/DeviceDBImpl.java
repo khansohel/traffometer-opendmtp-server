@@ -43,36 +43,36 @@ import org.opendmtp.util.Print;
 import org.opendmtp.util.StringTools;
 
 /**
- * Implementation of the DeviceDB interface.  Provides information about the device.
+ * Manages information about a device.
  * 
  * @author Martin D. Flynn
  * @author George Lee
  */
 public class DeviceDBImpl implements DeviceDB {
 
-  /**Maximum number of allowed events.*/
+  /** Maximum number of allowed events. */
   private static final int MAX_ALLOWED_EVENTS = -1; // no limit
 
-  /**Time interval (in minutes) in between each sent packet.*/
+  /** Time interval (in minutes) in between each sent packet. */
   private static final int LIMIT_TIME_INTERVAL = 0;
 
-  /**Total connections to the device.*/
+  /** Total connections to the device. */
   private static final int MAX_TOTAL_CONNECTIONS = -1; // no limit
 
-  /**Total connections to the device per minute.*/
+  /** Total connections to the device per minute. */
   private static final int MAX_TOTAL_CONNECTIONS_PER_MIN = -1; // no limit
 
-  /**Maximum number of duplex connections to the device.*/
+  /** Maximum number of duplex connections to the device. */
   private static final int MAX_DUPLEX_CONNECTIONS = -1; // no limit
 
-  /**Maximum number of duplex connections per minute to the device.*/
+  /** Maximum number of duplex connections per minute to the device. */
   private static final int MAX_DUPLEX_CONNECTIONS_PER_MIN = -1; // no limit
 
-  /**Supported packet encoding methods.*/
+  /** Supported packet encoding methods. */
   private static int SUPPORTED_ENCODING = Encoding.SUPPORTED_ENCODING_BINARY
       | Encoding.SUPPORTED_ENCODING_BASE64 | Encoding.SUPPORTED_ENCODING_HEX;
 
-  /**Directory in which to store information about account and device events.*/
+  /** Directory in which to store information about account and device events. */
   private static File dataStoreDirectory = new File(".");
 
   /**
@@ -94,8 +94,8 @@ public class DeviceDBImpl implements DeviceDB {
   }
 
   /**
-   * Set a new data store directory called "." if a directory has not been set.
-   * Else, it returns the current dataStoreDirectory.
+   * Set a new data store directory called "." if a directory has not been set. Else, it returns the
+   * current dataStoreDirectory.
    * 
    * @return The file directory that stores the information about events.
    */
@@ -106,56 +106,41 @@ public class DeviceDBImpl implements DeviceDB {
     return dataStoreDirectory;
   }
 
-  /** Collection that stores the customPayloadTemplates.*/
   private static HashMap customPayloadTemplates = new HashMap();
 
-  /**ID of the account.*/
   private String accountId = null;
 
-  /**ID of the device.*/
   private String deviceId = null;
 
-  /**Description of the account or device.*/
   private String description = "";
 
-  /**Status of the account or device (active or inactive).*/
   private boolean isActive = true;
 
-  /**Max time interval between packets.*/
   private int limitTimeInterval = LIMIT_TIME_INTERVAL;
 
-  /**Max allowed events by the device.*/
   private int maxAllowedEvents = MAX_ALLOWED_EVENTS;
 
-  /**Maximum total connections allowed by the device.*/
   private int maxTotalConnections = MAX_TOTAL_CONNECTIONS;
 
-  /**Maximum number of connections allowed per minute by the device.*/
   private int maxTotalConnectionsPerMinute = MAX_TOTAL_CONNECTIONS_PER_MIN;
 
-  /**Total connection profile mask.*/
   private byte totalConnectionProfile[] = new byte[0];
 
-  /**Time of the last connection.*/
   private long lastTotalConnectionTime = 0L;
 
-  /**Maximum number of duplex connections to the device.*/
   private int maxDuplexConnections = MAX_DUPLEX_CONNECTIONS;
 
-  /**Maximum number of duplex connections per minute to the device.*/
   private int maxDuplexConnectionsPerMinute = MAX_DUPLEX_CONNECTIONS_PER_MIN;
 
-  /**Mask for a duplex connection.*/
   private byte duplexConnectionProfile[] = new byte[0];
 
-  /**Length of the time of the last duplex connection.*/
   private long lastDuplexConnectionTime = 0L;
 
   /**
    * Create a new DeviceDB with the specified account ID and deviceID.
    * 
    * @param acctId The ID of the account.
-   * @param devId The ID of the device.  Also used as the description of the device.
+   * @param devId The ID of the device. Also used as the description of the device.
    */
   public DeviceDBImpl(String acctId, String devId) {
     this.accountId = acctId;
@@ -209,8 +194,8 @@ public class DeviceDBImpl implements DeviceDB {
   }
 
   /**
-   * Get the number of events that occurred between two timestamps.
-   * Current implementation always returns 0, as the events are not counted.
+   * Get the number of events that occurred between two timestamps. Current implementation always
+   * returns 0, as the events are not counted.
    * 
    * @param timeStart The start time of the time interval.
    * @param timeEnd The end time of the time interval.
@@ -348,8 +333,8 @@ public class DeviceDBImpl implements DeviceDB {
   }
 
   /**
-   * Remove an encoding method currently supported by the device.
-   * Does nothing if the encoding method is unsupported.
+   * Remove an encoding method currently supported by the device. Does nothing if the encoding
+   * method is unsupported.
    * 
    * @param encoding The integer string representing the encoding method.
    */
@@ -360,9 +345,8 @@ public class DeviceDBImpl implements DeviceDB {
   }
 
   /**
-   * Add a payload template to the collection of custom templates.
-   * Uses the packet type as the key for the HashMap.
-   * Returns true if the addition is successful.
+   * Add a payload template to the collection of custom templates. Uses the packet type as the key
+   * for the HashMap. Returns true if the addition is successful.
    * 
    * @param template The PayloadTemplate to be added to the collection.
    * @return True if the payload template is successfully added, false otherwise.
@@ -421,7 +405,7 @@ public class DeviceDBImpl implements DeviceDB {
     // YYYY/MM/DD,hh:mm:ss,<status>,<latitude>,<logitude>,<speed>,<heading>,<altitude>
     StringBuffer fmt = new StringBuffer();
     ts.format("yyyy/MM/dd,HH:mm:ss", fmt, null); // local TimeZone
-    //ts.gmtFormat("yyyy/MM/dd,HH:mm:ss",fmt);  // GMT TimeZone
+    // ts.gmtFormat("yyyy/MM/dd,HH:mm:ss",fmt); // GMT TimeZone
     fmt.append(",");
     fmt.append(statusDesc);
     fmt.append(",");
@@ -438,7 +422,7 @@ public class DeviceDBImpl implements DeviceDB {
 
     /* save */
     try {
-      //Print.logDebug("Writing CSV record to file: " + dataFile);
+      // Print.logDebug("Writing CSV record to file: " + dataFile);
       FileTools.writeFile(fmt.toString().getBytes(), dataFile, true);
       return ServerErrors.NAK_OK;
     }

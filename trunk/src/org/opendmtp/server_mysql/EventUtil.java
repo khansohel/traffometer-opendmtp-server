@@ -41,28 +41,28 @@ import org.opendmtp.util.RTConfig;
 import org.opendmtp.util.StringTools;
 
 /**
- * Writes events for a given device. Able to write reports using CSV or KML. Also able to print to
- * the screen.
+ * Writes events for a given device. Able to write reports using CSV or KML. Also able to print
+ * reports the screen.
  * 
  * @author Martin D. Flynn
- * @author George
+ * @author George Lee
  * 
  */
 public class EventUtil {
 
-  /**Max number of events to return in a given interval.*/
+  /** Max number of events to return in a given interval. */
   public static final long DFT_LIMIT = 30L;
 
-  /**Max number of events to save in memory.*/
+  /** Max number of events to save in memory. */
   public static final long MAX_LIMIT = 200L;
 
-  /**Integer representation for unknown format.*/
+  /** Integer representation for unknown format. */
   public static final int FORMAT_UNKNOWN = 0;
 
-  /**Integer representation indicating CSV format.*/
+  /** Integer representation indicating CSV format. */
   public static final int FORMAT_CSV = 1;
 
-  /**Integer representation indicating KML format.*/
+  /** Integer representation indicating KML format. */
   public static final int FORMAT_KML = 2;
 
   /**
@@ -89,11 +89,11 @@ public class EventUtil {
     }
   }
 
-  /**The device to write events to.*/
+  /** The device to write events to. */
   private Device device = null;
 
   /**
-   * EventUtil class constructor.  Writes events that belong to this device.
+   * EventUtil class constructor. Writes events that belong to the specified device.
    * 
    * @param dev The device whose events we want to record.
    */
@@ -106,7 +106,7 @@ public class EventUtil {
    * 
    * @param out PrintWriter object used to write output.
    * @param evdata Events to be written.
-   * @return True if the output is written successfully.  Does not return false.
+   * @return True if the output is written successfully. Does not return false.
    * @throws IOException Thrown if there is a problem with the PrintWriter used to write the output.
    */
   private boolean writeEvents_CSV(PrintWriter out, EventData evdata[]) throws IOException {
@@ -315,7 +315,7 @@ public class EventUtil {
         return System.err;
       }
       else {
-        return new FileOutputStream(outFile, false/*no-append*/);
+        return new FileOutputStream(outFile, false/* no-append */);
       }
     }
     catch (IOException ioe) {
@@ -336,7 +336,7 @@ public class EventUtil {
       try {
         out.close();
       }
-      catch (Throwable t) {/*ignore*/
+      catch (Throwable t) {/* ignore */
       }
     }
   }
@@ -365,10 +365,10 @@ public class EventUtil {
   }
 
   /**
-   * Main method for this class. Initializes DBConfig using the command line parameters. Retrieves
-   * the device and account and writes events to it. Retrieves events if requested from the
-   * RTConfig. The number of events retrieved is specified by DFT_LIMIT. Outputs the file using the
-   * CSV format.
+   * Write an event report for an account. Initializes DBConfig using the command line parameters.
+   * Retrieves the device and account and writes events to it. Retrieves events if requested from
+   * the RTConfig. The number of events retrieved is specified by DFT_LIMIT. Outputs the file using
+   * the CSV format.
    * <p>
    * 
    * Displays errors if there are problems with the account ID or the device name. Always displays

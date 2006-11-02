@@ -37,8 +37,7 @@ import org.opendmtp.util.Print;
 import org.opendmtp.util.RTConfig;
 
 /**
- * The ParseFile class is used to parse the event packets for a device and adds the event data to a
- * table.
+ * Parses the event packets for a device and adds the event data to a table.
  * 
  * @author Martin D. Flynn
  * @author George Lee
@@ -50,9 +49,9 @@ public class ParseFile {
   // EventData table for the specified Device.
 
   /**
-   * Main method for the class. Configures DBConfig using options from the command line. Loads the
-   * account and device IDs and parses the event data from the packet file specified on the command
-   * line.
+   * Parse the event data from the command line. Configures DBConfig using options from the command
+   * line. Loads the account and device IDs and parses the event data from the packet file
+   * specified.
    * <p>
    * 
    * System exits with an error if there are problems with loading the IDs or with reading the

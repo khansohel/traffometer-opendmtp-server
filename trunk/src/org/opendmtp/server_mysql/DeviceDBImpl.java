@@ -45,7 +45,7 @@ import org.opendmtp.util.Print;
 import org.opendmtp.util.RTConfig;
 
 /**
- * Implementation of the DeviceDB interface. Provides access to information about the device.
+ * Provides access to information about the device.
  * 
  * @author Martin D. Flynn
  * @author George Lee
@@ -459,8 +459,12 @@ public class DeviceDBImpl implements DeviceDB {
   }
 
   /**
-   * Main method for this class. Initializes the DBConfig and either adds the device to the account
-   * or edits the device associated with the account.
+   * Adds a device to an account or edits the device associated with the account. Takes commands
+   * from the command line and retrieves the account.
+   * <p>
+   * 
+   * System exits with an error if there is an error when retrieving the account or the device. Also
+   * exits with an error if there is a problem with writing events to the account.
    * 
    * @param argv Command line parameters to pass to DBConfig.
    */
