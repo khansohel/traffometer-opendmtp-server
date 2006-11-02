@@ -22,14 +22,6 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.base;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-
-import org.opendmtp.util.*;
-
 /**
  * Checksum class to implement error detection for packet data integrity.
  * @author Martin D. Flynn
