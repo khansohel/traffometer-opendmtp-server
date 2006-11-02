@@ -45,7 +45,13 @@ import java.util.Vector;
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocketFactory;
 
-
+/**
+ * Socket thread on the server side. Contains datagram socket, server socket, client threads pool.
+ * 
+ * @author Martin D. Flynn
+ * @author Alexey Olkov
+ * 
+ */
 
 public class ServerSocketThread extends Thread {
 
@@ -65,64 +71,145 @@ public class ServerSocketThread extends Thread {
   // -Djavax.net.debug=ssl
   // ------------------------------------------------------------------------
 
+  /**
+   * Datagram socket.
+   */
   private DatagramSocket datagramSocket = null;
+  /**
+   * Server socket.
+   */
   private ServerSocket serverSocket = null;
-
+  /**
+   * Pool of clients threads.
+   */
   private Vector clientThreadPool = null;
-
+  /**
+   * Client packets handler.
+   */
   private ClientPacketHandler clientPacketHandler = null;
+  /**
+   * The class of cliend packet handler.
+   */
   private Class clientPacketHandlerClass = null;
 
+  /**
+   * Session timeout.
+   */
   private long sessionTimeoutMS = -1L;
+  /**
+   * Idle time-out in milliseconds.
+   */
   private long idleTimeoutMS = -1L;
+  /**
+   * Packets time-out in milliseconds.
+   */
   private long packetTimeoutMS = -1L;
-
+  /**
+   * Linger time-out in seconds.
+   */
   private int lingerTimeoutSec = 4; // SO_LINGER timeout is in *Seconds*
-
+  /**
+   * Maximum length of read.
+   */
   private int maxReadLength = -1;
+  /**
+   * Miminum length of read.
+   */
   private int minReadLength = -1;
 
+  /**
+   * Indicates if the process should be terminated on time-out.
+   */
   private boolean terminateOnTimeout = true;
-
+  /**
+   * Indicates if the packets are textual.
+   */
   private boolean isTextPackets = true;
+  /**
+   * The termination characters.
+   */
   private int lineTerminatorChar[] = new int[] { '\n' };
+  /**
+   * The backspace characters.
+   */
+
   private int backspaceChar[] = new int[] { '\b' };
+  /**
+   * The characters to ignore.
+   */
   private int ignoreChar[] = new int[] { '\r' };
-
+  /**
+   * Prompt.
+   */
   private byte prompt[] = null;
+  /**
+   * Prompt index.
+   */
   private int promptIndex = -1;
+  /**
+   * Autoprompting.
+   */
   private boolean autoPrompt = false;
-
+  /**
+   * A vector of action listeners.
+   */
   private Vector actionListeners = null;
 
   // ------------------------------------------------------------------------
-
+  /**
+   * Creates a new thread.
+   */
   private ServerSocketThread() {
     this.clientThreadPool = new Vector();
     this.actionListeners = new Vector();
   }
 
+  /**
+   * Creates a new thread with a specified datagram socket.
+   * 
+   * @param ds Datatgram socket
+   */
   public ServerSocketThread(DatagramSocket ds) {
     this();
     this.datagramSocket = ds;
   }
 
+  /**
+   * Creates a new thread with a specified server socket.
+   * 
+   * @param ss Server socket
+   */
   public ServerSocketThread(ServerSocket ss) {
     this();
     this.serverSocket = ss;
   }
 
+  /**
+   * Creates a new thread and a new server socket bound to a specified port.
+   * 
+   * @param port a port number
+   * @throws IOException if an error occured
+   */
   public ServerSocketThread(int port) throws IOException {
     this(new ServerSocket(port));
   }
 
+  /**
+   * Creates a new thread and a new SSL server socket bound to a specified port.
+   * 
+   * @param port a prort number
+   * @param useSSL true if creating SSL, false otherwise
+   * @throws IOException if an error occured
+   */
   public ServerSocketThread(int port, boolean useSSL) throws IOException {
     this(useSSL ? SSLServerSocketFactory.getDefault().createServerSocket(port)
         : ServerSocketFactory.getDefault().createServerSocket(port));
   }
 
   // ------------------------------------------------------------------------
-
+  /**
+   * Implements a run() method of the Thread interface.
+   */
   public void run() {
     while (true) {
       ClientSocket clientSocket = null;
@@ -176,12 +263,20 @@ public class ServerSocketThread extends Thread {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Indicates if the thread has listeners.
+   * 
+   * @return true if there are listners, false otherwise.
+   */
   public boolean hasListeners() {
     return (this.actionListeners.size() > 0);
   }
 
+  /**
+   * Adds action listener.
+   * 
+   * @param al Action listener
+   */
   public void addActionListener(ActionListener al) {
     // used for simple one way messaging
     if (!this.actionListeners.contains(al)) {
@@ -189,10 +284,23 @@ public class ServerSocketThread extends Thread {
     }
   }
 
+  /**
+   * Removes action listener.
+   * 
+   * @param al action listener
+   */
   public void removeActionListener(ActionListener al) {
     this.actionListeners.remove(al);
   }
 
+  /**
+   * Invokes listeners.
+   * 
+   * @param msgBytes a byte array that may specify a command (possibly one of several) associated
+   *        with the event the listenrs listen to.
+   * @return true in case there are listeners invoked, false otherwise
+   * @throws Exception in case of error
+   */
   protected boolean invokeListeners(byte msgBytes[]) throws Exception {
     if (msgBytes != null) {
       String msg = StringTools.toStringValue(msgBytes);
@@ -211,12 +319,20 @@ public class ServerSocketThread extends Thread {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Assignes a client packet handler.
+   * 
+   * @param cph ClientPacketHandler
+   */
   public void setClientPacketHandler(ClientPacketHandler cph) {
     this.clientPacketHandler = cph;
   }
 
+  /**
+   * Assigns a class for the client packet handler.
+   * 
+   * @param cphc ClientPacketHandlerClass
+   */
   public void setClientPacketHandlerClass(Class cphc) {
     if ((cphc == null) || ClientPacketHandler.class.isAssignableFrom(cphc)) {
       this.clientPacketHandlerClass = cphc;
@@ -227,6 +343,11 @@ public class ServerSocketThread extends Thread {
     }
   }
 
+  /**
+   * Returns or creates a ClientPacketHandler of the thread.
+   * 
+   * @return ClientPacketHandler
+   */
   public ClientPacketHandler getClientPacketHandler() {
     if (this.clientPacketHandler != null) {
       // single instance
@@ -248,57 +369,105 @@ public class ServerSocketThread extends Thread {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Sets session time-out.
+   * 
+   * @param timeoutMS time-out in milliseconds
+   */
   public void setSessionTimeout(long timeoutMS) {
     this.sessionTimeoutMS = timeoutMS;
   }
 
+  /**
+   * Returns session time-out.
+   * 
+   * @return long time-out in milliseconds
+   */
   public long getSessionTimeout() {
     return this.sessionTimeoutMS;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Sets idle time-out.
+   * 
+   * @param timeoutMS idle time-out in milliseconds.
+   */
   public void setIdleTimeout(long timeoutMS) {
     this.idleTimeoutMS = timeoutMS;
   }
 
+  /**
+   * Returns idle time-out.
+   * 
+   * @return long time-out in milliseconds
+   */
   public long getIdleTimeout() {
     // the timeout for waiting for something to appear on the socket
     return this.idleTimeoutMS;
   }
 
+  /**
+   * Sets packet time-out.
+   * 
+   * @param timeoutMS packet time-out in milliseconds.
+   */
   public void setPacketTimeout(long timeoutMS) {
     // once a byte is finally read, the timeout for waiting until the
     // entire packet is finished
     this.packetTimeoutMS = timeoutMS;
   }
 
+  /**
+   * Returns packet time-out.
+   * 
+   * @return long time-out in milliseconds
+   */
   public long getPacketTimeout() {
     return this.packetTimeoutMS;
   }
 
+  /**
+   * Sets the requirement to terminate on time-out.
+   * 
+   * @param timeoutQuit true for termination, false otherwise
+   */
   public void setTerminateOnTimeout(boolean timeoutQuit) {
     this.terminateOnTimeout = timeoutQuit;
   }
 
+  /**
+   * Returns whether the termination on time-out is required.
+   * 
+   * @return true if termination on time-out is required, false otherwise
+   */
   public boolean getTerminateOnTimeout() {
     return this.terminateOnTimeout;
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Sets linger time-out.
+   * 
+   * @param timeoutSec packet time-out in seconds.
+   */
 
   public void setLingerTimeoutSec(int timeoutSec) {
     this.lingerTimeoutSec = timeoutSec;
   }
 
+  /**
+   * Returns linger time-out.
+   * 
+   * @return long time-out in milliseconds
+   */
   public int getLingerTimeoutSec() {
     return this.lingerTimeoutSec;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Set if the packets are textual.
+   * 
+   * @param isText true if the packets are textual, false otherwise
+   */
   public void setTextPackets(boolean isText) {
     this.isTextPackets = isText;
     if (!this.isTextPackets()) {
@@ -308,16 +477,29 @@ public class ServerSocketThread extends Thread {
     }
   }
 
+  /**
+   * Says if the packets are textual.
+   * 
+   * @return true of the packets are textual, false otherwise
+   */
   public boolean isTextPackets() {
     return this.isTextPackets;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Sets the maximum packet length.
+   * 
+   * @param len packet length
+   */
   public void setMaximumPacketLength(int len) {
     this.maxReadLength = len;
   }
 
+  /**
+   * Returns the maximum packet length.
+   * 
+   * @return packet length
+   */
   public int getMaximumPacketLength() {
     if (this.maxReadLength > 0) {
       return this.maxReadLength;
@@ -330,12 +512,21 @@ public class ServerSocketThread extends Thread {
     }
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Sets the maximum packet length.
+   * 
+   * @param len packet length
+   */
 
   public void setMinimumPacketLength(int len) {
     this.minReadLength = len;
   }
 
+  /**
+   * Returns the minumum packet length.
+   * 
+   * @return packet length
+   */
   public int getMinimumPacketLength() {
     if (this.minReadLength > 0) {
       return this.minReadLength;
@@ -348,20 +539,40 @@ public class ServerSocketThread extends Thread {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Sets line terminator character.
+   * 
+   * @param term integer value
+   */
   public void setLineTerminatorChar(int term) {
     this.setLineTerminatorChar(new int[] { term });
   }
+
+  /**
+   * Sets line terminator characters.
+   * 
+   * @param term integer array
+   */
 
   public void setLineTerminatorChar(int term[]) {
     this.lineTerminatorChar = term;
   }
 
+  /**
+   * Gets line terminator characters.
+   * 
+   * @return array of line terminating symbols.
+   */
   public int[] getLineTerminatorChar() {
     return this.lineTerminatorChar;
   }
 
+  /**
+   * Checks if the given character is among the line terminators.
+   * 
+   * @param ch character
+   * @return true if the character is a line terminator, false otherwise
+   */
   public boolean isLineTerminatorChar(int ch) {
     if ((this.lineTerminatorChar != null) && (ch >= 0)) {
       for (int i = 0; i < this.lineTerminatorChar.length; i++) {
@@ -373,19 +584,39 @@ public class ServerSocketThread extends Thread {
     return false;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Sets backspace character.
+   * 
+   * @param bs character
+   */
   public void setBackspaceChar(int bs) {
     this.setBackspaceChar(new int[] { bs });
   }
 
+  /**
+   * Sets an array of backspace characters.
+   * 
+   * @param bs array of backspace characters.
+   */
   public void setBackspaceChar(int bs[]) {
     this.backspaceChar = bs;
   }
 
+  /**
+   * Returns the backspace characters.
+   * 
+   * @return array of backspace characters
+   */
   public int[] getBackspaceChar() {
     return this.backspaceChar;
   }
+
+  /**
+   * Checks if the given character is among the backspace terminators.
+   * 
+   * @param ch character
+   * @return true if the character is a backspaqce, false otherwise
+   */
 
   public boolean isBackspaceChar(int ch) {
     if (this.hasPrompt() && (this.backspaceChar != null) && (ch >= 0)) {
@@ -398,15 +629,32 @@ public class ServerSocketThread extends Thread {
     return false;
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Sets an array of ignore characters.
+   * 
+   * @param bs array of ignore characters.
+   */
 
   public void setIgnoreChar(int bs[]) {
     this.ignoreChar = bs;
   }
 
+  /**
+   * Returns the ignore characters.
+   * 
+   * @return array of ignore characters
+   */
+
   public int[] getIgnoreChar() {
     return this.ignoreChar;
   }
+
+  /**
+   * Checks if the given character is among the ignore characters.
+   * 
+   * @param ch character
+   * @return true if the character is an ignore character, false otherwise
+   */
 
   public boolean isIgnoreChar(int ch) {
     if ((this.ignoreChar != null) && (ch >= 0)) {
@@ -419,8 +667,11 @@ public class ServerSocketThread extends Thread {
     return false;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Sets autopromrpting.
+   * 
+   * @param auto true if autopromting is required, false otherwise
+   */
   public void setAutoPrompt(boolean auto) {
     if (auto) {
       this.prompt = null;
@@ -431,15 +682,31 @@ public class ServerSocketThread extends Thread {
     }
   }
 
+  /**
+   * Sets the prompt.
+   * 
+   * @param prompt byte array
+   */
   public void setPrompt(byte prompt[]) {
     this.prompt = prompt;
     this.autoPrompt = false;
   }
 
+  /**
+   * Sets a string prompt.
+   * 
+   * @param prompt string
+   */
   public void setPrompt(String prompt) {
     this.setPrompt(StringTools.getBytes(prompt));
   }
 
+  /**
+   * Returns a ndx'th prompt as a byte array.
+   * 
+   * @param ndx index
+   * @return a found prompt as a byte array, or null if no prompt found at a given index
+   */
   protected byte[] getPrompt(int ndx) {
     this.promptIndex = ndx;
     if (this.prompt != null) {
@@ -453,37 +720,79 @@ public class ServerSocketThread extends Thread {
     }
   }
 
+  /**
+   * Checks if the prompting is on.
+   * 
+   * @return true if prompting is on, false otherwise.
+   */
   public boolean hasPrompt() {
     return (this.prompt != null) || (this.autoPrompt && this.isTextPackets());
   }
 
+  /**
+   * Returns an index of prompt.
+   * 
+   * @return an index
+   */
   protected int getPromptIndex() {
     return this.promptIndex;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Client socket.
+   * 
+   * @autor Martin D. Flynn
+   * @author Alexey Olkov
+   * 
+   */
   private static class ClientSocket {
     private Socket tcpClient = null;
     private DatagramPacket udpClient = null;
     private InputStream bais = null;
 
+    /**
+     * Creates Client socket with a specific tcp client.
+     * 
+     * @param tcpClient tcp client
+     */
+
     public ClientSocket(Socket tcpClient) {
       this.tcpClient = tcpClient;
     }
 
+    /**
+     * Creates a client socket for a specific udp client.
+     * 
+     * @param udpClient actually this is a udp packet
+     */
     public ClientSocket(DatagramPacket udpClient) {
       this.udpClient = udpClient;
     }
 
+    /**
+     * Checks if the socket deals with tcp.
+     * 
+     * @return true if a socket deals with tcp, false otherwise
+     */
     public boolean isTCP() {
       return (this.tcpClient != null);
     }
 
+    /**
+     * Checks if the udp is not null.
+     * 
+     * @return true if udp client is not null, false otherwise
+     */
     public boolean isUDP() {
       return (this.udpClient != null);
     }
 
+    /**
+     * Returns the number of bytes that can be read (or skipped over) from the input stream without
+     * blocking by the next caller of a method for this input stream.
+     * 
+     * @return the number of bytes that can be read from this input stream without blocking.
+     */
     public int available() {
       try {
         return this.getInputStream().available();
@@ -493,6 +802,12 @@ public class ServerSocketThread extends Thread {
       }
     }
 
+    /**
+     * Returns the address to which the socket is connected.
+     * 
+     * @return Returns the address to which the socket is connected or null if the socket is not
+     *         connected to any clients.
+     */
     public InetAddress getInetAddress() {
       if (this.tcpClient != null) {
         return this.tcpClient.getInetAddress();
@@ -511,6 +826,13 @@ public class ServerSocketThread extends Thread {
       }
     }
 
+    /**
+     * Returns an output stream for this socket.
+     * 
+     * @return an output stream for this socket
+     * @throws IOException if an I/O error occurs when creating the output stream or if the socket
+     *         is not connected
+     */
     public OutputStream getOutputStream() throws IOException {
       if (this.tcpClient != null) {
         return this.tcpClient.getOutputStream();
@@ -519,6 +841,14 @@ public class ServerSocketThread extends Thread {
         return null;
       }
     }
+
+    /**
+     * Returns an input stream for this socket.
+     * 
+     * @return an input stream for this socket
+     * @throws IOException if an I/O error occurs when creating the input stream or if the socket is
+     *         not connected
+     */
 
     public InputStream getInputStream() throws IOException {
       if (this.tcpClient != null) {
@@ -535,12 +865,26 @@ public class ServerSocketThread extends Thread {
       }
     }
 
+    /**
+     * Enable/disable SO_TIMEOUT with the specified timeout, in milliseconds.
+     * 
+     * @param timeoutSec the specified timeout, in milliseconds.
+     * @throws SocketException if there is an error in the underlying protocol, such as a TCP error.
+     * 
+     */
     public void setSoTimeout(int timeoutSec) throws SocketException {
       if (this.tcpClient != null) {
         this.tcpClient.setSoTimeout(timeoutSec);
       }
     }
 
+    /**
+     * Enable/disable SO_LINGER with the specified linger time in seconds.
+     * 
+     * @param timeoutSec how long to linger for, if positive, and no linger otherwise
+     * @throws SocketException if there is an error in the underlying protocol, such as a TCP error.
+     * 
+     */
     public void setSoLinger(int timeoutSec) throws SocketException {
       if (this.tcpClient != null) {
         if (timeoutSec <= 0) {
@@ -552,6 +896,14 @@ public class ServerSocketThread extends Thread {
       }
     }
 
+    /**
+     * Enable/disable SO_LINGER with the specified linger time in seconds.
+     * 
+     * @param on whether or not to linger on
+     * @param timeoutSec how long to linger for, if positive, and no linger otherwise
+     * @throws SocketException if there is an error in the underlying protocol, such as a TCP error.
+     * 
+     */
     public void setSoLinger(boolean on, int timeoutSec) throws SocketException {
       if (this.tcpClient != null) {
         if (timeoutSec <= 0) {
@@ -561,6 +913,11 @@ public class ServerSocketThread extends Thread {
       }
     }
 
+    /**
+     * Closes the socket.
+     * 
+     * @throws IOException if any I/O errors occured
+     */
     public void close() throws IOException {
       if (this.tcpClient != null) {
         this.tcpClient.close();
@@ -568,7 +925,13 @@ public class ServerSocketThread extends Thread {
     }
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Server session thread.
+   * 
+   * @author Martin D. Flynn
+   * @author Alexey Olkov
+   * 
+   */
 
   public class ServerSessionThread extends Thread {
 
@@ -577,11 +940,22 @@ public class ServerSocketThread extends Thread {
     private long readByteCount = 0L;
     private long writeByteCount = 0L;
 
+    /**
+     * Creates a thread for a specified socket, and starts.
+     * 
+     * @param client Socket for which the thread is started
+     */
     public ServerSessionThread(Socket client) {
       super("ClientSession");
       this.client = new ClientSocket(client);
       this.start();
     }
+
+    /**
+     * Creates a thread for a specified client socket, and starts.
+     * 
+     * @param client client socket for which the thread is started
+     */
 
     public ServerSessionThread(ClientSocket client) {
       super("ClientSession");
@@ -589,6 +963,12 @@ public class ServerSocketThread extends Thread {
       this.start();
     }
 
+    /**
+     * Sets the client socket if client is avaliable.
+     * 
+     * @param clientSocket a client socket
+     * @return false if the client is already used, true otherwise
+     */
     public boolean setClientIfAvailable(ClientSocket clientSocket) {
       boolean rtn = false;
       synchronized (this.runLock) {
@@ -604,6 +984,9 @@ public class ServerSocketThread extends Thread {
       return rtn;
     }
 
+    /**
+     * Implements the run() method of Thread interface.
+     */
     public void run() {
 
       /* loop forever */
@@ -763,6 +1146,13 @@ public class ServerSocketThread extends Thread {
 
     } // run()
 
+    /**
+     * Writes a byte array into an output stream.
+     * 
+     * @param output output stream
+     * @param cmd byte array
+     * @throws IOException if I/O errors occured.
+     */
     private void writeBytes(OutputStream output, byte cmd[]) throws IOException {
       if ((output != null) && (cmd != null) && (cmd.length > 0)) {
         try {
@@ -779,6 +1169,14 @@ public class ServerSocketThread extends Thread {
       }
     }
 
+    /**
+     * Reads a byte frin a client's imput stream.
+     * 
+     * @param client client socket
+     * @param timeoutAt time-out
+     * @return the byte read
+     * @throws IOException if any I/O errors occured
+     */
     private int readByte(ClientSocket client, long timeoutAt) throws IOException {
       // Read until:
       // - Timeout
@@ -822,6 +1220,14 @@ public class ServerSocketThread extends Thread {
       }
     }
 
+    /**
+     * Reads line from a client's input stream.
+     * 
+     * @param client client socket
+     * @param clientHandler client packet handler
+     * @return array of read bytes
+     * @throws IOException if any I/O errors occured
+     */
     private byte[] readLine(ClientSocket client, ClientPacketHandler clientHandler)
         throws IOException {
       // Read until:
@@ -936,6 +1342,14 @@ public class ServerSocketThread extends Thread {
 
     }
 
+    /**
+     * Reads a packet from a client's input stream.
+     * 
+     * @param client client socket
+     * @param clientHandler client packet handler
+     * @return the packet read as a byte array
+     * @throws IOException if any I/O errors occured
+     */
     private byte[] readPacket(ClientSocket client, ClientPacketHandler clientHandler)
         throws IOException {
       // Read until:
@@ -1071,21 +1485,57 @@ public class ServerSocketThread extends Thread {
 
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * 
+   * Session timeout exception.
+   * 
+   * @author Martin D. Flynn
+   * @author Alexey Olkov
+   * 
+   */
 
   public static class SSSessionTimeoutException extends IOException {
+    /**
+     * Creates an exception with the given message.
+     * 
+     * @param msg text message
+     */
     public SSSessionTimeoutException(String msg) {
       super(msg);
     }
   }
 
+  /**
+   * Read timeout exception.
+   * 
+   * @author Martin D. Flynn *
+   * @author Alexey Olkov
+   * 
+   */
   public static class SSReadTimeoutException extends IOException {
+    /**
+     * Creates an exception with the given message.
+     * 
+     * @param msg text message
+     */
     public SSReadTimeoutException(String msg) {
       super(msg);
     }
   }
 
+  /**
+   * End of stream exception.
+   * 
+   * @author Martin D. Flynn
+   * @author Alexey Olkov
+   * 
+   */
   public static class SSEndOfStreamException extends IOException {
+    /**
+     * Creates an exception with the given message.
+     * 
+     * @param msg text message
+     */
     public SSEndOfStreamException(String msg) {
       super(msg);
     }
