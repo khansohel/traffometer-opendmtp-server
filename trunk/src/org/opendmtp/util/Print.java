@@ -58,14 +58,14 @@ public class Print {
   public static final int LOG_FATAL = 1;
   /** Represents the log message level where the log contains only error messages. */
   public static final int LOG_ERROR = 2;
-  /** Represents the log message level where the log contains warnig and error messages. */
+  /** Represents the log message level where the log contains warning and error messages. */
   public static final int LOG_WARN = 3;
   /**
    * Represents the log message level where the log contains information messages as well as
    * warnings and errors.
    */
   public static final int LOG_INFO = 4;
-  /** Represents the log message level where the log contains even degug information. */
+  /** Represents the log message level where the log contains even debug information. */
   public static final int LOG_DEBUG = 5;
   /** Represents the log message level where the log contains every kind of messages. */
   public static final int LOG_ALL = 6;
@@ -110,7 +110,7 @@ public class Print {
   /**
    * Sets the specified print stream to standard output.
    * 
-   * @param out the print stream to be setted.
+   * @param out the print stream to be set.
    */
   public static void setStdout(PrintStream out) {
     Print.stdout = out;
@@ -119,16 +119,16 @@ public class Print {
   /**
    * Sets the specified print stream to standard error.
    * 
-   * @param err the print stream to be setted.
+   * @param err the print stream to be set.
    */
   public static void setStderr(PrintStream err) {
     Print.stderr = err;
   }
 
   /**
-   * Returns the current print stream assigned to stardard output.
+   * Returns the current print stream assigned to standard output.
    * 
-   * @return the current print stream assigned to stardard output. If a print stream is not assigned
+   * @return the current print stream assigned to standard output. If a print stream is not assigned
    *         to standard output, returns the system standard output.
    */
   public static PrintStream getStdout() {
@@ -136,9 +136,9 @@ public class Print {
   }
 
   /**
-   * Returns the current print stream assigned to stardard error.
+   * Returns the current print stream assigned to standard error.
    * 
-   * @return the current print stream assigned to stardard error. If a print stream is not assigned
+   * @return the current print stream assigned to standard error. If a print stream is not assigned
    *         to standard error, returns the system standard error.
    */
   public static PrintStream getStderr() {
@@ -148,11 +148,11 @@ public class Print {
   // ------------------------------------------------------------------------
 
   /**
-   * Returns the information about a mothod invocation contained in the specified stack frame in the
+   * Returns the information about a method invocation contained in the specified stack frame in the
    * execution stack.
    * 
    * @param frame the index to specify a stack frame in the execution stack.
-   * @return the information about a mothod invocation contained in the specified stack frame in the
+   * @return the information about a method invocation contained in the specified stack frame in the
    *         execution stack.
    */
   protected static String _getStackFrame(int frame) {
@@ -305,7 +305,7 @@ public class Print {
   /**
    * Sets the specified print stream to the system standard output.
    * 
-   * @param out the print stream to be setted.
+   * @param out the print stream to be set.
    */
   public static void setSysStdout(PrintStream out) {
     Print.sysStdout = out;
@@ -548,7 +548,7 @@ public class Print {
   /**
    * Logs the error level message about the specified SQLException.
    * 
-   * @param frame the index to specify the postition of the stack frame to be logged.
+   * @param frame the index to specify the position of the stack frame to be logged.
    * @param msg the message to be appended to the log message.
    * @param sqe the SQLException object containing the error message about the SQL.
    */
@@ -687,7 +687,7 @@ public class Print {
   /**
    * Sets the log message level.
    * 
-   * @param level the log message level to be setted.
+   * @param level the log message level to be set.
    */
   public static void setLogLevel(int level) {
     RTConfig.setInt(RTKey.LOG_LEVEL, level);
@@ -697,7 +697,7 @@ public class Print {
    * Sets the log message level and also decides whether the log message contains the information
    * about date and a method invocation.
    * 
-   * @param level the log message level to be setted.
+   * @param level the log message level to be set.
    * @param inclDate the boolean value to indicate that the log message contains date information.
    * @param inclFrame the boolean value to indicate that the log message contains method invocation
    *        information.
@@ -720,7 +720,7 @@ public class Print {
   /**
    * Sets the log header level.
    * 
-   * @param level the log header level to be setted.
+   * @param level the log header level to be set.
    */
   public static void setLogHeaderLevel(int level) {
     RTConfig.setInt(RTKey.LOG_LEVEL_HEADER, level);
@@ -864,8 +864,8 @@ public class Print {
    * Generates and prints a log message of the specified level.
    * 
    * @param level the log message level.
-   * @param frame the index to specify the position of a stack fram in the execution stack.
-   * @param msg the messge to be included in the final log message.
+   * @param frame the index to specify the position of a stack frame in the execution stack.
+   * @param msg the message to be included in the final log message.
    */
   protected static void _log(int level, int frame, String msg) {
 

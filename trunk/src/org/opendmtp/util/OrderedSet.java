@@ -33,14 +33,14 @@ import java.util.Set;
 import java.util.Vector;
 
 /**
- * Provides an ordered set that can keep track of the events adding or removing an entry
- * to the set as well as the entries by adding a listner. Also, provides the functionality
- * to prevent the element already contained from being replaced with a new element.
+ * An ordered collection that contains no duplicate elements.  The user may place new elements at
+ * any position, but cannot add e1 and e2 such that e1.equals(e2). This data structure may contain
+ * only a single null element.
  * 
  * @author Martin D. Flynn
  * @author Yoshiaki Iinuma
  */
-public class OrderedSet implements Set, java.util.List, Cloneable {
+public class OrderedSet implements Set, List, Cloneable {
 
   // ------------------------------------------------------------------------
 
@@ -50,8 +50,8 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   protected static final int ENTRY_REMOVED = 2;
 
   /**
-   * Provides an interface to add a listener to an ordered set object. The listner is
-   * notified when the ordered set is added or removed an entry object.
+   * Provides an interface to add a listener to an ordered set object. The listener is
+   * notified when an entry is added to or removed from the ordered set.
    * 
    * @author Martin D. Flynn
    * @author Yoshiaki Iinuma
@@ -76,8 +76,8 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   }
 
   /**
-   * Provides an adapter for the listner to detect adding or removing event to an ordered
-   * set. This class exists as convenience for creating listner objects for adding and removing
+   * Provides an adapter for the listener to detect adding or removing event to an ordered
+   * set. This class exists as convenience for creating listener objects for adding and removing
    * event to an ordered set.
    * 
    * @author Martin D. Flynn
@@ -138,7 +138,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
    * option, which determines whether the element contained in the set can be replaced with the same
    * element.
    * 
-   * @param c collection whose elemetns are to be placed into the ordered set
+   * @param c collection whose elements are to be placed into the ordered set
    * @param retainOriginalValue boolean value which indicates that an original value is retained
    */
   public OrderedSet(Collection c, boolean retainOriginalValue) {
@@ -148,9 +148,9 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
 
   /**
    * Constructs an ordered set containing all of the elements in the specified collection. As
-   * default, the elements contained the set can be replaced.
+   * default, the elements contained by the set can be replaced.
    * 
-   * @param c collection whose elemetns are to be placed into the ordered set
+   * @param c collection whose elements are to be placed into the ordered set
    */
   public OrderedSet(Collection c) {
     this(c, false);
@@ -206,7 +206,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   /**
    * Adds a ChangeListener object to this set.
    * 
-   * @param cl the ChangeListner object to be added
+   * @param cl the ChangeListener object to be added
    */
   public void addChangeListener(ChangeListener cl) {
     if (cl != null) {
@@ -305,7 +305,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Retruns the element at the specified position in this set.
+   * Returns the element at the specified position in this set.
    * 
    * @param ndx the index at which the specified element is to be returned.
    * @return the element at the specified position.
@@ -317,7 +317,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   }
 
   /**
-   * Replaces the element at the specified postion in this set with the specified element. However,
+   * Replaces the element at the specified position in this set with the specified element. However,
    * this method is not supported yet.
    * 
    * @param ndx the index at which the specified element is to be replaced.
@@ -335,7 +335,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   /**
    * Inserts the specified element at the specified position in this set. If the index is out of
    * bound, the element is added in the end of the set. This method is called by other add method to
-   * notify the adding event when ChangeListner is registered.
+   * notify the adding event when ChangeListener is registered.
    * 
    * @param ndx the index at which the specified element is to be inserted.
    * @param obj the object to be inserted.
@@ -354,7 +354,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   /**
    * Adds the specified element in the end of the set if this set does not contain it. If it does,
    * whether the present element is replaced depends on the value of retainOriginalValue. If its
-   * value is true, the present element is retained, and the specified element is discared;
+   * value is true, the present element is retained, and the specified element is discarded;
    * Otherwise, the present element is replaced by the specified element.
    * 
    * @param obj an object to be added
@@ -488,7 +488,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
 
   /**
    * Remove the first occurrence of the specified element from this set. This method is called by
-   * other remove methods to notify the removing event when ChangeListner is registered.
+   * other remove methods to notify the removing event when ChangeListener is registered.
    * 
    * @param obj the element to be removed from this set.
    * @return true if this set contains the specified element.
@@ -774,7 +774,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Returns a subet of this set between fromIndex and toIndex. However, this method is not
+   * Returns a subset of this set between fromIndex and toIndex. However, this method is not
    * supported yet.
    * 
    * @param fromIndex the low endpoint of the sublist.
@@ -793,7 +793,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   /**
    * Returns an array containing all of the elements in this set.
    * 
-   * @return an array containing all of the elemetns in this set.
+   * @return an array containing all of the elements in this set.
    */
   public Object[] toArray() {
     return this.getBackingList().toArray();
@@ -801,11 +801,11 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
 
   /**
    * Returns an array containing all of the elements in this set. If the elements fits in the
-   * specified array, it is returned therein. Ohterwise, a new array is allocated with the size of
+   * specified array, it is returned therein. Otherwise, a new array is allocated with the size of
    * the set.
    * 
    * @param a the array into which the elements of the set are to be stored.
-   * @return an array containing the elemetns in this set.
+   * @return an array containing the elements in this set.
    */
   public Object[] toArray(Object a[]) {
     return this.getBackingList().toArray(a);
