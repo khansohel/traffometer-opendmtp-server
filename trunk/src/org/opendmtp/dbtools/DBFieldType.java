@@ -27,31 +27,51 @@ package org.opendmtp.dbtools;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Abstract class for a DBFieldType.
+ * 
+ * @author Martin D. Flynn
+ * @author Brandon Lee
+ */
+public abstract class DBFieldType {
 
-public abstract class DBFieldType
-{
+  // ------------------------------------------------------------------------
 
-    // ------------------------------------------------------------------------
+  /**
+   * Constructor, calls super.
+   */
+  public DBFieldType() {
+    super();
+  }
 
-    public DBFieldType()
-    {
-        super();
-    }
+  /**
+   * Constructor single param, calls the constructor after.
+   * 
+   * @param val contains the field value.
+   */
+  public DBFieldType(String val) {
+    this();
+  }
 
-    public DBFieldType(String val)
-    {
-        this();
-    }
+  /**
+   * Constructor with three parameters and throws SQLException.
+   * 
+   * @param rs the result set, may be null.
+   * @param fldName the field name.
+   * @throws SQLException if error in sql occurs.
+   */
+  public DBFieldType(ResultSet rs, String fldName) throws SQLException {
+    this();
+    // override (NOTE: 'rs' may be null!)
+  }
 
-    public DBFieldType(ResultSet rs, String fldName)
-        throws SQLException
-    {
-        this();
-        // override (NOTE: 'rs' may be null!)
-    }
-    
-    // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
 
-    public abstract String toString();
-    
+  /**
+   * Needed overidden toString class for each subclass.
+   * 
+   * @return string of DBField object.
+   */
+  public abstract String toString();
+
 }
