@@ -31,6 +31,7 @@ package org.opendmtp.util;
 /**
  * Provides GPS latitude/longitude and algorithms to operate on such.
  * @author Martin D. Flynn
+ * @author Robert Puckett
  *
  */
 public class GeoPoint implements Cloneable {
@@ -148,7 +149,7 @@ public class GeoPoint implements Cloneable {
   public static final String NE_ABBR = NORTH_ABBR + EAST_ABBR;
   
   /**
-   * Contains the abbreviation for norht-west.
+   * Contains the abbreviation for north-west.
    */
   public static final String NW_ABBR = NORTH_ABBR + WEST_ABBR;
   /**
