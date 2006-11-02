@@ -29,8 +29,8 @@ import org.opendmtp.util.Print;
 
 
 /**
- * Seems to provide access to existing AccountDB information and is used to check if it is
- * active, name, and a toString method.  Uses a private variable but and a private static 
+ * Seems to provide access to existing AccountDB information. It is used to check if AccountID
+ * are still active with accessor methods.  Uses a private variable but and a private static 
  * constructor, but public accessors and a public static method to "load account".
  * 
  * @author Martin D. Flynn
