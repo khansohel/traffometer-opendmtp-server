@@ -255,7 +255,7 @@ public class DBConnection {
   /** The connection to the database. */
   private Connection dbConnection = null;
   
-  /** The time at which the connection is made */
+  /** The time at which the connection is made. */
   private long connectTime = 0L;
   
   /** The time at which the last connection was made. */
