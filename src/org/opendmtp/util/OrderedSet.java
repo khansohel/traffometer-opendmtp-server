@@ -33,8 +33,8 @@ import java.util.Set;
 import java.util.Vector;
 
 /**
- * This class provides an ordered set that can keep track of the events adding or removing an entry
- * to the set as well as the entries by adding a listner. This class also provides the functionality
+ * Provides an ordered set that can keep track of the events adding or removing an entry
+ * to the set as well as the entries by adding a listner. Also, provides the functionality
  * to prevent the element already contained from being replaced with a new element.
  * 
  * @author Martin D. Flynn
@@ -44,13 +44,13 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
 
   // ------------------------------------------------------------------------
 
-  /** integer value representing adding event to an ordered set. */
+  /** Integer value representing adding event to an ordered set. */
   protected static final int ENTRY_ADDED = 1;
-  /** integer value representing removing event from an ordered set. */
+  /** Integer value representing removing event from an ordered set. */
   protected static final int ENTRY_REMOVED = 2;
 
   /**
-   * This class provides an interface to add a listener to an ordered set object. The listner is
+   * Provides an interface to add a listener to an ordered set object. The listner is
    * notified when the ordered set is added or removed an entry object.
    * 
    * @author Martin D. Flynn
@@ -76,7 +76,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
   }
 
   /**
-   * This class provides an adapter for the listner to detect adding or removing event to an ordered
+   * Provides an adapter for the listner to detect adding or removing event to an ordered
    * set. This class exists as convenience for creating listner objects for adding and removing
    * event to an ordered set.
    * 
@@ -323,7 +323,7 @@ public class OrderedSet implements Set, java.util.List, Cloneable {
    * @param ndx the index at which the specified element is to be replaced.
    * @param obj the object to be inserted.
    * @return the element to be previously stored at the specified position.
-   * @throws UnsupportedOperationException
+   * @throws UnsupportedOperationException if this method is called.
    */
   public Object set(int ndx, Object obj) {
     // java.util.List (optional)
