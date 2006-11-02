@@ -49,7 +49,7 @@ import org.opendmtp.util.RTKey;
  */
 public class DBConfig {
 
-  /**Stores the factory classes for the Account, Device, EventTemplate, and EventData classes.*/
+  /** Stores the factory classes for the Account, Device, EventTemplate, and EventData classes. */
   private static DBFactory DB_TABLES[] = { Account.getFactory(), Device.getFactory(),
       EventTemplate.getFactory(), EventData.getFactory(), };
 
@@ -117,14 +117,14 @@ public class DBConfig {
     }
   }
 
-  /**Initialization status of the class.  Class is uninitialized until init is called.*/
+  /** Initialization status of the class. Class is uninitialized until init is called. */
   private static boolean didInit = false;
 
   /**
-   * Initializes the DBConfig class.  Sets options and registers database with the server.
+   * Initializes the DBConfig class. Sets options and registers database with the server.
    * 
    * @param argv Command line options that are passed to RTConfig.
-   * @param interactive Sets RTConfig options when set to true.  Does nothing if set to false.
+   * @param interactive Sets RTConfig options when set to true. Does nothing if set to false.
    */
   public static void init(String argv[], boolean interactive) {
     if (!didInit) {
@@ -139,8 +139,8 @@ public class DBConfig {
         RTConfig.setBoolean(RTKey.LOG_INCL_STACKFRAME, true); // include stackframe
       }
       else {
-        //RTConfig.setBoolean(RTKey.LOG_INCL_DATE, true);
-        //RTConfig.setBoolean(RTKey.LOG_INCL_STACKFRAME, false);
+        // RTConfig.setBoolean(RTKey.LOG_INCL_DATE, true);
+        // RTConfig.setBoolean(RTKey.LOG_INCL_STACKFRAME, false);
       }
 
       /* set database access info */
@@ -160,9 +160,8 @@ public class DBConfig {
   }
 
   /**
-   * Main method for the DBConfig class. Requires the use of a root username and password. Sets
-   * these fields if they are not initialized. Sets up the RTConfig and creates a default account
-   * and device.
+   * Sets up the RTConfig and creates a default account and device. Requires the use of a root
+   * username and password. Sets these fields if they are not initialized.
    * 
    * @param argv Command line paramters to pass to the init() method.
    */
@@ -171,8 +170,8 @@ public class DBConfig {
 
     /* default 'rootUser'/'rootPass' */
     // The following may be required for some of the following operations
-    //  -rootUser=<root>
-    //  -rootPass=<pass>
+    // -rootUser=<root>
+    // -rootPass=<pass>
     if (!RTConfig.hasProperty("rootUser")) {
       // set default root user/pass
       RTConfig.setString("rootUser", "root");
@@ -189,12 +188,12 @@ public class DBConfig {
       RTConfig.setBoolean("grant", true);
       RTConfig.setBoolean("tables", true);
       // The following are required:
-      //   -rootUser=<root>
-      //   -rootPass=<pass>
+      // -rootUser=<root>
+      // -rootPass=<pass>
       // These should be available in the config file
-      //   db.sql.user=<Grant_User>       - GRANT only
-      //   db.sql.pass=<Grant_Pass>       - GRANT only
-      //   db.sql.name=<DataBase_Name>    - GRANT only
+      // db.sql.user=<Grant_User> - GRANT only
+      // db.sql.pass=<Grant_Pass> - GRANT only
+      // db.sql.name=<DataBase_Name> - GRANT only
     }
 
     /* execute commands present in run-time config */

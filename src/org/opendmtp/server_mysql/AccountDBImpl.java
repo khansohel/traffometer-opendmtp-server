@@ -37,10 +37,8 @@ import org.opendmtp.util.Print;
 import org.opendmtp.util.RTConfig;
 
 
-
 /**
- * Implementation of the AccountDB interface. Stores an account record and provides access functions
- * to its fields.
+ * Stores an account and provides access functions to its fields.
  * 
  * @author Martin D. Flynn
  * @author George Lee
@@ -173,9 +171,9 @@ public class AccountDBImpl implements AccountDB {
   }
 
   /**
-   * Main method for this class. Initialize the configuration using parameters from the command
-   * line. Then creates and/or edits a default user account. Displays error information if there are
-   * problems in initializing the account.
+   * Creates and/or edits a default user account. Initializes the configuration using parameters
+   * from the command line. Displays error information if there are problems in initializing the
+   * account.
    * 
    * @param argv Command line parameters to pass to DBConfig.
    */

@@ -31,29 +31,29 @@ import org.opendmtp.util.RTConfig;
 import org.opendmtp.util.RTKey;
 
 /**
- * Main class for the package. Contains DMTP server information and a method to start the server.
+ * Configure the server using MySQL to store data.
  * 
  * @author Martin D. Flynn
  * @author George Lee
  */
 public class Main {
 
-  /**Version number of the OpenDMTP server.*/
+  /** Version number of the OpenDMTP server. */
   public static final String DMTP_VERS = "1.1.4";
 
   private static final String DMTP_NAME = "OpenDMTP";
   private static final String DMTP_TYPE = "Server(MySQL)";
 
-  /**Full version name of the OpenDMTP server.*/
+  /** Full version name of the OpenDMTP server. */
   public static final String DMTP_VERSION = DMTP_NAME + "_" + DMTP_TYPE + "." + DMTP_VERS;
 
-  /**Copyright information about this implementation.*/
+  /** Copyright information about this implementation. */
   public static final String COPYRIGHT = "Copyright 2006, Martin D. Flynn";
 
-  /**RTConfig start property.*/
+  /** RTConfig start property. */
   public static final String ARG_START = "start";
 
-  /**RTConfig port property.*/
+  /** RTConfig port property. */
   public static final String ARG_PORT = "port";
 
   private static final int DEFAULT_DATA_PORT = 31000;
@@ -89,9 +89,10 @@ public class Main {
   }
 
   /**
-   * Main method for the class. Configures the server using MySQL data store with options from the
-   * command line. Starts the server using the port from the _serverPort() method. System exits with
-   * an error if the MySQL database has not been properly initialized.
+   * Configures the server using MySQL data store with options from the command line. Starts the
+   * server using the port from the _serverPort() method.
+   * <p>
+   * System exits with an error if the MySQL database has not been properly initialized.
    * 
    * @param argv Command line options to pass to the configuration.
    */
