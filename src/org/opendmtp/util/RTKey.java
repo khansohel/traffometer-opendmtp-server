@@ -33,15 +33,28 @@ import java.lang.reflect.*;
 import java.awt.*;
 import java.awt.color.*;
 
+/**
+ * Holds the key names for run time properties.
+ * 
+ * @author Martin D. Flynn
+ * @author Nam Nguyen
+ */
 public class RTKey
 {
 
     // ------------------------------------------------------------------------
-
+    /**
+     * Represents null.
+     */
     public  static final String NULL_VALUE                  = "<null>";
     
     // ------------------------------------------------------------------------
     
+    /**
+     * Uses to avoid having to hardcode the fully qualified class name.
+     * 
+     * @return The class name.
+     */
     private static String SENDMAIL_CLASS()
     {
         // This is done this way to avoid having to hardcode the fully qualified class name.
@@ -50,59 +63,169 @@ public class RTKey
 
     // ------------------------------------------------------------------------
     // property keys
-    
+    /**
+     * Holds "rtquiet".
+     */
     public static final String RT_QUIET                     = "rtquiet"; // command-line use only
-
+    /**
+     * Holds "$main.class".
+     */
     public static final String MAIN_CLASS                   = "$main.class"; // set by 'RTConfig.setCommandLineArgs'
-
+    /**
+     * Holds "isWebApp".
+     */
     public static final String IS_WEBAPP                    = "isWebApp";
+    /**
+     * Holds "configFileDir".
+     */
     public static final String CONFIG_FILE_DIR              = "configFileDir";
+    /**
+     * Holds "configFile".
+     */
     public static final String CONFIG_FILE                  = "configFile";
+    /**
+     * Holds "configFile".
+     */
     public static final String COMMAND_LINE_CONF            = "conf"; // alias for CONFIG_FILE for cmdLine use
-
+    /**
+     * Holds "testMode".
+     */
     public static final String TEST_MODE                    = "testMode";
+    /**
+     * Holds "debugMode".
+     */
     public static final String DEBUG_MODE                   = "debugMode";
+    /**
+     * Holds "adminMode".
+     */
     public static final String ADMIN_MODE                   = "adminMode";
-
+    /**
+     * Holds "http.proxy.host".
+     */
     public static final String HTTP_PROXY_HOST              = "http.proxy.host";
+    /**
+     * Holds "http.proxy.port".
+     */
     public static final String HTTP_PROXY_PORT              = "http.proxy.port";
+    /**
+     * Holds "url.connect.timeout".
+     */
     public static final String URL_CONNECT_TIMEOUT          = "url.connect.timeout";
+    /**
+     * Holds "url.read.timeout".
+     */
     public static final String URL_READ_TIMEOUT             = "url.read.timeout";
-
+    /**
+     * Holds "smtp.host".
+     */
     public static final String SMTP_SERVER_HOST             = "smtp.host";
+    /**
+     * Holds "smtp.threadModel".
+     */
     public static final String SMTP_THREAD_MODEL            = "smtp.threadModel";
+    /**
+     * Holds "smtp.threadModel.show".
+     */
     public static final String SMTP_THREAD_MODEL_SHOW       = "smtp.threadModel.show";
+    /**
+     * Holds "smtp.debug".
+     */
     public static final String SMTP_DEBUG                   = "smtp.debug";
-
+    /**
+     * Holds "log.level".
+     */
     public static final String LOG_LEVEL                    = "log.level";
+    /**
+     * Holds "log.level.header".
+     */
     public static final String LOG_LEVEL_HEADER             = "log.level.header";
+    /**
+     * Holds "log.file".
+     */
     public static final String LOG_FILE                     = "log.file";
+    /**
+     * Holds "log.file.maxSize".
+     */
     public static final String LOG_FILE_MAX_SIZE            = "log.file.maxSize";
+    /**
+     * Holds "log.include.date".
+     */
     public static final String LOG_INCL_DATE                = "log.include.date";
+    /**
+     * Holds "log.include.frame".
+     */
     public static final String LOG_INCL_STACKFRAME          = "log.include.frame";
+    /**
+     * Holds "log.email.sendExceptions".
+     */
     public static final String LOG_EMAIL_EXCEPTIONS         = "log.email.sendExceptions";
+    /**
+     * Holds "log.email.fromAddr".
+     */
     public static final String LOG_EMAIL_FROM               = "log.email.fromAddr";
+    /**
+     * Holds "log.email.toAddr".
+     */
     public static final String LOG_EMAIL_TO                 = "log.email.toAddr";
+    /**
+     * Holds "log.email.sendmailClass".
+     */
     public static final String LOG_SENDMAIL_CLASS           = "log.email.sendmailClass";
-    
+    /**
+     * Holds "db.sql.dbname".
+     */    
     public static final String DB_NAME                      = "db.sql.dbname";
+    /**
+     * Holds "db.sql.host".
+     */
     public static final String DB_HOST                      = "db.sql.host";
+    /**
+     * Holds "db.sql.port".
+     */
     public static final String DB_PORT                      = "db.sql.port";
+    /**
+     * Holds "db.sql.user".
+     */
     public static final String DB_USER                      = "db.sql.user";
+    /**
+     * Holds "db.sql.pass".
+     */
     public static final String DB_PASS                      = "db.sql.pass";
+    /**
+     * Holds "db.notify.port".
+     */
     public static final String DB_NOTIFY_PORT               = "db.notify.port";
+    /**
+     * Holds "db.tableLocking".
+     */
     public static final String DB_TABLE_LOCKING             = "db.tableLocking";
+    /**
+     * Holds "db.showSQL".
+     */
     public static final String DB_SHOW_SQL                  = "db.showSQL";
-
+    /**
+     * Holds "dmtp.port".
+     */
     public static final String DMTP_PORT                    = "dmtp.port";
-    
+    /**
+     * Holds "webapp.contextName".
+     */
     public static final String WEBAPP_CONTEXT_NAME          = "webapp.contextName";
+    /**
+     * Holds "webapp.contextPath".
+     */
     public static final String WEBAPP_CONTEXT_PATH          = "webapp.contextPath";
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Represents a null entry.
+     */
     protected static Entry NullEntry = new Entry("", null);
     
+    /**
+     * Holds all the standart entries initialized with values.
+     */
     protected static Entry runtimeKeys[] = {
         
         new Entry("General mode attributes"),
@@ -160,9 +283,20 @@ public class RTKey
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Holds the global entry map.
+     */
     protected static Map            globalEntryMap = null;
+    /**
+     * Holds the global properties.
+     */
     protected static RTProperties   globalProperties = null;
 
+    /**
+     * Returns the map consisting of runtime entries.
+     * 
+     * @return the map consisting of runtime entries.
+     */
     protected static Map getRuntimeEntryMap()
     {
         if (globalEntryMap == null) {
@@ -181,6 +315,11 @@ public class RTKey
         return globalEntryMap;
     }
     
+    /**
+     * Adds entries to the runtime entries list.
+     * 
+     * @param dftEntry the entries to be added.
+     */
     public void addRuntimeEntries(Entry dftEntry[])
     {
         if (dftEntry != null) {
@@ -190,6 +329,11 @@ public class RTKey
         }
     }
     
+    /**
+     * Adds an entry to the runtime entries list.
+     * 
+     * @param dftEntry the entry to be added.
+     */
     public void addRuntimeEntry(Entry dftEntry)
     {
         if (dftEntry != null) {
@@ -202,7 +346,12 @@ public class RTKey
     }
     
     // ------------------------------------------------------------------------
-    
+    /**
+     * Returns the runtime entry with the specified key.
+     * 
+     * @param key Specifies the entry to look for.
+     * @return the runtime entry with the specified key.
+     */
     protected static Entry getRuntimeEntry(String key)
     {
         return (key != null)? (Entry)RTKey.getRuntimeEntryMap().get(key) : null;
@@ -210,17 +359,35 @@ public class RTKey
     
     // ------------------------------------------------------------------------
 
+    /**
+     * Checks to see whether an entry has default value.
+     * 
+     * @param key Specifies the entry to look for.
+     * @return True if an entry has default value, False otherwise.
+     */
     public static boolean hasDefault(String key)
     {
         return (RTKey.getRuntimeEntry(key) != null);
     }
     
+    /**
+     * Returns a specified entry, returns dft if default value is null.
+     * 
+     * @param key Specifies the entry to look for.
+     * @param dft The value to return in the case when default value is null.
+     * @return the default value of an entry, returns dft if default value is null.
+     */
     public static Object getDefaultProperty(String key, Object dft)
     {
         Entry rtKey = RTKey.getRuntimeEntry(key);
         return (rtKey != null)? rtKey.getDefault() : dft;
     }
     
+    /**
+     * Returns all default entries, returns dft if default value is null.
+     * 
+     * @return set of all default entries.
+     */
     public static RTProperties getDefaultProperties()
     {
         if (globalProperties == null) {
@@ -240,6 +407,9 @@ public class RTKey
 
     // ------------------------------------------------------------------------
     
+    /**
+     * A property entry consisting of property name, value and description.
+     */
     public static class Entry
     {
         
@@ -248,53 +418,148 @@ public class RTKey
         private String hlp  = null;
         private int    ref  = 0;    // cyclical reference test
         
+        /**
+         * Creates a new entry with specified name, value and description.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         * @param help Description of the new entry.
+         */
         public Entry(String key, Object dft, String help) {
             this.key = key;
             this.dft = dft;
             this.hlp = help;
         }
+        
+        /**
+         * Creates a new entry with specified name and value.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         */
         public Entry(String key, Object dft) {
             this(key, dft, null);
         }
+        
+        /**
+         * Creates a new entry with just a description.
+         * 
+         * @param help Description of the new entry.
+         */
         public Entry(String help) {
             this(null, null, help);
         }
         
+        /**
+         * Creates a new entry with specified name, value of type int and description.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         * @param help Description of the new entry.
+         */
         public Entry(String key, int dft, String help) {
             this(key, new Integer(dft), help);
         }
+        
+        /**
+         * Creates a new entry with specified name and value of type int.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         */
         public Entry(String key, int dft) {
             this(key, dft, null);
         }
         
+        /**
+         * Creates a new entry with specified name, value of type long and description.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         * @param help Description of the new entry.
+         */        
         public Entry(String key, long dft, String help) {
             this(key, new Long(dft), help);
         }
+        
+        /**
+         * Creates a new entry with specified name and value of type long.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         */
         public Entry(String key, long dft) {
             this(key, dft, null);
         }
         
+        /**
+         * Creates a new entry with specified name, value of type double and description.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         * @param help Description of the new entry.
+         */  
         public Entry(String key, double dft, String help) {
             this(key, new Double(dft), help);
         }
+        
+        /**
+         * Creates a new entry with specified name and value of type double.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         */
         public Entry(String key, double dft) {
             this(key, dft, null);
         }
         
+        /**
+         * Creates a new entry with specified name, value of type float and description.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         * @param help Description of the new entry.
+         */  
         public Entry(String key, float dft, String help) {
             this(key, new Float(dft), help);
         }
+        
+        /**
+         * Creates a new entry with specified name and value of type float.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         */
         public Entry(String key, float dft) {
             this(key, dft, null);
         }
         
+        /**
+         * Creates a new entry with specified name, value of type boolean and description.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         * @param help Description of the new entry.
+         */          
         public Entry(String key, boolean dft, String help) {
             this(key, new Boolean(dft), help);
         }
+        
+        /**
+         * Creates a new entry with specified name and value of type boolean.
+         * 
+         * @param key Name of the new entry.
+         * @param dft Value of the new entry.
+         */
         public Entry(String key, boolean dft) {
             this(key, dft, null);
         }
         
+        /**
+         * Returns the Entry if its a real entry, not a reference.
+         * 
+         * @return Entry if its a real entry, not a reference.
+         */
         public Entry getRealEntry() {
             if (this.dft instanceof EntryReference) {
                 Entry entry = null;
@@ -317,24 +582,58 @@ public class RTKey
             }
         }
         
+        /**
+         * Indicates whether this is a reference or a real entry.
+         * 
+         * @return True if it is a reference, False otherwise.
+         */
         public boolean isReference() {
             return (this.dft instanceof EntryReference);
         }
         
+        /**
+         * Returns the name of the property entry.
+         * 
+         * @return name of the property entry.
+         */
         public String getKey() {
             return this.key;
         }
+        
+        /**
+         * Returns the value of the property entry.
+         * 
+         * @return value of the property entry.
+         */
         public Object getDefault() {
             return this.isReference()? this.getRealEntry().getDefault() : this.dft;
         }
         
+        /**
+         * Indicates whether this entry has description text or not.
+         * Bug: should be this.help instead of this.key.
+         * 
+         * @return True if this entry has description, False otherwise.
+         */
         public boolean isHelp() {
             return (this.key == null);
         }
+        
+        /**
+         * Returns the description of the property entry.
+         * 
+         * @return description of the property entry.
+         */
         public String getHelp() {
             return (this.hlp != null)? this.hlp : "";
         }
         
+        /**
+         * Returns a string consisting of entry's description(if there is) and name with value being v.
+         * 
+         * @param v The value to be printed out.
+         * @return string consisting of entry's description(if there is) and name with value being v.
+         */
         public String toString(Object v) {
             StringBuffer sb = new StringBuffer();
             if (this.isHelp()) {
@@ -346,21 +645,52 @@ public class RTKey
             return sb.toString();
         }
         
+        /**
+         * Returns a string representation of the entry.
+         * 
+         * @return a string representation of the entry
+         */
         public String toString() {
             return this.toString(this.getDefault());
         }
         
     }
     
+    /**
+     * Provides descriptions for a reference entry.
+     * 
+     * @author Martin D. Flynn
+     * @author Nam
+     */
     public static class EntryReference
     {
+        /**
+         * Points to the actual entry.
+         */
         private String refKey = null;
+        /**
+         * Reference this entry to a specified entry.
+         * 
+         * @param key The entry to reference to.
+         */
         public EntryReference(String key) {
             this.refKey = key;
         }
+        
+        /**
+         * Returns the reference key of this entry.
+         * 
+         * @return the reference key of this entry.
+         */
         public String getKey() {
             return this.refKey;
         }
+        
+        /**
+         * Returns the referenced entry.
+         * 
+         * @return the referenced entry.
+         */
         public Entry getReferencedEntry() {
             Entry entry = getRuntimeEntry(this.getKey());
             if (entry == null) { 
@@ -368,10 +698,23 @@ public class RTKey
             }
             return entry;
         }
+        
+        /**
+         * Converts the entry to string for readability.
+         * 
+         * @return A string representation of the entry.
+         */
         public String toString() {
             String k = this.getKey();
             return (k != null)? k : "";
         }
+        
+        /**
+         * Provides a way to compare with other entries.
+         * 
+         * @param other The object to be compared to.
+         * @return True if the entries are equal, False otherwise.
+         */
         public boolean equals(Object other) {
             if (other instanceof EntryReference) {
                 return this.toString().equals(other.toString());
@@ -383,6 +726,11 @@ public class RTKey
     
     // ------------------------------------------------------------------------
     
+    /**
+     * Prints out the standart runtime entries.
+     * 
+     * @param out The output stream to be printed to.
+     */
     public static void printDefaults(PrintStream out)
     {
         
@@ -435,6 +783,11 @@ public class RTKey
     // ------------------------------------------------------------------------
     // ------------------------------------------------------------------------
 
+    /**
+     * Runs from the command line.
+     * 
+     * @param argv Command line arguments.
+     */
     public static void main(String argv[])
     {
         RTConfig.setCommandLineArgs(argv);
