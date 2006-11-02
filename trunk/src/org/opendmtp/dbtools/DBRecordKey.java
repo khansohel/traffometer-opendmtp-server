@@ -35,7 +35,15 @@ import java.sql.Statement;
 
 import org.opendmtp.util.Print;
 
-
+/**
+ * Implements the DBRecordKey containing information to construct
+ * the DBRecord class.  Methods pertain to specific field operations
+ * to create/destroy/alter data within the database through the use
+ * of dynamically created SQL statements and data.
+ * 
+ * @author Martin D. Flynn, Joshua Stupplebeen
+ *
+ */
 public abstract class DBRecordKey
 {
 
@@ -46,6 +54,9 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Protected constructor returning an instance of the super class.
+     */
     protected DBRecordKey()
     {
         super();
@@ -56,21 +67,47 @@ public abstract class DBRecordKey
     // ------------------------------------------------------------------------
     // DBFactory convience methods
     
+    /**
+     * Retrieves the Table name.
+     * @return String Table name.
+     */
     public String getTableName()
     {
         return this.getFactory().getTableName();
     }
 
+    /**
+     * Retrieves the Key fields.  This method only
+     * calls itself after calling the getFactory method.
+     * It returns the database key fields in an array.
+     * Assuming it returns all the keys contained in the
+     * database.
+     * @return DBField[] Array of Keys.
+     */
     public DBField[] getKeyFields()
     {
         return this.getFactory().getKeyFields();
     }
 
+    /**
+     * Retrieves the fields of the database.
+     * This method calls itself after calling the
+     * getFactory method.  It returns the database fields
+     * as an array, assuming it returns ALL the fields of
+     * the database.
+     * @return DBField[] array of Fields.
+     */
     public DBField[] getFields()
     {
         return this.getFactory().getFields();
     }
     
+    /**
+     * Returns a specific database field denoted by the
+     * field name passed as a parameter.
+     * @param fldName Field name.
+     * @return DBField Field with name fldName.
+     */
     public DBField getField(String fldName)
     {
         return this.getFactory().getField(fldName);
@@ -78,6 +115,11 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Returns the current Record's field values if any
+     * exist.
+     * @return DBFieldValues Current record's field values.
+     */
     protected DBFieldValues getFieldValues()
     {
         if (this.fieldValues == null) {
@@ -86,31 +128,67 @@ public abstract class DBRecordKey
         return this.fieldValues;
     }
     
+    /**
+     * Returns the object value from the field denoted by
+     * fldname.
+     * @param fldName Field name.
+     * @return Object Field value.
+     */
     public Object getFieldValue(String fldName)
     {
         return this.getFieldValues().getFieldValue(fldName);
     }
 
+    /**
+     * Sets the field value to the Object val.
+     * @param fldName Field name.
+     * @param val Object value.
+     * @return boolean Determines if the set method was successful.
+     */
     public boolean setFieldValue(String fldName, Object val)
     {
         return this.getFieldValues().setFieldValue(fldName, val);
     }
 
+    /**
+     * Sets the field value to the boolean val.
+     * @param fldName Field name.
+     * @param val Boolean value.
+     * @return boolean Determines if the set method was successful.
+     */
     public boolean setFieldValue(String fldName, boolean val)
     {
         return this.getFieldValues().setFieldValue(fldName, val);
     }
 
+    /**
+     * Sets the field value to the int val.
+     * @param fldName Field name.
+     * @param val int value.
+     * @return Determines if the set method was successful.
+     */
     public boolean setFieldValue(String fldName, int val)
     {
         return this.getFieldValues().setFieldValue(fldName, val);
     }
 
+    /**
+     * Sets the Field value to the long val.
+     * @param fldName Field name.
+     * @param val Long val.
+     * @return Determines if the set method was successful.
+     */
     public boolean setFieldValue(String fldName, long val)
     {
         return this.getFieldValues().setFieldValue(fldName, val);
     }
 
+    /**
+     * Sets the Field value to the double val.
+     * @param fldName Field name.
+     * @param val Double value.
+     * @return Determines if the set method was successful.
+     */
     public boolean setFieldValue(String fldName, double val)
     {
         return this.getFieldValues().setFieldValue(fldName, val);
@@ -118,6 +196,11 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Determins if the current recordKey exists by calling the
+     * _exists method.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public boolean exists()
         throws DBException
     {
@@ -128,6 +211,14 @@ public abstract class DBRecordKey
         }
     }
 
+    /**
+     * Returns a boolean value indicating whether the record contains any Key
+     * values in the database table.  Returns true if it does and false
+     * otherwise.  If an SQLExcetion occurs all tables are locked.
+     * @return boolean Does the record contain any key values.
+     * @throws SQLException Throws an SQLException if an sql error occurs.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     protected boolean _exists()
         throws SQLException, DBException
     {
@@ -168,6 +259,11 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Attempts to delete a record from the database.  Calls the _delete
+     * method.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     public void delete()
         throws DBException
     {
@@ -178,6 +274,11 @@ public abstract class DBRecordKey
         }
     }
 
+    /**
+     * Deletes the current record from the database table.
+     * @throws SQLException Throws an SQLException if an SQL error occurs.
+     * @throws DBException Throws a DBException if a database error occurs.
+     */
     protected void _delete()
         throws SQLException, DBException
     {
@@ -189,6 +290,12 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Generates the SQL code to select both key fields and values from the
+     * database table.  Generates SQL code looks like "WHERE AND 'fldName'
+     *  = 'keyFlds.getQValue' ".
+     * @return String SQL Statement.
+     */
     public String getWhereClause()
     {
         StringBuffer sb = new StringBuffer();
@@ -208,16 +315,30 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Returns the current DBRecord.
+     * @return DBRecord the current record.
+     */
     /* package */ DBRecord _getDBRecord()
     {
         return this.record; // may be null
     }
     
+    /**
+     * Returns the current DBRecord passing false to the boolean
+     * constructor.
+     * @return DBRecord the current record.
+     */
     public DBRecord getDBRecord()
     {
         return this.getDBRecord(false);
     }
     
+    /**
+     * Reloads the current DBRecord with the boolean constructor.
+     * @param reload boolean constructor value.
+     * @return DBRecord The reloaded record data.
+     */
     public DBRecord getDBRecord(boolean reload)
     {
         // returns null if there is an error
@@ -247,6 +368,12 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Determines if the object passed as a parameter is 'equal' to the current
+     * record key by comparing their key field values.
+     * @param other Object comparing to the current RecordKey.
+     * @return boolean Determines if the two objects are equal.
+     */
     public boolean equals(Object other) 
     {
         if (other == null) {
@@ -287,6 +414,10 @@ public abstract class DBRecordKey
         return false;
     }
 
+    /**
+     * Converts the current RecordKey's key values to a string.
+     * @return String Record Key values.
+     */
     public String toString() 
     {
         DBField kf[] = this.getKeyFields();
@@ -305,6 +436,15 @@ public abstract class DBRecordKey
 
     // ------------------------------------------------------------------------
 
+    /**
+     * Attempts to evaluate if the character passed is a valid
+     * character for identification.  Accepted characters in
+     * this implementation include:  alphanumeric characters,
+     * '.', '_', '@', '&'.
+     * @param ch character being evaluated.
+     * @return boolean Determining if the character is a valid
+     * identifier.
+     */
     public static boolean isValidIDChar(char ch)
     {
         // At a minimum, avoid the following special chars: 
@@ -343,6 +483,12 @@ public abstract class DBRecordKey
         }
     }
     
+    /**
+     * Filters the valid identifier characters from the
+     * text ID.
+     * @param text String identifier.
+     * @return String Valid identifier.
+     */
     public static String FilterID(String text)
     {
         // ie. "sky.12", "acme@123"
