@@ -26,14 +26,24 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.*;
-import java.io.*;
-import java.text.*;
-import java.sql.*;
+// import java.lang.*; // commented out by Kiet Huynh
+//import java.util.*; // commented out by Kiet Huynh
+//import java.io.*; // commented out by Kiet Huynh
+//import java.text.*; // commented out by Kiet Huynh
+import java.io.BufferedReader; // added by Kiet Huynh
+import java.io.File; // added by Kiet Huynh
+import java.io.FileInputStream; // added by Kiet Huynh
+import java.io.FileOutputStream; // added by Kiet Huynh
+import java.io.FileReader; // added by Kiet Huynh
+import java.io.IOException; // added by Kiet Huynh
+import java.lang.reflect.Constructor; // added by Kiet Huynh
+import java.lang.reflect.Method; // added by Kiet Huynh
+import java.lang.reflect.Modifier; // added by Kiet Huynh
+import java.sql.ResultSet; // added by Kiet Huynh
+import java.sql.SQLException; // added by Kiet Huynh
+import java.sql.Statement; // added by Kiet Huynh
+import java.util.Iterator; // added by Kiet Huynh
+import java.util.Vector; // added by Kiet Huynh
 
 import org.opendmtp.util.*;
 
