@@ -22,13 +22,8 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.db;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-
-import org.opendmtp.util.*;
+import org.opendmtp.util.GeoPoint;
+import org.opendmtp.util.StringTools;
 
 /**
  * Payload template class defining packet payload structure.

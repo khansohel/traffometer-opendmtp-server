@@ -22,13 +22,28 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.db;
 
-import java.lang.*;
-import java.util.*;
-
+/**
+ * AccountDB provides a simple interface for account type classes.
+ * @author Martin D. Flynn
+ * @author Brandon Horiuchi
+ */
 public interface AccountDB {
+  
+  /**
+   * Get the name of the account.
+   * @return String account name.
+   */
   public String getAccountName();
 
+  /**
+   * Get the description of the account.
+   * @return description of the account.
+   */
   public String getDescription();
 
+  /**
+   * Get the activity status of the account.
+   * @return True if the account is active, false otherwise.
+   */
   public boolean isActive();
 }
