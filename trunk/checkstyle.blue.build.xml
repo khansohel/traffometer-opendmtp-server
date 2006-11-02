@@ -33,27 +33,15 @@
                  failOnViolation="${checkstyle.failOnViolation}" 
                  classpathref="checkstyle.classpath">
        <fileset dir="${src.dmtp}">
-         <include name="org/opendmtp/util/ClientErrors.java"/>
-         <include name="org/opendmtp/util/CommandErrors.java"/>
-         <include name="org/opendmtp/util/Encoding.java"/>
-         <include name="org/opendmtp/util/ServerErrors.java"/>
-         <include name="org/opendmtp/util/StatusCodes.java"/>
-         <include name="org/opendmtp/util/DBAdmin.java"/>
-         <include name="org/opendmtp/util/DBConnection.java"/>
-         <include name="org/opendmtp/util/DBEdit.java"/>
-         <include name="org/opendmtp/util/DBException.java"/>
-         <include name="org/opendmtp/util/DBFactory.java"/>
-         <include name="org/opendmtp/util/DBField.java"/>
-         <include name="org/opendmtp/util/DBFieldType.java"/>
-         <include name="org/opendmtp/util/DBRecord.java"/>
-         <include name="org/opendmtp/util/DBRecordKey.java"/>
-       	
+       
          <include name="org/opendmtp/dbtools/TestTable.java"/>
          <include name="org/opendmtp/server/base/AccountID.java"/>
          <include name="org/opendmtp/server/base/DMTPClientPacketHandler.java"/>
          <include name="org/opendmtp/server/base/DMTPServer.java"/>
          <include name="org/opendmtp/server/base/DeviceID.java"/>
        	 <include name="org/opendmtp/dbtools/DBFieldValues.java"/>
+       	 <include name="org/opendmtp/dbtools/DBField.java"/>
+       	 <include name="org/opendmtp/dbtools/DBFieldType.java"/>
        </fileset>
        <formatter type="plain"/>
        <formatter type="xml" tofile="${checkstyle.dir}/checkstyle.xml"/>
