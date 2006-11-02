@@ -490,11 +490,11 @@ public class DateTime implements Comparable, Cloneable {
   }
 
   /**
-   * Probably returns true when second is within the specified interval.
+   * Returns true when fixed time is happened before the (current_time - lapseSec interval) time.
    * 
    * @param timeSec time specified in seconds.
    * @param lapseSec time interval in seconds.
-   * @return true when time is within interval.
+   * @return true when time is greater than specified interval.
    */
   public static boolean isRecentSec(long timeSec, long lapseSec) {
     Print.logDebug("timeSec: " + timeSec);
