@@ -1,6 +1,6 @@
 <project name="checkstyle" default="checkstyle">
   <description>
-  Provides the Checkstyle tool and the Hackystat Checkstyle sensor. 
+  Provides the Checkstyle tool and the Hackystat Checkstyle sensor for team blue. 
 
   Note: If you download a different version (say, 4.3), then you can override the default version (4.2) as follows:
      ant -Dcheckstyle.version=4.3 -f checkstyle.build.xml checkstyle.tool
@@ -45,14 +45,15 @@
          <include name="org/opendmtp/util/DBFactory.java"/>
          <include name="org/opendmtp/util/DBField.java"/>
          <include name="org/opendmtp/util/DBFieldType.java"/>
-         <include name="org/opendmtp/util/DBFieldValues.java"/>
          <include name="org/opendmtp/util/DBRecord.java"/>
          <include name="org/opendmtp/util/DBRecordKey.java"/>
+       	
          <include name="org/opendmtp/dbtools/TestTable.java"/>
          <include name="org/opendmtp/server/base/AccountID.java"/>
          <include name="org/opendmtp/server/base/DMTPClientPacketHandler.java"/>
-         <include name="org/opendmtp/util/DMTPServer.java"/>
-         <include name="org/opendmtp/util/DeviceID.java"/>
+         <include name="org/opendmtp/server/base/DMTPServer.java"/>
+         <include name="org/opendmtp/server/base/DeviceID.java"/>
+       	 <include name="org/opendmtp/dbtools/DBFieldValues.java"/>
        </fileset>
        <formatter type="plain"/>
        <formatter type="xml" tofile="${checkstyle.dir}/checkstyle.xml"/>
