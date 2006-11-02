@@ -437,9 +437,11 @@ public class DBConnection {
   /**
    * Executes the SQL statement.  
    * @param sql SQL statement.
-   * @return The result of the execution.
-   * @throws SQLException If the database access errors occur.
-   * @throws DBException If the dababase access errors occur. MySQl is
+   * @return The result of the execution. You must then use the methods
+   * getResultSet or getUpdateCount to retrieve the result, and getMoreResults 
+   * to move to any subsequent result(s).
+   * @throws SQLException If any database access errors occur.
+   * @throws DBException If any dababase access errors occur. MySQl is
    *         not running or it can't find the MySQL server.
    */
   public Statement execute(String sql) throws SQLException, DBException {
@@ -475,9 +477,11 @@ public class DBConnection {
   /**
    * Executes the SQL statement which may return multiple result sets.
    * @param sql SQL statement.
-   * @return The result of the execution.
-   * @throws SQLException If the database access errors occur.
-   * @throws DBException If the dababase access errors occur. MySQl is
+   * @return The result of the execution. You must then use the methods
+   * getResultSet or getUpdateCount to retrieve the result, and getMoreResults 
+   * to move to any subsequent result(s).
+   * @throws SQLException If any database access errors occur.
+   * @throws DBException If any dababase access errors occur. MySQl is
    *         not running or it can't find the MySQL server.
    */
   protected Statement _execute(String sql) throws SQLException, DBException {
@@ -525,7 +529,7 @@ public class DBConnection {
 
   /**
    * Executes the SQL statement which returns a single ResultSet object.
-   * @param sql SQL statement.
+   * @param sql Any SQL statement.
    * @return The result of the execution.
    * @throws SQLException If the database access errors occur.
    * @throws DBException If the dababase access errors occur. MySQl is
@@ -547,7 +551,7 @@ public class DBConnection {
   /**
    * Executes the given SQL statement, which may be an INSERT, UPDATE, 
    * or DELETE or an SQL statement that returns nothing.
-   * @param sql The SQL statement
+   * @param sql Any SQL statement
    * @throws SQLException If database access errors occurs or the given 
    *         SQL statement return a ResutlSet.
    * @throws DBException If MySQL is not runnig, or it can't find the 
