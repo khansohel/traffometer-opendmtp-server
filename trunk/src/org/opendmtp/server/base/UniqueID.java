@@ -36,7 +36,7 @@ public class UniqueID {
   private long id = 0L;
 
   /**
-   * Constructor for unique ID.
+   * Constructor for unique ID with integer parameter.
    * @param id Long integer id.
    */
   public UniqueID(long id) {
@@ -44,7 +44,7 @@ public class UniqueID {
   }
 
   /**
-   * Constructor for unique ID.
+   * Constructor for unique ID with byte array parameter.
    * @param id Byte array id.
    */
   public UniqueID(byte id[]) {
@@ -55,7 +55,7 @@ public class UniqueID {
   }
 
   /**
-   * Constructor for unique ID.
+   * Constructor for unique ID with string parameter.
    * @param id String id.
    */
   public UniqueID(String id) {

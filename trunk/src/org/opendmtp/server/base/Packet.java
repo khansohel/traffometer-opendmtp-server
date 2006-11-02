@@ -624,7 +624,7 @@ public class Packet {
   private Payload payload = null;
 
   /**
-   * Packet constuctor.
+   * Constuctor with client, header and type parameters.
    * @param devId Not needed for server packets
    * @param isClient Boolean is client packet.
    * @param header Integer packet header.
@@ -635,7 +635,7 @@ public class Packet {
   }
 
   /**
-   * Packet constructor.
+   * Constructor with client, header, type and payload parameters.
    * @param devId Not needed for server packets.
    * @param isClient Boolean is client packet.
    * @param header Integer packet header.
@@ -647,7 +647,7 @@ public class Packet {
   }
 
   /**
-   * Packet constuctor.
+   * Constuctor with client, header, type and payload parameters.
    * @param devId Not needed for server packets.
    * @param isClient Boolean is client packet.
    * @param header Integer packet header.
@@ -663,7 +663,7 @@ public class Packet {
   }
 
   /**
-   * Packet constructor.
+   * Constructor with client and packet parameters.
    * @param devId Not needed for server packets.
    * @param isClient Boolean is client packet.
    * @param pkt String actual packet.
@@ -674,7 +674,7 @@ public class Packet {
   }
 
   /**
-   * Packet constructor.
+   * Constructor with client and packet parameters.
    * @param devId Not needed for server packets.
    * @param isClient Boolean is client packet.
    * @param pkt Byte array actual packet.

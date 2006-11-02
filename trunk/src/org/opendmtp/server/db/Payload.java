@@ -55,7 +55,7 @@ public class Payload {
   }
 
   /**
-   * Payload constuctor.
+   * Payload constuctor with byte array parameter.
    * @param b Byte array.
    */
   public Payload(byte b[]) {
@@ -63,7 +63,7 @@ public class Payload {
   }
 
   /**
-   * Payload constuctor.
+   * Payload constuctor with byte array, offset index and length parameters.
    * @param b Byte array.
    * @param ofs Integer offset index.
    * @param len Integer length.
