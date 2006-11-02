@@ -64,7 +64,7 @@ public abstract class DBRecord
     /**
      * Constant string value.
      */
-    public  static final String FLD_count_  = "count(*)";
+    public static final String FLD_count_  = "count(*)";
     
     // ------------------------------------------------------------------------
 
@@ -232,7 +232,7 @@ public abstract class DBRecord
      * @param rs ResultSet
      * @param max Max size of the array.
      * @return returns an array of DBRecords
-     * @throws MethodNotFoundException
+     * @throws DBException if there is a problem with DB record.
      */
     public static DBRecord[] getNextGroup(DBFactory fact, ResultSet rs, int max)
         throws DBException
