@@ -41,9 +41,9 @@ public class OSTools {
   private static int OS_INITIALIZE = -1;
   /** Integer value representing unknown operating system. */
   public static int OS_UNKNOWN = 0x1000;
-  /** Integer value representing unix operating systems. */
+  /** Integer value representing Unix operating systems. */
   public static int OS_UNIX = 0x0010;
-  /** Integer value representing macintosh operating systems. */
+  /** Integer value representing Macintosh operating systems. */
   public static int OS_MAC = 0x0020;
   /** Integer value representing generic Microsoft Windows operating systems. */
   public static int OS_WINDOWS = 0x0040;
@@ -103,7 +103,7 @@ public class OSTools {
 
   /**
    * Returns true if operating system type is Microsoft Windows XP.
-   * @return true if operating system type is windows xp
+   * @return true if operating system type is Windows XP
    */  
   public static boolean isWindowsXP() {
     return (getOSType() == OS_WINDOWS_XP);
@@ -118,9 +118,9 @@ public class OSTools {
   }
 
   /**
-   * Returns true if operating system type is unix.
+   * Returns true if operating system type is Unix.
    * Note: also returns true if operating system is Linux
-   * @return true if operating system type is unix
+   * @return true if operating system type is Unix
    */ 
   public static boolean isUnix() {
     return ((getOSType() & OS_UNIX) != 0);
@@ -167,7 +167,7 @@ public class OSTools {
   // ------------------------------------------------------------------------
 
   /**
-   * Runs operating system tests from the commandline and prints results.
+   * Runs operating system tests from the command line and prints results.
    * @param argv command line argument vector
    */
   public static void main(String argv[]) {
