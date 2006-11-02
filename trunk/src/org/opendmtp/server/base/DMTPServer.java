@@ -30,7 +30,7 @@ import org.opendmtp.util.Print;
 import org.opendmtp.util.ServerSocketThread;
 
 /**
- * DMTPServer stores threads of UDP and TCP from a given port. Also contains the DBFactory 
+ * Stores threads of UDP and TCP from a given port. Also contains the DBFactory 
  * interface.
  * 
  * @author Martin D. Flynn
@@ -44,7 +44,7 @@ public class DMTPServer {
   private static DMTPServer trackTcpInstance = null;
 
   /** 
-   * Creates a new DMTPServer from trackTcpInstance if not null.
+   * Creates a new DMTPServer from port if not null by calling private construtor.
    * 
    * @param port contains the port number.
    * @return trackTcpInstace a new DMTPSever intance of the port.
