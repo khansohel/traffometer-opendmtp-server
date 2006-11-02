@@ -24,59 +24,78 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
-import java.util.*;
-import java.sql.*;
+// import java.lang.*; // Commented out by Kiet Huynh
+// import java.util.*; // Commented out by Kiet Huynh
+// import java.sql.*; // Commented out by Kiet Huynh
 
-import org.opendmtp.util.Print;
+import java.sql.SQLException; // added by Kiet Huynh
 
-public class DBException
-    extends Exception
-{
-    
-    // ----------------------------------------------------------------------------
+import org.opendmtp.util.Print; // added by Kiet Huynh
 
-    public DBException(String msg)
-    {
-        super(msg);
+/**
+ * Exceptions when connecting to the database.
+ * @author Martin D. Flynn
+ * @author Kiet Huynh
+ *
+ */
+public class DBException extends Exception {
+
+  // ----------------------------------------------------------------------------
+
+  /**
+   * Constructor that has 1 parameter.
+   * @param msg The error message.
+   */
+  public DBException(String msg) {
+    super(msg);
+  }
+
+  /**
+   * Constructor that has 2 parameters. 
+   * @param msg The error message.
+   * @param cause The cause of the error.
+   */
+  public DBException(String msg, Throwable cause) {
+    super(msg, cause);
+  }
+
+  // ----------------------------------------------------------------------------
+
+  /**
+   * Checks if the exception is SQL exception.
+   * @return True if the exception is SQL exception. Otherwise, returns false.
+   */
+  public boolean isSQLException() {
+    return (this.getCause() instanceof SQLException);
+  }
+
+  // ----------------------------------------------------------------------------
+
+  /**
+   * Prints error message indicating the exception was caugth.
+   */
+  public void printException() {
+    Throwable cause = this.getCause();
+    if (cause instanceof SQLException) {
+      Print.logSQLError(1, this.getMessage(), (SQLException) cause);
     }
-
-    public DBException(String msg, Throwable cause)
-    {
-        super(msg, cause);
+    else {
+      Print.logException(this.getMessage(), this);
     }
-    
-    // ----------------------------------------------------------------------------
+  }
 
-    public boolean isSQLException()
-    {
-        return (this.getCause() instanceof SQLException);
-    }
-    
-    // ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
 
-    public void printException()
-    {
-        Throwable cause = this.getCause();
-        if (cause instanceof SQLException) {
-            Print.logSQLError(1, this.getMessage(), (SQLException)cause);
-        } else {
-            Print.logException(this.getMessage(), this);
-        }
-    }
-    
-    // ----------------------------------------------------------------------------
+  /*
+   public void printStackTrace()
+   {
+   Throwable cause = this.getCause();
+   if (cause instanceof SQLException) {
+   Print.logStackTrace(cause);
+   } else {
+   super.printStackTrace();
+   }
+   }
+   */
 
-    /*
-    public void printStackTrace()
-    {
-        Throwable cause = this.getCause();
-        if (cause instanceof SQLException) {
-            Print.logStackTrace(cause);
-        } else {
-            super.printStackTrace();
-        }
-    }
-    */
-    
 }
