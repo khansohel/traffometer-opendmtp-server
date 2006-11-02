@@ -250,7 +250,7 @@ public class OrderedMap extends HashMap implements Map {
   }
 
   /**
-   * Puts a value in this Map with the given String as its key.  The key is placed in the last 
+   * Puts a String value in this Map with the given String key.  The key is placed in the last 
    * position.
    * @param key a String to map to value
    * @param value a value to be put in this map

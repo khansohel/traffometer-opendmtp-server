@@ -77,7 +77,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Creates a new MethodAction object that can be used to invoke the method with the given name and
+   * Creates a new MethodAction object that can be used to invoke the method of the given name and
    * argument types of the given object.
    * @param targ an object
    * @param methName the name of a method of the given object
@@ -91,7 +91,7 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Creates a new MethodAction object that can be used to invoke the method with the given name and 
+   * Creates a new MethodAction object that can be used to invoke the method of the given name and 
    * argument types of the given object using arguments of the given values.
    * @param targ an object
    * @param methName the name of a method of the given object
@@ -325,16 +325,17 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Causes this object to have its run method invoked in the dispatch thread of the EventQueue. 
+   * Causes the target method of the target object to be invoked in the dispatch thread of the
+   * EventQueue. 
    */
   public void invokeLater() {
     MethodAction.invokeLater(this);
   }
 
   /**
-   * Causes this object to have its run  method invoked in the dispatch thread of the EventQueue. 
-   * This will happen after all pending events are processed.  This call blocks until this has 
-   * happened.  This method will throw an Error if called from the event dispatcher thread.
+   * Causes the target method of the target object to be invoked in the dispatch thread of the
+   * EventQueue. This will happen after all pending events are processed.  This call blocks until
+   * this has happened.  This method will throw an Error if called from the event dispatcher thread.
    * @throws InterruptedException if another thread has interrupted this thread
    * @throws InvocationTargetException if a throwable is thrown while running runnable
    */
@@ -343,7 +344,8 @@ public class MethodAction implements ActionListener, Runnable {
   }
 
   /**
-   * Invokes the target method of the target object.
+   * Invokes the target method of the target object. This method is required to implement the 
+   * Runnable interface.
    */
   public void run() {
     try {
