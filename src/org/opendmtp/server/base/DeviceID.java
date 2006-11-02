@@ -30,7 +30,7 @@ import org.opendmtp.util.Print;
 import org.opendmtp.util.StringTools;
 
 /**
- * DeviceID contains device related objects AccountID and DeviceID as well as 
+ * Contains device related objects AccountID and DeviceID as well as 
  * various status conditions.
  * 
  * @author Martin D. Flynn
