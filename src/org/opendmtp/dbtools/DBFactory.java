@@ -45,7 +45,11 @@ import java.sql.Statement; // added by Kiet Huynh
 import java.util.Iterator; // added by Kiet Huynh
 import java.util.Vector; // added by Kiet Huynh
 
-import org.opendmtp.util.*;
+import org.opendmtp.util.FileTools;
+import org.opendmtp.util.MethodAction;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.StringTools;
+
 
 /**
  * Representation of a database table. It contains methods and subclasses for creating and manipulating the table's  

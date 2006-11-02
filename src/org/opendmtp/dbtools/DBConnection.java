@@ -52,7 +52,6 @@ import org.opendmtp.util.ThreadLocalMap; // added by Kiet Huynh
  *
  * @author Martin D. Flynn
  * @author Kiet Huynh
- *
  */
 public class DBConnection {
 
@@ -427,6 +426,7 @@ public class DBConnection {
    * Creates an SQL statement to send to the database to open a connection with 
    * the database.
    * @throws SQLException if any errors occur.
+   * @return Statement from connection.
    */
   public Statement createStatement() throws SQLException {
     return this.getConnection().createStatement();

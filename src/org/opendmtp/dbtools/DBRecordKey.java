@@ -58,6 +58,11 @@ public abstract class DBRecordKey {
     super();
   }
 
+  /**
+   * Abstract method.
+   * 
+   * @return DBFactory intance.
+   */
   public abstract DBFactory getFactory();
 
   // ------------------------------------------------------------------------
