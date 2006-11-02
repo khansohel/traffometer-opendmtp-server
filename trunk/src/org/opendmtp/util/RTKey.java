@@ -221,7 +221,7 @@ public class RTKey {
   protected static Entry NullEntry = new Entry("", null);
 
   /**
-   * Holds all the standart entries initialized with values.
+   * Holds all the standard entries initialized with values.
    */
   protected static Entry runtimeKeys[] = {
 
@@ -721,7 +721,7 @@ public class RTKey {
   // ------------------------------------------------------------------------
 
   /**
-   * Prints out the standart runtime entries.
+   * Prints out the standard runtime entries.
    * 
    * @param out The output stream to be printed to.
    */

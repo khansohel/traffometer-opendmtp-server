@@ -134,7 +134,7 @@ public class RTProperties implements Cloneable {
   /**
    * Creates a new RTProperties instance that holds runtime properties.
    * 
-   * @param argv Command-lind argument properties.
+   * @param argv command line argument properties.
    */
   public RTProperties(String argv[]) {
     this();
@@ -407,7 +407,7 @@ public class RTProperties implements Cloneable {
   // ------------------------------------------------------------------------
 
   /**
-   * Specifies wether a property exists in the list.
+   * Specifies whether a property exists in the list.
    * 
    * @param key The property to look for.
    * @return True if the property exists, False otherwise.
@@ -1134,7 +1134,7 @@ public class RTProperties implements Cloneable {
   }
 
   /**
-   * Prints out the list of all properties exluding the specific ones.
+   * Prints out the list of all properties excluding the specific ones.
    * 
    * @param exclProps Properties to be excluded.
    */
@@ -1152,7 +1152,7 @@ public class RTProperties implements Cloneable {
   }
 
   /**
-   * Prints out the list of properties exluding the specific ones.
+   * Prints out the list of properties excluding the specific ones.
    * 
    * @param exclProps Properties to be excluded.
    * @param orderBy The order for the properties to be sorted by.
@@ -1376,7 +1376,7 @@ public class RTProperties implements Cloneable {
     /**
      * Returns the ordered map of properties.
      * 
-     * @return The odered map of properties.
+     * @return The ordered map of properties.
      */
     public OrderedMap getOrderedMap() {
       return this.orderedMap;
