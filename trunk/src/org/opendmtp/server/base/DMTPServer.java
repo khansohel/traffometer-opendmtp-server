@@ -22,132 +22,194 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.server.base;
 
-import java.lang.*;
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import java.sql.*;
+import java.net.DatagramSocket;
 
-import org.opendmtp.util.*;
-import org.opendmtp.server.db.*;
+import org.opendmtp.server.db.AccountDB;
+import org.opendmtp.server.db.DeviceDB;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.ServerSocketThread;
 
-public class DMTPServer
-{
-     
-    // ------------------------------------------------------------------------
+/**
+ * DMTPServer stores threads of UDP and TCP from a given port. Also contains the DBFactory 
+ * interface.
+ * 
+ * @author Martin D. Flynn
+ * @author Brandon Lee
+ */
+public class DMTPServer {
+
+  /**
+   * Private static variable for a singleton pattern.
+   */
+  private static DMTPServer trackTcpInstance = null;
+
+  /** 
+   * Creates a new DMTPServer from trackTcpInstance if not null.
+   * 
+   * @param port contains the port number.
+   * @return trackTcpInstace a new DMTPSever intance of the port.
+   * @throws Throwable if there are errors in creating threads.
+   */
+  public static DMTPServer createTrackSocketHandler(int port) throws Throwable {
     
-    private static DMTPServer trackTcpInstance = null;
-    
-    public static DMTPServer createTrackSocketHandler(int port)
-        throws Throwable
-    {
-        if (trackTcpInstance == null) {
-            trackTcpInstance = new DMTPServer(port);
-        }
-        return trackTcpInstance;
+    if (trackTcpInstance == null) {
+      
+      trackTcpInstance = new DMTPServer(port);
     }
+    return trackTcpInstance;
+  }
+
+  
+  /** 
+   * The DBFactory instance.
+   */
+  private static DMTPServer.DBFactory dbFactory = null;
+
+  /** 
+   * The DBFactory interface.
+   */
+  public interface DBFactory {
     
-    // ------------------------------------------------------------------------
-    
-    private static DMTPServer.DBFactory dbFactory = null;
+    /**
+     * Gets accountDB specified.
+     * 
+     * @param acctName the string that contains the accountDB.
+     * @return the accountDB of account name.
+     */
+    AccountDB getAccountDB(String acctName);
 
-    public interface DBFactory
-    {
-        AccountDB getAccountDB(String acctName);
-        DeviceDB  getDeviceDB(long uniqId);
-        DeviceDB  getDeviceDB(String acctId, String devName);
+    /**
+     * Returns the deviceDB.
+     * 
+     * @param uniqId the ID of the device.
+     * @return the Device specified.
+     */
+    DeviceDB getDeviceDB(long uniqId);
+
+    /**
+     * Returns the DeviceDB of the accountId and device name.
+     * 
+     * @param acctId the accounts ID.
+     * @param devName the name of the device.
+     * @return the deviceDB.
+     */
+    DeviceDB getDeviceDB(String acctId, String devName);
+  }
+
+  /** 
+   * Sets the DBFactory for the server.
+   * 
+   * @param factory the factory to add.
+   */
+  public static void setDBFactory(DMTPServer.DBFactory factory) {
+    DMTPServer.dbFactory = factory;
+  }
+
+  /** 
+   * Returns the DBFactory.
+   * 
+   * @return the current DBFactory.
+   */
+  public static DMTPServer.DBFactory getDBFactory() {
+    return DMTPServer.dbFactory;
+  }
+
+  // ------------------------------------------------------------------------
+
+  /** 
+   * The tcp thread.
+   */
+  private ServerSocketThread tcpThread = null;
+  /** 
+   * The udp thread.
+   */
+  private ServerSocketThread udpThread = null;
+
+  /** 
+   * Constructor.  Takes a port calls the startups of TCP and UDP.
+   * 
+   * @param port the port number.
+   * @throws Throwable if error from methods.
+   */
+  private DMTPServer(int port) throws Throwable {
+    this.startTCP(port);
+    this.startUDP(port);
+  }
+
+  /** 
+   * Creates a new thread with port number, intilizes it, starts it up and assigns to instance.
+   * 
+   * @param port and int with the port number.
+   * @throws Throwable if unable to create thread from port.
+   */
+  private void startTCP(int port) throws Throwable {
+    ServerSocketThread sst = null;
+
+    // create server socket 
+    try {
+      sst = new ServerSocketThread(port);
     }
-    
-    public static void setDBFactory(DMTPServer.DBFactory factory)
-    {
-        DMTPServer.dbFactory = factory;
-    }
-    
-    public static DMTPServer.DBFactory getDBFactory()
-    {
-        return DMTPServer.dbFactory;
+    catch (Throwable t) { // trap any server exception
+      Print.logException("ServerSocket error", t);
+      throw t;
     }
 
-    // ------------------------------------------------------------------------
+    // initialize
+    sst.setTextPackets(false);
+    sst.setBackspaceChar(null); // no backspaces allowed
+    sst.setLineTerminatorChar(new int[] { '\r' });
+    sst.setMaximumPacketLength(600);
+    sst.setMinimumPacketLength(Packet.MIN_HEADER_LENGTH);
+    sst.setIdleTimeout(4000L);
+    sst.setPacketTimeout(1000L);
+    sst.setSessionTimeout(5000L);
+    sst.setLingerTimeoutSec(5);
+    sst.setTerminateOnTimeout(true);
+    sst.setClientPacketHandlerClass(DMTPClientPacketHandler.class);
 
-    private ServerSocketThread tcpThread = null;
-    private ServerSocketThread udpThread = null;
+    // start thread 
+    Print.logInfo("DMTP: Starting TCP listener thread on port " + port + " ...");
+    sst.start();
+    this.tcpThread = sst;
+  }
 
-    private DMTPServer(int port)
-        throws Throwable
-    {
-        this.startTCP(port);
-        this.startUDP(port);
+  /** 
+   * Startup of a thread with datagramSocket of specified port, and assigns it to instance.
+   * 
+   * @param port the port number.
+   * @throws Throwable if error occurs in creating a thread.
+   */
+  private void startUDP(int port) throws Throwable {
+    ServerSocketThread sst = null;
+
+    // create server socket 
+    try {
+      sst = new ServerSocketThread(new DatagramSocket(port));
     }
-    
-    private void startTCP(int port)
-        throws Throwable
-    {
-        ServerSocketThread sst = null;
-        
-        /* create server socket */
-        try {
-            sst = new ServerSocketThread(port);
-        } catch (Throwable t) { // trap any server exception
-            Print.logException("ServerSocket error", t);
-            throw t;
-        }
-        
-        /* initialize */
-        sst.setTextPackets(false);
-        sst.setBackspaceChar(null); // no backspaces allowed
-        sst.setLineTerminatorChar(new int[] { '\r' });
-        sst.setMaximumPacketLength(600);
-        sst.setMinimumPacketLength(Packet.MIN_HEADER_LENGTH);
-        sst.setIdleTimeout(4000L);
-        sst.setPacketTimeout(1000L);
-        sst.setSessionTimeout(5000L);
-        sst.setLingerTimeoutSec(5);
-        sst.setTerminateOnTimeout(true);
-        sst.setClientPacketHandlerClass(DMTPClientPacketHandler.class);
-
-        /* start thread */
-        Print.logInfo("DMTP: Starting TCP listener thread on port " + port + " ...");
-        sst.start();
-        this.tcpThread = sst;
-
+    catch (Throwable t) { // trap any server exception
+      Print.logException("ServerSocket error", t);
+      throw t;
     }
 
-    private void startUDP(int port)
-        throws Throwable
-    {
-        ServerSocketThread sst = null;
+    // initialize 
+    sst.setTextPackets(false);
+    sst.setBackspaceChar(null); // no backspaces allowed
+    sst.setLineTerminatorChar(new int[] { '\r' });
+    sst.setMaximumPacketLength(600);
+    sst.setMinimumPacketLength(Packet.MIN_HEADER_LENGTH);
+    sst.setIdleTimeout(4000L);
+    sst.setPacketTimeout(1000L);
+    sst.setSessionTimeout(60000L);
+    sst.setTerminateOnTimeout(true);
 
-        /* create server socket */
-        try {
-            sst = new ServerSocketThread(new DatagramSocket(port));
-        } catch (Throwable t) { // trap any server exception
-            Print.logException("ServerSocket error", t);
-            throw t;
-        }
-        
-        /* initialize */
-        sst.setTextPackets(false);
-        sst.setBackspaceChar(null); // no backspaces allowed
-        sst.setLineTerminatorChar(new int[] { '\r' });
-        sst.setMaximumPacketLength(600);
-        sst.setMinimumPacketLength(Packet.MIN_HEADER_LENGTH);
-        sst.setIdleTimeout(4000L);
-        sst.setPacketTimeout(1000L);
-        sst.setSessionTimeout(60000L);
-        sst.setTerminateOnTimeout(true);
-        
-        /* session timeout */
-        // This should be AccountID dependent
-        sst.setClientPacketHandlerClass(DMTPClientPacketHandler.class);
+    // session timeout 
+    // This should be AccountID dependent
+    sst.setClientPacketHandlerClass(DMTPClientPacketHandler.class);
 
-        /* start thread */
-        Print.logInfo("DMTP: Starting UDP listener thread on port " + port + " ...");
-        sst.start();
-        this.udpThread = sst;
+    // start thread 
+    Print.logInfo("DMTP: Starting UDP listener thread on port " + port + " ...");
+    sst.start();
+    this.udpThread = sst;
 
-    }
-    
-    // ------------------------------------------------------------------------
-        
+  }
 }
