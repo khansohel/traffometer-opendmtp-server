@@ -254,7 +254,7 @@ public class PayloadTemplate {
   private boolean repeatLast = false;
 
   /**
-   * Payload template constructor.
+   * Payload template constructor with type and field parameters.
    * @param type Integer custom type.
    * @param flds Array of field objects.
    */
@@ -265,7 +265,7 @@ public class PayloadTemplate {
   }
 
   /**
-   * Payload template constructor.
+   * Payload template constructor with type, field and repeat last parameters.
    * @param type Integer custom type.
    * @param flds Array of field objects.
    * @param repeatLast Boolean.
@@ -337,7 +337,7 @@ public class PayloadTemplate {
     private int fldLen = 0;
 
     /**
-     * Field constructor.
+     * Field constructor with type, hiRes, index and length parameters.
      * @param type Integer field type.
      * @param hiRes Boolean field hiRes.
      * @param index Integer field index.
@@ -351,7 +351,7 @@ public class PayloadTemplate {
     }
 
     /**
-     * Field constuctor.
+     * Field constuctor with mask parameter.
      * @param mask Long integer.
      */
     public Field(long mask) {
@@ -362,7 +362,7 @@ public class PayloadTemplate {
     }
 
     /**
-     * Field constuctor.
+     * Field constuctor with string paramter.
      * @param s String with field formatted values.
      */
     public Field(String s) {

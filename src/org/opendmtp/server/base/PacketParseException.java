@@ -41,7 +41,7 @@ public class PacketParseException extends Exception {
 
   // ------------------------------------------------------------------------
   /**
-   * Constructor for class PacketParseException.
+   * Constructor for class PacketParseException with error code and packet parameters.
    * @param errCode Integer error code.
    * @param packet Packet object.
    */
@@ -50,7 +50,7 @@ public class PacketParseException extends Exception {
   }
 
   /**
-   * Constructor for class PacketParseException.
+   * Constructor for class PacketParseException with error code, packet and data parameters.
    * @param errCode Integer error code.
    * @param packet Packet object.
    * @param errData Byte array error data.
