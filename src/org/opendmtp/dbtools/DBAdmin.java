@@ -42,8 +42,8 @@ import org.opendmtp.util.RTConfig; // added by Kiet Huynh
 import org.opendmtp.util.RTKey; // added by Kiet Huynh
 
 /**
- * Implementation of SQL database admistration.  Administration includes accessing to the 
- * database, creates and drop a database, a table in the database.
+ * Implementation of SQL database administration.  Administration includes accessing to the 
+ * database, creating and dropping a database, and a table in the database.
  * @author Martin D. Flynn
  * @author Kiet Huynh
  *

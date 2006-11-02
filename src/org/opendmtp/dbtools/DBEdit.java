@@ -26,14 +26,24 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.lang.*;
-import java.lang.reflect.*;
-import java.util.*;
-import java.io.*;
-import java.sql.*;
+//import java.lang.*; // commented out by Kiet Huynh
+//import java.lang.reflect.*; // commented out by Kiet Huynh
+//import java.util.*; // commented out by Kiet Huynh
+//import java.io.*; // commented out by Kiet Huynh
+//import java.sql.*; // commented out by Kiet Huynh
+
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.Vector;
 
 import org.opendmtp.util.*;
 
+/**
+ * Edits a table in the database. 
+ * @author Martin D. Flynn
+ * @author Kiet Huynh
+ *
+ */
 public class DBEdit {
 
   /** A constant represent a line seperator. */
@@ -42,17 +52,29 @@ public class DBEdit {
   private DBRecordKey recordKey = null;
   private DBField editableFields[] = null;
 
+  /**
+   * Constructor that accepts DBRecordKey parameter.
+   * @param key A DBRecordKey
+   */
   public DBEdit(DBRecordKey key) {
     this.recordKey = key;
     this.recordKey.getDBRecord(true);
   }
 
+  /**
+   * Constructor that accepts DBRecord parameter. 
+   * @param rcd A database record.
+   */
   public DBEdit(DBRecord rcd) {
     this(rcd.getRecordKey());
   }
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Gets the fields need to be edited.
+   * @return A DBField array containing fields need to be edited.
+   */
   private DBField[] getEditableFields() {
     if (this.editableFields == null) {
       DBField fld[] = this.recordKey.getFields();
@@ -69,6 +91,9 @@ public class DBEdit {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Prints editable fields.
+   */
   public void print() {
     Print.logInfo("");
     Print.logInfo(LINE_SEPARATOR);
@@ -83,6 +108,12 @@ public class DBEdit {
 
   // ------------------------------------------------------------------------
 
+  /** 
+   * Edits a field.
+   * @param fld The field to be edited.
+   * @return True if edits succesfully. Otherwise returns false.
+   * @throws If any errors occur.
+   */
   public boolean editField(DBField fld) throws IOException {
     String name = fld.getName();
     Class type = fld.getTypeClass();
@@ -163,6 +194,12 @@ public class DBEdit {
 
   }
 
+  /**
+   * Interacts with the users to edit a field.  Interaction includes asking the 
+   * user what field they want to edit.
+   * @return True if edits successfully. Otherwise, returns false
+   * @throws IOException If any errors occur.
+   */
   public boolean edit() throws IOException {
     Print.logInfo("");
     Print.logInfo(LINE_SEPARATOR);
