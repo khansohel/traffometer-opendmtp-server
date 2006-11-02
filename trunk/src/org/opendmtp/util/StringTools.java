@@ -43,29 +43,66 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * 
+ * Provides tools for string formatting, encoding, compressing and decompressing.
+ * 
+ * @autor Martin D. Flynn
+ * @author Alexey Olkov
+ * 
+ */
 public class StringTools {
 
+  /**
+   * Default character set.
+   */
   public static final String DEFAULT_CHARSET = "ISO-8859-1";
-
-  // ------------------------------------------------------------------------
-
+  /**
+   * Backspace symbol.
+   */
   public static final char BACKSPACE = '\b';
+  /**
+   * Form feed symbol.
+   */
   public static final char FORM_FEED = '\f';
+  /**
+   * New line symbol.
+   */
   public static final char NEW_LINE = '\n';
+  /**
+   * Carriage return symbol.
+   */
   public static final char CARRIAGE_RETURN = '\r';
+  /**
+   * Tabukation symbol.
+   */
   public static final char TAB = '\t';
-
+  /**
+   * S string of white spaces.
+   */
   public static final String WhitespaceChars = " \t\b\f\r\n";
-
+  /**
+   * The separator of a key and a value.
+   */
   public static final char KeyValSeparatorChar = '='; // "="
 
-  // ------------------------------------------------------------------------
+  /**
+   * Returns characters of the string.
+   * 
+   * @param s String
+   * @return char[] Array of characters.
+   */
 
   public static char[] getChars(String s) {
     return (s != null) ? s.toCharArray() : null;
   }
 
+  /**
+   * Returns characters of the array of bytes.
+   * 
+   * @param b byte[]
+   * @return char[] an array of characters
+   */
   public static char[] getChars(byte b[]) {
     if (b != null) {
       char c[] = new char[b.length];
@@ -79,12 +116,22 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Returns a sequence of bytes of a buffer.
+   * 
+   * @param sb StringBuffer
+   * @return byte[] The byte array.
+   */
   public static byte[] getBytes(StringBuffer sb) {
     return (sb != null) ? getBytes(sb.toString()) : null;
   }
 
+  /**
+   * Returns a sequence of bytes of a string.
+   * 
+   * @param s String
+   * @return byte[] The byte array.
+   */
   public static byte[] getBytes(String s) {
     if (s != null) {
       try {
@@ -101,6 +148,12 @@ public class StringTools {
     }
   }
 
+  /**
+   * Returns a a sequence of bytes of a character array.
+   * 
+   * @param c Array of char
+   * @return byte[] a byte array
+   */
   public static byte[] getBytes(char c[]) {
     if (c != null) {
       byte b[] = new byte[c.length];
@@ -114,12 +167,24 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Creates the string out of a byte array.
+   * 
+   * @param b bytes
+   * @return String
+   */
   public static String toStringValue(byte b[]) {
     return (b != null) ? StringTools.toStringValue(b, 0, b.length) : null;
   }
 
+  /**
+   * Creates the string out of a byte array.
+   * 
+   * @param b bytes
+   * @param ofs offset
+   * @param len length
+   * @return String a string
+   */
   public static String toStringValue(byte b[], int ofs, int len) {
     if (b != null) {
       try {
@@ -136,15 +201,33 @@ public class StringTools {
     }
   }
 
+  /**
+   * Creates a string out of a char array.
+   * 
+   * @param c char array
+   * @return String
+   */
   public static String toStringValue(char c[]) {
     return new String(c);
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Encloses a string with quotation marks.
+   * 
+   * @param s String
+   * @return a new string
+   */
   public static String quoteString(String s) {
     return StringTools.quoteString(s, '\"');
   }
+
+  /**
+   * Adds a character in the beginning and end of the string.
+   * 
+   * @param s String.
+   * @param q A character to be added.
+   * @return The new string.
+   */
 
   public static String quoteString(String s, char q) {
     if (s == null) {
@@ -193,6 +276,13 @@ public class StringTools {
   // NOT_A_QUOTE ::= [^"] | ESCAPED_QUOTE
   // ESCAPED_QUOTE ::= `""'
 
+  /**
+   * Encloses all comma separated values with quotation marks.
+   * 
+   * @param s String
+   * @return new string.
+   */
+
   public static String quoteCSVString(String s) {
     boolean needsQuotes = true; // (s.indexOf(',') >= 0);
     char q = '\"';
@@ -223,6 +313,13 @@ public class StringTools {
     }
   }
 
+  /**
+   * Encodes an array of strings into a Comma Separated Values quoted string.
+   * 
+   * @param d Array of strings.
+   * @param checkTextQuote true if "'" sign is required
+   * @return a result string.
+   */
   public static String encodeCSV(String d[], boolean checkTextQuote) {
     if (d != null) {
       StringBuffer sb = new StringBuffer();
@@ -241,18 +338,37 @@ public class StringTools {
     }
   }
 
+  /**
+   * Encodes an array of strings into a Comma Separated Values quoted string with no ' mark
+   * appended.
+   * 
+   * @param d Array of strings.
+   * @return a result string.
+   */
   public static String encodeCSV(String d[]) {
     return StringTools.encodeCSV(d, false);
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Parses the entire quoted string.
+   * 
+   * @param s String
+   * @return the result string
+   */
   public static String parseQuote(String s) {
     StringBuffer sb = new StringBuffer();
     StringTools.parseQuote(s.toCharArray(), 0, sb);
     return sb.toString();
   }
 
+  /**
+   * Parses the quoted string.
+   * 
+   * @param ch Array of characters.
+   * @param a Position in a string to start the parsing from.
+   * @param sb resulting string buffer.
+   * @return the last position parsed.
+   */
   public static int parseQuote(char ch[], int a, StringBuffer sb) {
     // Note on escaped octal values:
     // Java supports octal values specified in Strings
@@ -342,8 +458,13 @@ public class StringTools {
     return a;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Converts an object into a double.
+   * 
+   * @param data Object
+   * @param dft double value to return as default
+   * @return the result double
+   */
   public static double parseDouble(Object data, double dft) {
     if (data == null) {
       return dft;
@@ -356,10 +477,24 @@ public class StringTools {
     }
   }
 
+  /**
+   * Converts a string into a double.
+   * 
+   * @param data String
+   * @param dft default value to return in case the parsing failed
+   * @return the double value represented by the string argument.
+   */
   public static double parseDouble(String data, double dft) {
     return StringTools.parseDouble(new FilterNumber(data, Double.class), dft);
   }
 
+  /**
+   * Parses a filter number into a float.
+   * 
+   * @param num Filter Number
+   * @param dft a default value to return in case the parsing failed
+   * @return a result value, or a default value if parsing failed
+   */
   public static double parseDouble(FilterNumber num, double dft) {
     if ((num != null) && num.supportsType(Double.class)) {
       try {
@@ -372,8 +507,13 @@ public class StringTools {
     return dft;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Parses an object into a float value.
+   * 
+   * @param data Object value
+   * @param dft default value to return in case the parsing failed
+   * @return a float value
+   */
   public static float parseFloat(Object data, float dft) {
     if (data == null) {
       return dft;
@@ -386,10 +526,24 @@ public class StringTools {
     }
   }
 
+  /**
+   * Parses a string into a float.
+   * 
+   * @param data String value
+   * @param dft default value to return in case the parsing failed
+   * @return float value or a default value if the parsing failed
+   */
   public static float parseFloat(String data, float dft) {
     return StringTools.parseFloat(new FilterNumber(data, Float.class), dft);
   }
 
+  /**
+   * Parses a FilterNumber value into a float.
+   * 
+   * @param num FilterNumber value
+   * @param dft default value to return in case of parsing failure
+   * @return a float value or a dft if the parsing failed
+   */
   public static float parseFloat(FilterNumber num, float dft) {
     if ((num != null) && num.supportsType(Float.class)) {
       try {
@@ -402,8 +556,13 @@ public class StringTools {
     return dft;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Parses an object into a long.
+   * 
+   * @param data Object
+   * @param dft a default value to return in case of parsing failure
+   * @return a long value or a default value
+   */
   public static long parseLong(Object data, long dft) {
     if (data == null) {
       return dft;
@@ -416,10 +575,24 @@ public class StringTools {
     }
   }
 
+  /**
+   * Parses a string value into a long.
+   * 
+   * @param data String value
+   * @param dft default value to return in case of parsing failure
+   * @return long value or a dft
+   */
   public static long parseLong(String data, long dft) {
     return StringTools.parseLong(new FilterNumber(data, Long.class), dft);
   }
 
+  /**
+   * Parses a FilterNumber object into a long.
+   * 
+   * @param num FilterNumber value
+   * @param dft default value to return in case of parsing failure
+   * @return long value or dft in case the parsing failed
+   */
   public static long parseLong(FilterNumber num, long dft) {
     if ((num != null) && num.supportsType(Long.class)) {
       if (num.isHex()) {
@@ -445,8 +618,13 @@ public class StringTools {
     return dft;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Parses an Object value into an integer.
+   * 
+   * @param data Object value
+   * @param dft default value to return in case of parsing failure
+   * @return int value or dft in case parsing failed
+   */
   public static int parseInt(Object data, int dft) {
     if (data == null) {
       return dft;
@@ -459,10 +637,24 @@ public class StringTools {
     }
   }
 
+  /**
+   * Parses an string value into an integer.
+   * 
+   * @param data string value
+   * @param dft default value to return in case of parsing failure
+   * @return int value or dft in case parsing failed
+   */
   public static int parseInt(String data, int dft) {
     return StringTools.parseInt(new FilterNumber(data, Integer.class), dft);
   }
 
+  /**
+   * Parses an FilterNumber value into an integer.
+   * 
+   * @param num FilterNumber value
+   * @param dft default value to return in case of parsing failure
+   * @return int value or dft in case parsing failed
+   */
   public static int parseInt(FilterNumber num, int dft) {
     if ((num != null) && num.supportsType(Integer.class)) {
       if (num.isHex()) {
@@ -488,7 +680,13 @@ public class StringTools {
     return dft;
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Parses an Object value into a short.
+   * 
+   * @param data Object value
+   * @param dft default value to return in case of parsing failure
+   * @return short value or dft in case parsing failed
+   */
 
   public static int parseShort(Object data, short dft) {
     if (data == null) {
@@ -502,10 +700,24 @@ public class StringTools {
     }
   }
 
+  /**
+   * Parses a string value into a short.
+   * 
+   * @param data string value
+   * @param dft default value to return in case of parsing failure
+   * @return short value or dft in case parsing failed
+   */
   public static short parseShort(String data, short dft) {
     return StringTools.parseShort(new FilterNumber(data, Short.class), dft);
   }
 
+  /**
+   * Parses an FilterNumber value into a short.
+   * 
+   * @param num FilterNumber value
+   * @param dft default value to return in case of parsing failure
+   * @return short value or dft in case parsing failed
+   */
   public static short parseShort(FilterNumber num, short dft) {
     if ((num != null) && num.supportsType(Short.class)) {
       if (num.isHex()) {
@@ -531,12 +743,25 @@ public class StringTools {
     return dft;
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Parses a string value into a BigInteger.
+   * 
+   * @param data string value
+   * @param dft default value to return in case of parsing failure
+   * @return BigInteger value or dft in case parsing failed
+   */
 
   public static BigInteger parseBigInteger(String data, BigInteger dft) {
     return StringTools.parseBigInteger(new FilterNumber(data, BigInteger.class), dft);
   }
 
+  /**
+   * Parses an FilterNumber value into a BigInteger.
+   * 
+   * @param num FilterNumber value
+   * @param dft default value to return in case of parsing failure
+   * @return BigInteger value or dft in case parsing failed
+   */
   public static BigInteger parseBigInteger(FilterNumber num, BigInteger dft) {
     if ((num != null) && num.supportsType(BigInteger.class)) {
       if (num.isHex()) {
@@ -560,8 +785,12 @@ public class StringTools {
     return dft;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Filter number.
+   * 
+   * @author Martin D. Flynn
+   * @author Alexey Olkov
+   */
   public static class FilterNumber {
 
     private String inpStr = null;
@@ -572,6 +801,12 @@ public class StringTools {
     private int startPos = -1;
     private int endPos = -1;
 
+    /**
+     * Constructor. Creates a filter number of a specified type.
+     * 
+     * @param val String value
+     * @param type Type
+     */
     public FilterNumber(String val, Class type) {
 
       /* null string */
@@ -653,6 +888,12 @@ public class StringTools {
 
     }
 
+    /**
+     * Checks if the filter support a specified type.
+     * 
+     * @param ct type
+     * @return true if the type is supported, false otherwise
+     */
     public boolean supportsType(Class ct) {
       if ((this.numStr != null) && (this.type != null)) {
         if (this.type.isAssignableFrom(ct)) {
@@ -685,14 +926,29 @@ public class StringTools {
       }
     }
 
+    /**
+     * Returns an input string.
+     * 
+     * @return input string
+     */
     public String getInputString() {
       return this.inpStr;
     }
 
+    /**
+     * Returns a type of a number.
+     * 
+     * @return Class
+     */
     public Class getClassType() {
       return this.type;
     }
 
+    /**
+     * Returns a name of a class.
+     * 
+     * @return String name
+     */
     public String getClassTypeName() {
       if (this.type != null) {
         String cn = this.type.getName();
@@ -711,14 +967,29 @@ public class StringTools {
       }
     }
 
+    /**
+     * Checks if ths number is a hexadecimal value.
+     * 
+     * @return true if it is hexadecimal, flase otherwise
+     */
     public boolean isHex() {
       return this.isHex;
     }
 
+    /**
+     * Returns a value string.
+     * 
+     * @return String value
+     */
     public String getValueString() {
       return this.numStr;
     }
 
+    /**
+     * Returns a byte array of a hexadecimal number.
+     * 
+     * @return array of bytes.
+     */
     public byte[] getHexBytes() {
       if (this.isHex) {
         return StringTools.parseHex(this.getValueString(), new byte[0]);
@@ -729,18 +1000,37 @@ public class StringTools {
       }
     }
 
+    /**
+     * Returns a starting position of a number.
+     * 
+     * @return int a starting position
+     */
     public int getStart() {
       return this.startPos;
     }
 
+    /**
+     * Returns an end position of a number.
+     * 
+     * @return int end position
+     */
     public int getEnd() {
       return this.endPos;
     }
 
+    /**
+     * Returns the length of the value.
+     * 
+     * @return int length
+     */
     public int getLength() {
       return (this.endPos - this.startPos);
     }
 
+    /**
+     * Converts a value into a string with quotations/classname/starting point/end point.
+     * @return a result string.
+     */
     public String toString() {
       StringBuffer sb = new StringBuffer();
       sb.append(StringTools.quoteString(this.getInputString()));
@@ -755,8 +1045,13 @@ public class StringTools {
 
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Parses an object into a boolean value.
+   * 
+   * @param data Object.
+   * @param dft default Boolean value to return.
+   * @return resulted boolean value
+   */
   public static boolean parseBoolean(Object data, boolean dft) {
     if (data == null) {
       return dft;
@@ -769,6 +1064,13 @@ public class StringTools {
     }
   }
 
+  /**
+   * Parses a string into a boolean value.
+   * 
+   * @param data String
+   * @param dft Default value o return
+   * @return result boolean value
+   */
   public static boolean parseBoolean(String data, boolean dft) {
     if (data != null) {
       String v = data.toLowerCase();
@@ -777,6 +1079,12 @@ public class StringTools {
     return dft;
   }
 
+  /**
+   * Checks if the string value represents boolean number.
+   * 
+   * @param data String value.
+   * @return true if string represents boolean, false otherwise
+   */
   public static boolean isBoolean(String data) {
     String v = data.toLowerCase();
     if (v.equals("true") || v.equals("yes") || v.equals("on") || v.equals("1")) {
@@ -790,7 +1098,13 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Parses a string value into a Dimension object.
+   * 
+   * @param data String value
+   * @param dft Default value to return
+   * @return Dimension object
+   */
 
   public static Dimension parseDimension(String data, Dimension dft) {
     if ((data != null) && !data.trim().equals("")) {
@@ -804,18 +1118,38 @@ public class StringTools {
     return dft;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Hexadecimal digits.
+   */
   public static final String HEX = "0123456789ABCDEF";
 
+  /**
+   * Returns an index of a digit in a HEX string.
+   * 
+   * @param ch a digit
+   * @return index
+   */
   public static int hexIndex(char ch) {
     return StringTools.HEX.indexOf(Character.toUpperCase(ch));
   }
 
+  /**
+   * Returns a hex value in a specified position.
+   * 
+   * @param nybble index
+   * @return character
+   */
   public static char hexNybble(byte nybble) {
     return HEX.charAt(nybble & 0xF);
   }
 
+  /**
+   * Parses a string into a hexadecimal value represented as a byte array.
+   * 
+   * @param data string
+   * @param dft default value to return
+   * @return byte array representing a hex value
+   */
   public static byte[] parseHex(String data, byte dft[]) {
     if (data != null) {
 
@@ -866,17 +1200,46 @@ public class StringTools {
     }
   }
 
+  /**
+   * Parses a string into a hex value represented as an integer.
+   * 
+   * @param data string
+   * @param dft default value to return
+   * @return int result hex value
+   */
   public static int parseHex(String data, int dft) {
     return (int) StringTools.parseHexLong(data, (long) dft);
   }
 
+  /**
+   * Parses a string into a hex value represented as an integer.
+   * 
+   * @param data string
+   * @param dft default value to return
+   * @return int result hex value
+   */
   public static int parseHexInt(String data, int dft) {
     return (int) StringTools.parseHexLong(data, (long) dft);
   }
 
+  /**
+   * Parses a string into a hex value represented as a long.
+   * 
+   * @param data string
+   * @param dft default value to return
+   * @return long result hex value
+   */
   public static long parseHex(String data, long dft) {
     return StringTools.parseHexLong(data, dft);
   }
+
+  /**
+   * Parses a string into a hex value represented as a long.
+   * 
+   * @param data string
+   * @param dft default value to return
+   * @return long result hex value
+   */
 
   public static long parseHexLong(String data, long dft) {
     byte b[] = parseHex(data, null);
@@ -892,8 +1255,11 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Formaats a hexadecimal string into a 
+   * @param b byte array
+   * @return
+   */
   public static StringBuffer formatHexString(byte b[]) {
     return StringTools.formatHexString(b, 16, null);
   }
@@ -902,6 +1268,13 @@ public class StringTools {
     return StringTools.formatHexString(b, maxRcdLen, null);
   }
 
+  /**
+   * 
+   * @param b byte array
+   * @param 
+   * @param sb
+   * @return 
+   */
   public static StringBuffer formatHexString(byte b[], int maxRcdLen, StringBuffer sb) {
     if (b == null) {
       b = new byte[0];
@@ -963,8 +1336,13 @@ public class StringTools {
     return sb;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Converts a byte value into a StringBuffer representing a hex value.
+   * 
+   * @param b byte value
+   * @param sb String buffer
+   * @return a StringBuffer containing a hex vealue.
+   */
   public static StringBuffer toHexString(byte b, StringBuffer sb) {
     if (sb == null) {
       sb = new StringBuffer();
@@ -974,10 +1352,25 @@ public class StringTools {
     return sb;
   }
 
+  /**
+   * Converts a byte value into a string.
+   * 
+   * @param b byte value
+   * @return result string
+   */
   public static String toHexString(byte b) {
     return StringTools.toHexString(b, null).toString();
   }
 
+  /**
+   * Converts an specified part of an array of bytes into a string value representing a hex value.
+   * 
+   * @param b byte array
+   * @param ofs offset
+   * @param len length, -1 for the entire array
+   * @param sb String buffer to write into
+   * @return StringBuffer
+   */
   public static StringBuffer toHexString(byte b[], int ofs, int len, StringBuffer sb) {
     if (sb == null) {
       sb = new StringBuffer();
@@ -992,18 +1385,46 @@ public class StringTools {
     return sb;
   }
 
+  /**
+   * Converts entire array of bytes into a string value representing a hex value.
+   * 
+   * @param b byte array
+   * @param sb a string buffer to write into
+   * @return StringBuffer value
+   */
   public static StringBuffer toHexString(byte b[], StringBuffer sb) {
     return StringTools.toHexString(b, 0, -1, sb);
   }
 
+  /**
+   * Converts an entire array of bytes into a string value representing a hex value.
+   * 
+   * @param b byte array
+   * @return string value
+   */
   public static String toHexString(byte b[]) {
     return StringTools.toHexString(b, 0, -1, null).toString();
   }
 
+  /**
+   * Converts an specified part of an array of bytes into a string value representing a hex value.
+   * 
+   * @param b byte array
+   * @param ofs offset
+   * @param len length, -1 for the entire array
+   * @return string vlaue
+   */
   public static String toHexString(byte b[], int ofs, int len) {
     return StringTools.toHexString(b, ofs, len, null).toString();
   }
 
+  /**
+   * Converts a long hex value into a string prefixed with zeroes.
+   * 
+   * @param val long value
+   * @param bitLen the length of the string in bits.
+   * @return the result string
+   */
   public static String toHexString(long val, int bitLen) {
     int nybbleLen = (bitLen + 7) / 8;
     StringBuffer hex = new StringBuffer(Long.toHexString(val).toUpperCase());
@@ -1014,20 +1435,44 @@ public class StringTools {
     return hex.toString();
   }
 
+  /**
+   * Converts a long hex value into a string with bitLen = 64.
+   * 
+   * @param val the long value
+   * @return result string
+   */
   public static String toHexString(long val) {
     return StringTools.toHexString(val, 64);
   }
+
+  /**
+   * Converts an int hex value into a string with bitLen = 32.
+   * 
+   * @param val the int value
+   * @return result string
+   */
 
   public static String toHexString(int val) {
     return StringTools.toHexString((long) val & 0xFFFFFFFF, 32);
   }
 
+  /**
+   * Converts a short hex value into a string with bitLen = 16.
+   * 
+   * @param val the short value
+   * @return result string
+   */
   public static String toHexString(short val) {
     return StringTools.toHexString((long) val & 0xFFFF, 16);
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Converts a byte into a string of bits.
+   * 
+   * @param b a byte value
+   * @param sb StringBuffer to write into
+   * @return StringBuffer of bits
+   */
   public static StringBuffer toBinaryString(byte b, StringBuffer sb) {
     if (sb == null) {
       sb = new StringBuffer();
@@ -1045,9 +1490,26 @@ public class StringTools {
     return sb;
   }
 
+  /**
+   * Converts a byte into a string of bits.
+   * 
+   * @param b a byte value
+   * @return a string of bits
+   */
   public static String toBinaryString(byte b) {
     return StringTools.toBinaryString(b, new StringBuffer()).toString();
   }
+
+  /**
+   * Converts a byte array into a string of bytes separated with spaces, starting at ofs position,
+   * counting len bytes.
+   * 
+   * @param b byte array
+   * @param ofs offset
+   * @param len amount of bytes to convert
+   * @param sb StringBuffer to write into
+   * @return a string buffer of bytes (binary) separated with spaces.
+   */
 
   public static StringBuffer toBinaryString(byte b[], int ofs, int len, StringBuffer sb) {
     if (sb == null) {
@@ -1066,6 +1528,14 @@ public class StringTools {
     return sb;
   }
 
+  /**
+   * Converts a byte array into a string of bytes separated with spaces.
+   * 
+   * @param b a byte value
+   * @param sb StringBuffer to write into
+   * @return StringBuffer of bits
+   */
+
   public static StringBuffer toBinaryString(byte b[], StringBuffer sb) {
     if (sb == null) {
       sb = new StringBuffer();
@@ -1081,17 +1551,36 @@ public class StringTools {
     return sb;
   }
 
+  /**
+   * Converts a byte array into a string of bytes separated with spaces.
+   * 
+   * @param b a byte value
+   * @return String of bits
+   */
   public static String toBinaryString(byte b[]) {
     return StringTools.toBinaryString(b, new StringBuffer()).toString();
   }
 
+  /**
+   * Converts a byte array into a string of bytes separated with spaces, starting at ofs position,
+   * counting len bytes.
+   * 
+   * @param b byte array
+   * @param ofs offset
+   * @param len amount of bytes to convert
+   * @return a string of bytes (binary) separated with spaces.
+   */
   public static String toBinaryString(byte b[], int ofs, int len) {
     return StringTools.toBinaryString(b, ofs, len, null).toString();
   }
 
-  // ------------------------------------------------------------------------
+  /**
+   * Encodes special characters in a string.
+   * 
+   * @param text String
+   * @return a String with encoded special characters.
+   */
 
-  /* escape special characters in argument String */
   public static String encodeText(String text) {
     if (text == null) {
       return null;
@@ -1117,6 +1606,13 @@ public class StringTools {
     }
     return sb.toString();
   }
+
+  /**
+   * Decodes special characters in a text string.
+   * 
+   * @param text string value
+   * @return a decoded text
+   */
 
   public static String decodeText(String text) {
     if (text == null) {
@@ -1148,8 +1644,12 @@ public class StringTools {
     return sb.toString();
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Makes all words in a string start with an upper case.
+   * 
+   * @param s string
+   * @return result string with all words starting with upper case.
+   */
   public static String setFirstUpperCase(String s) {
     if (s != null) {
       boolean space = true, digitSpace = true;
@@ -1179,8 +1679,13 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Tests if one string has another as a prefix, ignoring the case.
+   * 
+   * @param t a string
+   * @param m a prefix
+   * @return true if t starts with m, false otherwise
+   */
   public static boolean startsWithIgnoreCase(String t, String m) {
     if ((t != null) && (m != null)) {
       return t.toLowerCase().startsWith(m.toLowerCase());
@@ -1190,6 +1695,16 @@ public class StringTools {
     }
   }
 
+  /**
+   * Returns the index within this string of the first occurrence of the specified substring
+   * ignoring case.
+   * 
+   * @param t string
+   * @param m substring
+   * @return if the string argument occurs as a substring within this object, then the index of the
+   *         first character of the first such substring is returned; if it does not occur as a
+   *         substring, -1 is returned.
+   */
   public static int indexOfIgnoreCase(String t, String m) {
     if ((t != null) && (m != null)) {
       return t.toLowerCase().indexOf(m.toLowerCase());
@@ -1199,8 +1714,13 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Returns an index of a first occurence of a symbol in a string.
+   * 
+   * @param A string
+   * @param c symbol
+   * @return an index of a firs occurence of a symbol in a string, -1 if such simbol is not found
+   */
   public static int indexOf(char A[], char c) {
     if (A != null) {
       for (int i = 0; i < A.length; i++) {
@@ -1212,6 +1732,13 @@ public class StringTools {
     return -1;
   }
 
+  /**
+   * Returns an index of a first occurence of a byte in a byte array.
+   * 
+   * @param B byte array
+   * @param b byte
+   * @return an index of a firs occurence of a byte in a byte array, -1 if such simbol is not found
+   */
   public static int indexOf(byte B[], byte b) {
     if (B != null) {
       for (int i = 0; i < B.length; i++) {
@@ -1224,15 +1751,36 @@ public class StringTools {
   }
 
   // ------------------------------------------------------------------------
-
+  /**
+   * Separator.
+   */
   public static final String ArraySeparator = ",";
+  /**
+   * Delimiter symbol.
+   */
   private static final char ARRAY_DELIM = ',';
+  /**
+   * Quotation mark.
+   */
   private static final char ARRAY_QUOTE = '\"';
 
+  /**
+   * Writes comma separated values into separate strings.
+   * 
+   * @param s text
+   * @return Array of strings
+   */
   public static String[] parseArray(String s) {
     return StringTools.parseArray(s, ARRAY_DELIM);
   }
 
+  /**
+   * Writes values of a string separated with a specified delimiter into separate strings.
+   * 
+   * @param s text
+   * @param arrayDelim delimiter
+   * @return Array of strings
+   */
   public static String[] parseArray(String s, char arrayDelim) {
 
     /* invalid string? */
@@ -1281,10 +1829,32 @@ public class StringTools {
 
   }
 
+  /**
+   * Encodes an entire array of objects into a string of values separated with a specified
+   * delimeter.
+   * 
+   * @param list a list of objects
+   * @param delim a delimiter symbol
+   * @param alwaysQuote true if values whould be enclosed with quotation marks
+   * @return A string of values separated with delimiter, enclosed into quotation marks if
+   *         alwaysQuote value is true
+   */
   public static String encodeArray(Object list[], char delim, boolean alwaysQuote) {
     return StringTools.encodeArray(list, 0, -1, delim, alwaysQuote);
   }
 
+  /**
+   * Encodes an array of objects into a string of values separated with a specified delimeter
+   * starting with a specified position.
+   * 
+   * @param list a list of objects
+   * @param ofs a postition to start with
+   * @param max number of objects to parse
+   * @param delim a delimiter symbol
+   * @param alwaysQuote true if values whould be enclosed with quotation marks
+   * @return A string of values separated with delimiter, enclosed into quotation marks if
+   *         alwaysQuote value is true
+   */
   public static String encodeArray(Object list[], int ofs, int max, char delim, boolean alwaysQuote) {
     StringBuffer sb = new StringBuffer();
     if (list != null) {
@@ -1306,36 +1876,92 @@ public class StringTools {
     return sb.toString();
   }
 
+  /**
+   * Encodes a list of objects into a string of values separated with a specified delimeter.
+   * 
+   * @param list of objects
+   * @param delim delimiter symbol
+   * @param alwaysQuote true if values whould be enclosed with quotation marks
+   * @return A string of values separated with delimiter, enclosed into quotation marks if
+   *         alwaysQuote value is true
+   */
   public static String encodeArray(java.util.List list, char delim, boolean alwaysQuote) {
     return StringTools.encodeArray(ListTools.toArray(list), delim, alwaysQuote);
   }
+
+  /**
+   * Encodes a list of objects into a string of quoted values separated with ARRAY_DELIM.
+   * 
+   * @param list of objects
+   * @return A string of values separated with delimiter, enclosed into quotation marks
+   */
 
   public static String encodeArray(java.util.List list) {
     return StringTools.encodeArray(ListTools.toArray(list), ARRAY_DELIM, true);
   }
 
+  /**
+   * Encodes a list of objects into a string of quoted values separated with ARRAY_DELIM.
+   * 
+   * @param list of objects
+   * @param alwaysQuote true if the values should be separated with commas
+   * @return A string of values separated with delimiter, enclosed into quotation marks if
+   *         alwaysQuote value is true
+   */
   public static String encodeArray(java.util.List list, boolean alwaysQuote) {
     return StringTools.encodeArray(ListTools.toArray(list), ARRAY_DELIM, alwaysQuote);
   }
 
+  /**
+   * Encodes an array of objects into a string of quoted values separated with ARRAY_DELIM.
+   * 
+   * @param list array of objects
+   * @return A string of values separated with delimiter, enclosed into quotation marks
+   */
   public static String encodeArray(Object list[]) {
     return StringTools.encodeArray(list, ARRAY_DELIM, true);
   }
 
+  /**
+   * Encodes an array of objects into a string of quoted values separated with ARRAY_DELIM.
+   * 
+   * @param list of objects
+   * @param alwaysQuote true if the values should be separated with commas
+   * @return A string of values separated with delimiter, enclosed into quotation marks if
+   *         alwaysQuote value is true
+   */
   public static String encodeArray(Object list[], boolean alwaysQuote) {
     return StringTools.encodeArray(list, ARRAY_DELIM, alwaysQuote);
   }
 
+  /**
+   * Encodes an array of strings into a string of quoted values separated with ARRAY_DELIM.
+   * 
+   * @param list array of strings
+   * @return A string of values separated with delimiter, enclosed into quotation marks
+   */
   public static String encodeArray(String list[]) {
     return StringTools.encodeArray((Object[]) list, ARRAY_DELIM, true);
   }
 
+  /**
+   * Encodes an array of strings into a string of quoted values separated with ARRAY_DELIM.
+   * 
+   * @param list of strings
+   * @param alwaysQuote true if the values should be separated with commas
+   * @return A string of values separated with delimiter, enclosed into quotation marks if
+   *         alwaysQuote value is true
+   */
   public static String encodeArray(String list[], boolean alwaysQuote) {
     return StringTools.encodeArray((Object[]) list, ARRAY_DELIM, alwaysQuote);
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Converts a list into string array.
+   * 
+   * @param list list of objects
+   * @return array of strings
+   */
   public static String[] toArray(java.util.List list) {
     if (list != null) {
       String s[] = new String[list.size()];
@@ -1350,16 +1976,26 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-  // 'parseString' does not take quoted values into account
+  /**
+   * Parses a string with delimiters. 
+   * Does not take quoted values into account.
+   * @param value text
+   * @param delim delimeter symbol
+   * @return an array of string values delimited by specified character 
+   */
 
-  /* simple string parser delimited by specified character */
   public static String[] parseString(String value, char delim) {
     return StringTools.parseString(value, String.valueOf(delim));
   }
 
-  /* simple string parser delimited by specified character(s) */
-  // guaranteed to _not_ return null.
+  /**
+   * Parses a string with delimiters.
+   * 
+   * @param value text
+   * @param delim delimeter string
+   * @return an array of string values delimited by specified characters
+   */
+
   public static String[] parseString(String value, String sdelim) {
     if (value != null) {
 
@@ -1397,11 +2033,23 @@ public class StringTools {
   }
 
   // ------------------------------------------------------------------------
-
+  /**
+   * Parses a string of properties into a Map.
+   * 
+   * @param props string of properties
+   * @return a map of properties
+   */
   public static Map parseProperties(String props) {
     return StringTools.parseProperties(props, null);
   }
 
+  /**
+   * Parses a string of properties into a Map.
+   * 
+   * @param props string of properties
+   * @param properties a Map to write into
+   * @return a map of properties
+   */
   public static Map parseProperties(String props, Map properties) {
 
     /* new properties? */
@@ -1493,11 +2141,25 @@ public class StringTools {
 
   }
 
-  // ------------------------------------------------------------------------
 
+  /**
+   * Indicates that when stripping charapcters, everything but the specified patter must be removed.
+   * 
+   */
   public static final int STRIP_INCLUDE = 0;
+  /**
+   * Indicates that when stripping charapcters, the specified patter must be removed.
+   * 
+   */
   public static final int STRIP_EXCLUDE = 1;
 
+  /**
+   * Deletes characters containing in a symbol array from a string.
+   * 
+   * @param src text
+   * @param chars s set of characters to remove from the string
+   * @return a string without specifies characters
+   */
   public static String stripChars(String src, char chars[]) {
     StringBuffer sb = new StringBuffer();
     for (int i = 0; i < chars.length; i++) {
@@ -1506,18 +2168,50 @@ public class StringTools {
     return stripChars(src, sb.toString(), STRIP_EXCLUDE);
   }
 
+  /**
+   * Deletes a character from a string.
+   * 
+   * @param src text
+   * @param chars a character to remove from the string
+   * @return a string without a specifies character
+   */
+
   public static String stripChars(String src, char chars) {
     return stripChars(src, String.valueOf(chars), STRIP_EXCLUDE);
   }
+
+  /**
+   * Deletes characters containing in a string from a string.
+   * 
+   * @param src text
+   * @param chars a string of charactres to remove from the string
+   * @return a string without a specifies character
+   */
 
   public static String stripChars(String src, String chars) {
     return stripChars(src, chars, STRIP_EXCLUDE);
   }
 
+  /**
+   * Deletes a character containing from a string.
+   * 
+   * @param src text
+   * @param chars a Charactres to remove from the string
+   * @param stripType 0 if everything but the chars should be removed, 1 otherwise
+   * @return a string without specified characters or schecified characters without the rest symbols
+   */
   public static String stripChars(String src, char chars, int stripType) {
     return stripChars(src, String.valueOf(chars), stripType);
   }
 
+  /**
+   * Deletes characters containing from a string.
+   * 
+   * @param src text
+   * @param chars a string of charactres to remove from the string
+   * @param stripType 0 if everything but the chars should be removed, 1 otherwise
+   * @return a string without specified characters or schecified characters without the rest symbols
+   */
   public static String stripChars(String src, String chars, int stripType) {
     if ((src != null) && (chars != null)) {
       StringBuffer sb = new StringBuffer();
@@ -1541,15 +2235,38 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Replaces all occurences of a character with another one in a string.
+   * 
+   * @param src text
+   * @param chars characters to replace
+   * @param repChar character to replace with
+   * @return a string with replaced characters
+   */
   public static String replaceChars(String src, char chars, char repChar) {
     return StringTools.replaceChars(src, String.valueOf(chars), String.valueOf(repChar));
   }
 
+  /**
+   * Replaces all occurences of a substring with a character.
+   * 
+   * @param src text
+   * @param chars substring to replace
+   * @param repChar character to replace with
+   * @return a string with replaced characters
+   */
   public static String replaceChars(String src, String chars, char repChar) {
     return StringTools.replaceChars(src, chars, String.valueOf(repChar));
   }
+
+  /**
+   * Replaces all occurences of a substring with another string.
+   * 
+   * @param src text
+   * @param chars substring to replace
+   * @param repStr string to replace with
+   * @return a string with replaced substrings
+   */
 
   public static String replaceChars(String src, String chars, String repStr) {
     if ((src != null) && (chars != null)) {
@@ -1570,12 +2287,24 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Replaces white spaces with a specified character.
+   * 
+   * @param src text
+   * @param repChar a character to replace with
+   * @return a string with replaces white spaces
+   */
   public static String replaceWhitespace(String src, char repChar) {
     return StringTools.replaceWhitespace(src, String.valueOf(repChar));
   }
 
+  /**
+   * Replaces white spaces with a specified substring.
+   * 
+   * @param src text
+   * @param repStr a substyring to replace with
+   * @return a string with replaces white spaces
+   */
   public static String replaceWhitespace(String src, String repStr) {
     if ((src != null) && (repStr != null)) {
       StringBuffer sb = new StringBuffer();
@@ -1595,8 +2324,13 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Replicates a string specified number of times.
+   * 
+   * @param pattern a string to replicate
+   * @param count a number of copies
+   * @return returns a
+   */
   public static String replicateString(String pattern, int count) {
     if ((pattern != null) && (count > 0)) {
       StringBuffer sb = new StringBuffer();
@@ -1610,8 +2344,15 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Appends a string with a specified character on the right until a specified length.
+   * 
+   * @param s text
+   * @param padChar a character to append with
+   * @param len desired length
+   * @return an initial string if len is less then the initial length of the string or a string of a
+   *         specified length padded with a specified characters on the right
+   */
   public static String padRight(String s, char padChar, int len) {
     if ((s == null) || (s.length() >= len)) {
       return s;
@@ -1621,10 +2362,27 @@ public class StringTools {
     }
   }
 
+  /**
+   * Appends the string with spaces on the right.
+   * 
+   * @param s text
+   * @param len a desired length
+   * @return A string appended with the spaces on the right, or an initial string if len is less
+   *         then the string's length
+   */
   public static String leftJustify(String s, int len) {
     return StringTools.padRight(s, ' ', len);
   }
 
+  /**
+   * Appends a string with a specified character on the left until a specified length.
+   * 
+   * @param s text
+   * @param padChar a character to append with
+   * @param len desired length
+   * @return an initial string if len is less then the initial length of the string or a string of a
+   *         specified length padded with a specified characters on the left
+   */
   public static String padLeft(String s, char padChar, int len) {
     if ((s == null) || (s.length() >= len)) {
       return s;
@@ -1634,12 +2392,26 @@ public class StringTools {
     }
   }
 
+  /**
+   * Appends the string with spaces on the left.
+   * 
+   * @param s text
+   * @param len a desired length
+   * @return A string appended with the spaces on the left, or an initial string if len is less then
+   *         the string's length
+   */
   public static String rightJustify(String s, int len) {
     return StringTools.padLeft(s, ' ', len);
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Replaces all occurences of substring with another substring.
+   * 
+   * @param text string
+   * @param key a substring to replace
+   * @param val a substring to replace with
+   * @return a string with all occurences of key replaced with val
+   */
   public static String replace(String text, String key, String val) {
     if (text != null) {
       return StringTools.replace(new StringBuffer(text), key, val).toString();
@@ -1649,6 +2421,14 @@ public class StringTools {
     }
   }
 
+  /**
+   * Replaces all occurences of substring in a StringBuffer with another substring.
+   * 
+   * @param sb StringBuffer
+   * @param key a substring to replace
+   * @param val a substring to replace with
+   * @return a StringBuffer with all occurences of key replaced with val
+   */
   public static StringBuffer replace(StringBuffer sb, String key, String val) {
     if (sb != null) {
       int s = 0;
@@ -1665,8 +2445,15 @@ public class StringTools {
     return sb;
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Replaces all occurences of a substring matching with a regular expression, with a specified.
+   * substring
+   * 
+   * @param target a text
+   * @param regex Regular expression
+   * @param val Value to replace with
+   * @return a string with replaced pieces.
+   */
   public static String regexReplace(String target, String regex, String val) {
     int flags = Pattern.MULTILINE | Pattern.CASE_INSENSITIVE;
     Pattern pattern = Pattern.compile(regex, flags);
@@ -1674,16 +2461,39 @@ public class StringTools {
     return matcher.replaceAll(val);
   }
 
+  /**
+   * Replaces all occurences of a substring matching with a regular expression, with a specified.
+   * substring
+   * 
+   * @param target a StringBuffer
+   * @param regexKey Regular expression
+   * @param val Value to replace with
+   * @return a StringBuffer with replaced pieces.
+   */
   public static StringBuffer regexReplace(StringBuffer target, String regexKey, String val) {
     String s = StringTools.regexReplace(target.toString(), regexKey, val);
     return target.replace(0, target.length(), s);
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Returns a RegexIndex of a substring matching a specified regular expression.
+   * 
+   * @param target a text
+   * @param regex regular expression
+   * @return a RegexIndex object corresponding to a regular expression occurence
+   */
   public static RegexIndex regexIndexOf(String target, String regex) {
     return StringTools.regexIndexOf(target, regex, 0);
   }
+
+  /**
+   * Returns a RegexIndex of a substring matching a specified regular expression.
+   * 
+   * @param target a text
+   * @param regex regular expression
+   * @param ndx starting index of a regular expression
+   * @return a RegexIndex object corresponding to a regular expression occurence
+   */
 
   public static RegexIndex regexIndexOf(String target, String regex, int ndx) {
     int flags = Pattern.MULTILINE | Pattern.CASE_INSENSITIVE;
@@ -1697,6 +2507,12 @@ public class StringTools {
     }
   }
 
+  /**
+   * Attempts to find the next subsequence of the input sequence that matches the RegexIndex.
+   * 
+   * @param regNdx
+   * @return found regular expression
+   */
   public static RegexIndex regexIndexOf(RegexIndex regNdx) {
     if (regNdx == null) {
       return null;
@@ -1712,32 +2528,71 @@ public class StringTools {
     }
   }
 
+  /**
+   * Represents a regular expression for determining the specific patterns in the symbolic structures.
+   * 
+   * @author Martin D. Flynn
+   * @author Alexey Olkov
+   * 
+   */
+
   public static class RegexIndex {
     private Matcher matcher = null;
     private int startPos = -1;
     private int endPos = -1;
 
+    /**
+     * Contructor. Sets a matcher.
+     * 
+     * @param match matcher
+     */
     public RegexIndex(Matcher match) {
       this.matcher = match;
     }
 
+    /**
+     * Constructor. Sets end and start positions of the expression.
+     * 
+     * @param start string position
+     * @param end end position
+     */
     public RegexIndex(int start, int end) {
       this.startPos = start;
       this.endPos = end;
     }
 
+    /**
+     * Returns matcher.
+     * 
+     * @return Matcher
+     */
     public Matcher getMatcher() {
       return this.matcher;
     }
 
+    /**
+     * Returns start position.
+     * 
+     * @return start position.
+     */
     public int getStart() {
       return (this.matcher != null) ? this.matcher.start() : this.startPos;
     }
 
+    /**
+     * Returns end position.
+     * 
+     * @return end position.
+     */
     public int getEnd() {
       return (this.matcher != null) ? this.matcher.end() : this.endPos;
     }
 
+    /**
+     * Converts expression into a string containing start position, /, end position.
+     * 
+     * @return string
+     */
     public String toString() {
       StringBuffer sb = new StringBuffer();
       sb.append(this.getStart());
@@ -1748,16 +2603,41 @@ public class StringTools {
   }
 
   // ------------------------------------------------------------------------
-
+  /**
+   * Represents a map of keys and values to replace.
+   */
   public static interface ReplacementMap {
+    /**
+     * Returns a value.
+     * 
+     * @param key a string key
+     * @return a mapped string value
+     */
     public String get(String key);
   }
 
+  /**
+   * 
+   * @param text
+   * @param startDelim
+   * @param endDelim
+   * @param rep
+   * @return
+   */
   public static String insertKeyValues(String text, String startDelim, String endDelim,
       String rep[][]) {
     return StringTools.insertKeyValues(text, startDelim, endDelim, rep, false);
   }
 
+  /**
+   * Inserts 
+   * @param text
+   * @param startDelim
+   * @param endDelim
+   * @param rep
+   * @param htmlFilter
+   * @return
+   */
   public static String insertKeyValues(String text, String startDelim, String endDelim,
       String rep[][], boolean htmlFilter) {
     HashMap repMap = new HashMap();
@@ -1769,11 +2649,29 @@ public class StringTools {
     }
     return insertKeyValues(text, startDelim, endDelim, repMap, htmlFilter);
   }
-
+  
+/**
+ * 
+ * @param text
+ * @param startDelim
+ * @param endDelim
+ * @param map
+ * @return
+ */
   public static String insertKeyValues(String text, String startDelim, String endDelim, Map map) {
     return StringTools.insertKeyValues(text, startDelim, endDelim, map, false);
   }
 
+  /**
+   * Converts keys and values from the map into a string, separating them with specified delimiters.
+   * 
+   * @param text a string
+   * @param startDelim the felimeter for the beginning
+   * @param endDelim
+   * @param map Map of keys and values
+   * @param htmlFilter
+   * @return a string of keys and values
+   */
   public static String insertKeyValues(String text, String startDelim, String endDelim,
       final Map map, boolean htmlFilter) {
     ReplacementMap rm = new ReplacementMap() {
@@ -1784,12 +2682,29 @@ public class StringTools {
     };
     return insertKeyValues(text, startDelim, endDelim, rm, htmlFilter);
   }
-
+  
+/**
+ * 
+ * @param text
+ * @param startDelim
+ * @param endDelim
+ * @param rmap
+ * @return
+ */
   public static String insertKeyValues(String text, String startDelim, String endDelim,
       StringTools.ReplacementMap rmap) {
     return StringTools.insertKeyValues(text, startDelim, endDelim, rmap, false);
   }
 
+  /**
+   * 
+   * @param text
+   * @param startDelim
+   * @param endDelim
+   * @param rmap
+   * @param htmlFilter
+   * @return
+   */
   public static String insertKeyValues(String text, String startDelim, String endDelim,
       StringTools.ReplacementMap rmap, boolean htmlFilter) {
     StringBuffer sb = new StringBuffer(text);
@@ -1836,8 +2751,16 @@ public class StringTools {
     return sb.toString();
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Compares first len bytes of two byte arrays.
+   * 
+   * @param b1
+   * @param b2
+   * @param len
+   * @return 1 if b1==null, -1 if b2==null, 0, if both are null; and returns the difference of first
+   *         occurence of different bytes, or the difference of lengths if one string is a substring
+   *         of another
+   */
   public static int compare(byte b1[], byte b2[], int len) {
     if ((b1 == null) && (b2 == null)) {
       return 0;
@@ -1862,20 +2785,50 @@ public class StringTools {
     }
   }
 
+  /**
+   * Compares a byte array to a String.
+   * 
+   * @param b1
+   * @param s
+   * @return 1 if b1==null, -1 if b2==null, 0, if both are null; and returns the difference of first
+   *         occurence of different bytes, or the difference of lengths if one string is a substring
+   *         of another
+   */
   public static int compare(byte b1[], String s) {
     return StringTools.compare(b1, ((s != null) ? StringTools.getBytes(s) : null), -1);
   }
 
+  /**
+   * Compares first len bytes of two byte arrays.
+   * 
+   * @param b1 first byte array
+   * @param b2 seconf byte array
+   * @param len the number of bytes to compare
+   * @return true if byte arrays are equal
+   */
   public static boolean compareEquals(byte b1[], byte b2[], int len) {
     return (StringTools.compare(b1, b2, len) == 0);
   }
 
+  /**
+   * Compares a string and a byte array.
+   * 
+   * @param b byte array
+   * @param s String
+   * @return true if byte array and string are equal
+   */
   public static boolean compareEquals(byte b[], String s) {
     return StringTools.compareEquals(b, ((s != null) ? StringTools.getBytes(s) : null), -1);
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Looks for an index of a first unmatching byte in two byte arrays, for the first len bytes.
+   * 
+   * @param b1 first byte array
+   * @param b2 second byte array
+   * @param len a number of bytes to scan
+   * @return -1, if the arrays are equal, and the index of the first mismatch otherwise
+   */
   public static int diff(byte b1[], byte b2[], int len) {
     if ((b1 == null) && (b2 == null)) {
       return -1; // equals
@@ -1897,10 +2850,17 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
+  /**
+   * Format map.
+   */
   private static HashMap formatMap = null;
 
+  /**
+   * Returns a formatter from a format map.
+   * 
+   * @param fmt a format to find
+   * @return
+   */
   private static DecimalFormat _getFormatter(String fmt) {
     if (formatMap == null) {
       formatMap = new HashMap();
@@ -1926,9 +2886,14 @@ public class StringTools {
     return _getFormatter(fmt).format((long) val);
   }
 
+  /**
+   * Returns the name of the class.
+   * 
+   * @param c class
+   * @return the string name of the class
+   */
   // ------------------------------------------------------------------------
   // Probably should be in a module called 'ClassTools'
-
   public static String className(Object c) {
     if (c == null) {
       return "null";
@@ -1941,8 +2906,6 @@ public class StringTools {
     }
   }
 
-  // ------------------------------------------------------------------------
-
   private static void printArray(String m, String s[]) {
     Print.logInfo(m);
     for (int i = 0; i < s.length; i++) {
@@ -1952,13 +2915,31 @@ public class StringTools {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * Base digits.
+   */
   private static String BASE_DIGITS = "0123456789abcdefghijklmnopqrstvwxyzABCDEFGHIJKLMNOPQRSTVWXYZ()[]{}<>!@#&-=_+:~";
+  /**
+   * Base length.
+   */
   private static int BASE_LEN = BASE_DIGITS.length();
 
+  /**
+   * 
+   * @param num
+   * @return
+   */
   private static String compressDigits(long num) {
     return compressDigits(num, BASE_DIGITS);
   }
 
+  /**
+   * Compresses the string.
+   * 
+   * @param num
+   * @param alpha the string.
+   * @return
+   */
   private static String compressDigits(long num, String alpha) {
     int alphaLen = alpha.length();
     StringBuffer sb = new StringBuffer();
@@ -1968,10 +2949,21 @@ public class StringTools {
     return sb.reverse().toString();
   }
 
+  /**
+   * 
+   * @param str string.
+   * @return
+   */
   private static long decompressDigits(String str) {
     return decompressDigits(str, BASE_DIGITS);
   }
 
+  /**
+   * 
+   * @param str
+   * @param alpha
+   * @return
+   */
   private static long decompressDigits(String str, String alpha) {
     int alphaLen = alpha.length();
     long accum = 0L;
@@ -1983,9 +2975,16 @@ public class StringTools {
   }
 
   // ------------------------------------------------------------------------
-
+  /**
+   * The source of a character set.
+   */
   private static int CHARSET_SOURCE = 1;
 
+  /**
+   * Returns a default character set.
+   * 
+   * @return
+   */
   public static String getDefaultCharset() {
     String charSet = null;
     switch (CHARSET_SOURCE) {
@@ -2005,6 +3004,11 @@ public class StringTools {
     return charSet;
   }
 
+  /**
+   * Sets a default charset.
+   * 
+   * @param charSet a charset, teh default charset is DEFAULT_CHARSET = ISO-8859-1
+   */
   public static void setDefaultCharset(String charSet) {
     // 'ISO-8859-1' should be 8-bit clean
     // BTW, don't expect this to work. This is just here for testing
@@ -2014,16 +3018,37 @@ public class StringTools {
 
   // ------------------------------------------------------------------------
 
+  /**
+   * No-break space.
+   */
   public static final String HTML_SP = "&nbsp;";
+  /**
+   * The symbol < (less than).
+   */
   public static final String HTML_LT = "&lt;";
+  /**
+   * The symbol > (gtreater than).
+   */
   public static final String HTML_GT = "&gt;";
+  /**
+   * The symbol & (ampresand).
+   */
   public static final String HTML_AMP = "&amp;";
+  /**
+   * The symnbol " (quotation).
+   */
   public static final String HTML_QUOTE = "&quote;";
+  /**
+   * Line break.
+   */
   public static final String HTML_BR = "<BR>";
+  /**
+   * Horizontal rule.
+   */
   public static final String HTML_HR = "<HR>";
 
   /**
-   * ** Encode special HTML character string **
+   * Encodes special HTML character string.
    * 
    * @param text The Object to encode [via 'toString()' method] **
    * @return The encoded string.
