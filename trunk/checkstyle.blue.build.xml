@@ -42,6 +42,17 @@
        	 <include name="org/opendmtp/dbtools/DBFieldValues.java"/>
        	 <include name="org/opendmtp/dbtools/DBField.java"/>
        	 <include name="org/opendmtp/dbtools/DBFieldType.java"/>
+         
+         <include name="org/opendmtp/dbtools/DBEdit.java"/>
+         <include name="org/opendmtp/dbtools/DBAdmin.java"/>
+         <include name="org/opendmtp/dbtools/DBConnection.java"/>
+         <include name="org/opendmtp/dbtools/DBException.java"/>
+         <include name="org/opendmtp/dbtools/DBFactory.java"/>
+         <include name="org/opendmtp/codes/ClientErrors.java"/>
+         <include name="org/opendmtp/codes/CommandErrors.java"/>
+         <include name="org/opendmtp/codes/Encoding.java"/>
+         <include name="org/opendmtp/codes/ServerErrors.java"/>
+         <include name="org/opendmtp/codes/StatusCodes.java"/>
        </fileset>
        <formatter type="plain"/>
        <formatter type="xml" tofile="${checkstyle.dir}/checkstyle.xml"/>

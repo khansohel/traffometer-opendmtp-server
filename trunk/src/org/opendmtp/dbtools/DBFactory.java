@@ -565,7 +565,7 @@ public class DBFactory {
    * Check to see if the table exists in the database. 
    * @return True if the table exists. If the table or the database does not
    * exit, return false.
-   * @throws DBException. If any errors occur.
+   * @throws DBException If any errors occur.
    */
   public boolean tableExists() throws DBException {
     try {

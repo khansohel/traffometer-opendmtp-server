@@ -335,14 +335,7 @@ public class DBAdmin {
   // ------------------------------------------------------------------------
 
   /**
-   * Executes commands to manipulate the database. These command will be executed in 
-   * order:
-   * <p> -createdb -rootUser=<Root_User> -rootPass=<Root_Pass> </p>
-   * <p> -grant -rootUser=<Root_User> -rootPass=<Root_Pass> -user=<Grant_User> -pass=<Grant_Pass> </p>
-   * <p> -tables </p>
-   * <p> -dump=<table> -dir=<Destination_Dir> </p>
-   * <p> -load=<table> -dir=<Source_Dir> </p>
-   * <p> -drop=<table> </p>
+   * Executes commands to manipulate the database. 
    * @return True if all commands were executed successfully. Otherwise, returns false.
    */
   public static boolean execCommands() {
