@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
  * Provides tools for string formatting, encoding, compressing and decompressing. However most of
  * these functions are not used anywhere in the project.
  * 
- * @autor Martin D. Flynn
+ * @author Martin D. Flynn
  * @author Alexey Olkov
  * 
  */
