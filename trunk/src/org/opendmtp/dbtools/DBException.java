@@ -24,13 +24,8 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-// import java.lang.*; // Commented out by Kiet Huynh
-// import java.util.*; // Commented out by Kiet Huynh
-// import java.sql.*; // Commented out by Kiet Huynh
-
-import java.sql.SQLException; // added by Kiet Huynh
-
-import org.opendmtp.util.Print; // added by Kiet Huynh
+import java.sql.SQLException;
+import org.opendmtp.util.Print;
 
 /**
  * Exceptions when connecting to the database.

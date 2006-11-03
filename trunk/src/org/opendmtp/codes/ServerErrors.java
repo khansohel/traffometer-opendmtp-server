@@ -24,14 +24,7 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-//import java.lang.*; // commented out by Kiet Huynh
-//import java.util.*; // commented out by Kiet Huynh
-//import java.io.*; // commented out by Kiet Huynh
-//import java.net.*; // commented out by Kiet Huynh
-//import java.sql.*; // commented out by Kiet Huynh
-
-//import org.opendmtp.util.*; // commented out by Kiet Huynh
-import org.opendmtp.util.StringTools; // added by Kiet Huynh
+import org.opendmtp.util.StringTools;
 
 /**
  * Defines errors that will be sent by server to client when the server detects the

@@ -26,30 +26,24 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-// import java.lang.*; // commented out by Kiet Huynh
-//import java.util.*; // commented out by Kiet Huynh
-//import java.io.*; // commented out by Kiet Huynh
-//import java.text.*; // commented out by Kiet Huynh
-import java.io.BufferedReader; // added by Kiet Huynh
-import java.io.File; // added by Kiet Huynh
-import java.io.FileInputStream; // added by Kiet Huynh
-import java.io.FileOutputStream; // added by Kiet Huynh
-import java.io.FileReader; // added by Kiet Huynh
-import java.io.IOException; // added by Kiet Huynh
-import java.lang.reflect.Constructor; // added by Kiet Huynh
-import java.lang.reflect.Method; // added by Kiet Huynh
-import java.lang.reflect.Modifier; // added by Kiet Huynh
-import java.sql.ResultSet; // added by Kiet Huynh
-import java.sql.SQLException; // added by Kiet Huynh
-import java.sql.Statement; // added by Kiet Huynh
-import java.util.Iterator; // added by Kiet Huynh
-import java.util.Vector; // added by Kiet Huynh
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Iterator;
+import java.util.Vector;
 import org.opendmtp.util.FileTools;
 import org.opendmtp.util.MethodAction;
 import org.opendmtp.util.Print;
 import org.opendmtp.util.StringTools;
-
 
 /**
  * Representation of a database table. It contains methods and subclasses for creating and manipulating the table's  
@@ -85,25 +79,25 @@ public class DBFactory {
 
   /** The error code indicating that the database already exists. */
   public static final int SQLERR_DATABASE_EXISTS = 1007;
-  
+
   /** The error code indicating that the authorization is invalid. */
   public static final int SQLERR_INVALID_AUTH = 1045;
-  
+
   /** The error code indicating that the database is unknown. */
   public static final int SQLERR_UNKNOWN_DATABASE = 1049;
-  
+
   /** The error code indicating that one of the columns in the table is unknown. */
   public static final int SQLERR_UNKNOWN_COLUMN = 1054;
-  
+
   /** The error code indicating that the key is duplicate. */
   public static final int SQLERR_DUPLICATE_KEY = 1062;
-  
+
   /** The error code indicating that there is a statement syntax error. */
   public static final int SQLERR_SYNTAX_ERROR = 1064;
-  
+
   /** The error code indicating that the table is not locked. */
   public static final int SQLERR_TABLE_NOTLOCKED = 1100;
-  
+
   /** The error code indicating that the table does not exist. */
   public static final int SQLERR_TABLE_NONEXIST = 1146;
 
@@ -133,26 +127,26 @@ public class DBFactory {
 
   /** The name of the table. */
   private String tableName = null;
-  
+
   /** 
    * The array containing all the defined columns. These columns 
    * does not necesserily exist in the table.
    * 
    */
   private DBField field[] = null;
-  
+
   /** The array containing all the columns whose keys are primary keys of the table. */
   private DBField priKeys[] = null;
-  
+
   /** The array containing all the columns whose keys are alternate keys of the table. */
   private DBField altKeys[] = null;
-  
+
   /** The type of a key. Is is initialized to primary key which I think it shouldn't be.*/
   private int keyType = KEY_PRIMARY;
-  
+
   /** The class of a key. */
   private Class keyClass = null;
-  
+
   /** The class of a record. */
   private Class rcdClass = null;
 
@@ -598,7 +592,7 @@ public class DBFactory {
    * @author Kiet Huynh
    */
   public static class ValidationLog {
-    
+
     /** The name of the table. */
     private String tableName = "";
     /** The header of the log. */
@@ -694,7 +688,7 @@ public class DBFactory {
    *
    */
   public static class ValidationNotImplementedException extends Exception {
-    
+
     /**
      * ValidationNotImplentedException is instantiated.
      * @param msg Error message.
@@ -1019,7 +1013,7 @@ public class DBFactory {
    * @author Kiet Huynh
    */
   protected static class MySQLDumpReader {
-    
+
     /** The number that indicate end-0f-file. */
     private int pushedByte = -1;
     /** The File Input Stream. */

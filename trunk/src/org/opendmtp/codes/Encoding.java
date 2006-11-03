@@ -22,12 +22,9 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-//import java.lang.*; Commented out by Kiet Huynh
-//import java.util.*; Commented out by Kiet Huynh
-
 /**
- * Defines ASCII encoding types and checksum encoding. The ASCII encoding types include
- * Hex, CVS, and Base64 encoding.
+ * Defines ASCII encoding types and checksum encoding. The ASCII encoding types include Hex, CVS,
+ * and Base64 encoding.
  * 
  * @author Martin D. Flynn
  * @author Kiet Huynh

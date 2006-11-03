@@ -26,19 +26,12 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-//import java.lang.*; // commented out by Kiet Huynh
-//import java.lang.reflect.*; // commented out by Kiet Huynh
-//import java.util.*; // commented out by Kiet Huynh
-//import java.io.*; // commented out by Kiet Huynh
-//import java.sql.*; // commented out by Kiet Huynh
-
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.Vector;
 import org.opendmtp.util.FileTools;
 import org.opendmtp.util.Print;
 import org.opendmtp.util.StringTools;
-
 
 /**
  * Edits a table in the database. 

@@ -26,20 +26,15 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-// import java.lang.*; // commented out by Kiet Huynh
-// import java.util.*; // commented out by Kiet Huynh
-// import java.io.*; // commented out by Kiet Huynh
-// import java.sql.*; // commented out by Kiet Huynh
-
-import java.io.File; // added by Kiet Huynh
-import java.sql.SQLException; // added by Kiet Huynh
-import java.util.Iterator; // added by Kiet Huynh
-import org.opendmtp.util.DateTime; // added by Kiet Huynh
-import org.opendmtp.util.MethodAction; // added by Kiet Huynh
-import org.opendmtp.util.OrderedMap; // added by Kiet Huynh
-import org.opendmtp.util.Print; // added by Kiet Huynh
-import org.opendmtp.util.RTConfig; // added by Kiet Huynh
-import org.opendmtp.util.RTKey; // added by Kiet Huynh
+import java.io.File; 
+import java.sql.SQLException; 
+import java.util.Iterator; 
+import org.opendmtp.util.DateTime; 
+import org.opendmtp.util.MethodAction; 
+import org.opendmtp.util.OrderedMap; 
+import org.opendmtp.util.Print; 
+import org.opendmtp.util.RTConfig; 
+import org.opendmtp.util.RTKey; 
 
 /**
  * Implementation of SQL database administration.  Administration includes accessing to the 

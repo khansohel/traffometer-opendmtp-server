@@ -22,9 +22,7 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-import org.opendmtp.util.StringTools; // added by Kiet Huynh
-
-// import org.opendmtp.util.*; // commented out by Kiet Huynh
+import org.opendmtp.util.StringTools;
 
 /**
  * Defines the command-errors. The types of errors include command 
