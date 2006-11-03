@@ -33,6 +33,8 @@
                  failOnViolation="${checkstyle.failOnViolation}" 
                  classpathref="checkstyle.classpath">
        <fileset dir="${src.dmtp}">
+         <include name="org/opendmtp/server/base/Event.java"/>
+         <include name="org/opendmtp/server_mysql/AccountDBImpl.java"/>
 
          <include name="org/opendmtp/server_mysql/db/Account.java"/>
          <include name="org/opendmtp/server_mysql/db/Device.java"/>
