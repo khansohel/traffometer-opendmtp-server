@@ -26,15 +26,15 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.io.File; 
-import java.sql.SQLException; 
-import java.util.Iterator; 
-import org.opendmtp.util.DateTime; 
-import org.opendmtp.util.MethodAction; 
-import org.opendmtp.util.OrderedMap; 
-import org.opendmtp.util.Print; 
-import org.opendmtp.util.RTConfig; 
-import org.opendmtp.util.RTKey; 
+import java.io.File;
+import java.sql.SQLException;
+import java.util.Iterator;
+import org.opendmtp.util.DateTime;
+import org.opendmtp.util.MethodAction;
+import org.opendmtp.util.OrderedMap;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.RTConfig;
+import org.opendmtp.util.RTKey;
 
 /**
  * Implementation of SQL database administration.  Administration includes accessing to the 

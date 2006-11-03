@@ -26,18 +26,17 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-import java.sql.Connection; 
-import java.sql.DriverManager; 
-import java.sql.ResultSet; 
-import java.sql.SQLException; 
-import java.sql.Statement; 
-import java.util.Map; 
-
-import org.opendmtp.util.DateTime; 
-import org.opendmtp.util.Print; 
-import org.opendmtp.util.RTConfig; 
-import org.opendmtp.util.RTKey; 
-import org.opendmtp.util.ThreadLocalMap; 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Map;
+import org.opendmtp.util.DateTime;
+import org.opendmtp.util.Print;
+import org.opendmtp.util.RTConfig;
+import org.opendmtp.util.RTKey;
+import org.opendmtp.util.ThreadLocalMap;
 
 /**
  * Creates connections to the MySQL database and sends SQL statements
@@ -238,19 +237,19 @@ public class DBConnection {
 
   /** The URI of the database. */
   private String dbUri = null;
-  
+
   /** The username used to connect to the database. */
   private String userName = null;
-  
+
   /** The password used to connect to the database. */
   private String password = null;
-  
+
   /** The connection to the database. */
   private Connection dbConnection = null;
-  
+
   /** The time at which the connection is made. */
   private long connectTime = 0L;
-  
+
   /** The time at which the last connection was made. */
   private long lastUseTime = 0L;
 
