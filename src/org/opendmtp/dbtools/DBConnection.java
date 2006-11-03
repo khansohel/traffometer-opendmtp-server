@@ -26,24 +26,18 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.dbtools;
 
-// import java.lang.*; // commented out by Kiet Huynh
-//import java.util.*; // commented out by Kiet Huynh
-// import java.io.*; // commented out by Kiet Huynh
-//import java.sql.*; // commented out by Kiet Huynh
-//import org.opendmtp.util.*; // commented out by Kiet Huynh
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.ResultSet; 
+import java.sql.SQLException; 
+import java.sql.Statement; 
+import java.util.Map; 
 
-import java.sql.Connection; // added by Kiet Huynh
-import java.sql.DriverManager; // added by Kiet Huynh
-import java.sql.ResultSet; // added by Kiet Huynh
-import java.sql.SQLException; // added by Kiet Huynh
-import java.sql.Statement; // added by Kiet Huynh
-import java.util.Map; // added by Kiet Huynh
-
-import org.opendmtp.util.DateTime; // added by Kiet Huynh
-import org.opendmtp.util.Print; // added by Kiet Huynh
-import org.opendmtp.util.RTConfig; // added by Kiet Huynh
-import org.opendmtp.util.RTKey; // added by Kiet Huynh
-import org.opendmtp.util.ThreadLocalMap; // added by Kiet Huynh
+import org.opendmtp.util.DateTime; 
+import org.opendmtp.util.Print; 
+import org.opendmtp.util.RTConfig; 
+import org.opendmtp.util.RTKey; 
+import org.opendmtp.util.ThreadLocalMap; 
 
 /**
  * Creates connections to the MySQL database and sends SQL statements

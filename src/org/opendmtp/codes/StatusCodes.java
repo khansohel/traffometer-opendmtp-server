@@ -26,9 +26,7 @@
 // ----------------------------------------------------------------------------
 package org.opendmtp.codes;
 
-import java.util.HashMap; // added by Kiet Huynh
-//import java.lang.*; // commented out by Kiet Huynh
-// import java.util.*; // commented out by Kiet Huynh
+import java.util.HashMap;
 
 /**
  * Defines status codes for communication between the server and the client.
@@ -318,10 +316,10 @@ public class StatusCodes {
    * <pre>
    * Notes: 
    *      - Client should include FIELD_INPUT_ID in the event packet,
-  //      otherwise this status code would have no meaning.
-  //      - This status code may be used to indicate that an arbitrary input
-  //      'thing' turned OFF, and the 'thing' can be identified by the 'Input ID'.
-  //      This 'ID' can also represent the index of a digital input.
+   //      otherwise this status code would have no meaning.
+   //      - This status code may be used to indicate that an arbitrary input
+   //      'thing' turned OFF, and the 'thing' can be identified by the 'Input ID'.
+   //      This 'ID' can also represent the index of a digital input.
    * </pre>
    */
   public static final int STATUS_INPUT_OFF = 0xF404;
@@ -471,43 +469,43 @@ public class StatusCodes {
    * otherwise this status code would have no meaning. 
    */
   public static final int STATUS_ELAPSED_00 = 0xF4A0;
-  
+
   /** 
    * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
    * otherwise this status code would have no meaning. 
    */
   public static final int STATUS_ELAPSED_01 = 0xF4A1;
-  
+
   /** 
    * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
    * otherwise this status code would have no meaning. 
    */
   public static final int STATUS_ELAPSED_02 = 0xF4A2;
-  
+
   /** 
    * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
    * otherwise this status code would have no meaning. 
    */
   public static final int STATUS_ELAPSED_03 = 0xF4A3;
-  
+
   /** 
    * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
    * otherwise this status code would have no meaning. 
    */
   public static final int STATUS_ELAPSED_04 = 0xF4A4;
-  
+
   /** 
    * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
    * otherwise this status code would have no meaning. 
    */
   public static final int STATUS_ELAPSED_05 = 0xF4A5;
-  
+
   /** 
    * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
    * otherwise this status code would have no meaning. 
    */
   public static final int STATUS_ELAPSED_06 = 0xF4A6;
-  
+
   /** 
    * Elapsed time. Client should include FIELD_ELAPSED_TIME in the event packet,
    * otherwise this status code would have no meaning. 
@@ -525,49 +523,49 @@ public class StatusCodes {
    * would have no meaning.
    */
   public static final int STATUS_ELAPSED_LIMIT_00 = 0xF4B0;
-  
+
   /** 
    * Elapse timer has exceeded a limit. Client should include 
    * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
    * would have no meaning.
    */
   public static final int STATUS_ELAPSED_LIMIT_01 = 0xF4B1;
-  
+
   /** 
    * Elapse timer has exceeded a limit. Client should include 
    * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
    * would have no meaning.
    */
   public static final int STATUS_ELAPSED_LIMIT_02 = 0xF4B2;
-  
+
   /** 
    * Elapse timer has exceeded a limit. Client should include 
    * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
    * would have no meaning.
    */
   public static final int STATUS_ELAPSED_LIMIT_03 = 0xF4B3;
-  
+
   /** 
    * Elapse timer has exceeded a limit. Client should include 
    * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
    * would have no meaning.
    */
   public static final int STATUS_ELAPSED_LIMIT_04 = 0xF4B4;
-  
+
   /** 
    * Elapse timer has exceeded a limit. Client should include 
    * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
    * would have no meaning.
    */
   public static final int STATUS_ELAPSED_LIMIT_05 = 0xF4B5;
-  
+
   /** 
    * Elapse timer has exceeded a limit. Client should include 
    * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
    * would have no meaning.
    */
   public static final int STATUS_ELAPSED_LIMIT_06 = 0xF4B6;
-  
+
   /** 
    * Elapse timer has exceeded a limit. Client should include 
    * FIELD_ELAPSED_TIME in the event packet. Otherwise, this status code 
@@ -603,7 +601,7 @@ public class StatusCodes {
    * </ul>
    */
   public static final int STATUS_SENSOR32_0 = 0xF600;
-  
+
   /**
    * 32-bit unsigned sensor value. 
    * <p>Notes:</p>
@@ -624,7 +622,7 @@ public class StatusCodes {
    * </ul>
    */
   public static final int STATUS_SENSOR32_1 = 0xF601;
-  
+
   /**
    * 32-bit unsigned sensor value. 
    * <p>Notes:</p>
@@ -645,7 +643,7 @@ public class StatusCodes {
    * </ul>
    */
   public static final int STATUS_SENSOR32_2 = 0xF602;
-  
+
   /**
    * 32-bit unsigned sensor value. 
    * <p>Notes:</p>
@@ -666,7 +664,7 @@ public class StatusCodes {
    * </ul>
    */
   public static final int STATUS_SENSOR32_3 = 0xF603;
-  
+
   /**
    * 32-bit unsigned sensor value. 
    * <p>Notes:</p>
@@ -687,7 +685,7 @@ public class StatusCodes {
    * </ul>
    */
   public static final int STATUS_SENSOR32_4 = 0xF604;
-  
+
   /**
    * 32-bit unsigned sensor value. 
    * <p>Notes:</p>
@@ -708,7 +706,7 @@ public class StatusCodes {
    * </ul>
    */
   public static final int STATUS_SENSOR32_5 = 0xF605;
-  
+
   /**
    * 32-bit unsigned sensor value. 
    * <p>Notes:</p>
@@ -729,7 +727,7 @@ public class StatusCodes {
    * </ul>
    */
   public static final int STATUS_SENSOR32_6 = 0xF606;
-  
+
   /**
    * 32-bit unsigned sensor value. 
    * <p>Notes:</p>
@@ -773,49 +771,49 @@ public class StatusCodes {
    * no meaning.
    */
   public static final int STATUS_SENSOR32_RANGE_0 = 0xF620;
-  
+
   /**
    * 32-bit unsigned sensor value out-of-range violation. Client should include
    * FIELD_SENSOR32 in the event packet; otherwise this status code would have
    * no meaning.
    */
   public static final int STATUS_SENSOR32_RANGE_1 = 0xF621;
-  
+
   /**
    * 32-bit unsigned sensor value out-of-range violation. Client should include
    * FIELD_SENSOR32 in the event packet; otherwise this status code would have
    * no meaning.
    */
   public static final int STATUS_SENSOR32_RANGE_2 = 0xF622;
-  
+
   /**
    * 32-bit unsigned sensor value out-of-range violation. Client should include
    * FIELD_SENSOR32 in the event packet; otherwise this status code would have
    * no meaning.
    */
   public static final int STATUS_SENSOR32_RANGE_3 = 0xF623;
-  
+
   /**
    * 32-bit unsigned sensor value out-of-range violation. Client should include
    * FIELD_SENSOR32 in the event packet; otherwise this status code would have
    * no meaning.
    */
   public static final int STATUS_SENSOR32_RANGE_4 = 0xF624;
-  
+
   /**
    * 32-bit unsigned sensor value out-of-range violation. Client should include
    * FIELD_SENSOR32 in the event packet; otherwise this status code would have
    * no meaning.
    */
   public static final int STATUS_SENSOR32_RANGE_5 = 0xF625;
-  
+
   /**
    * 32-bit unsigned sensor value out-of-range violation. Client should include
    * FIELD_SENSOR32 in the event packet; otherwise this status code would have
    * no meaning.
    */
   public static final int STATUS_SENSOR32_RANGE_6 = 0xF626;
-  
+
   /**
    * 32-bit unsigned sensor value out-of-range violation. Client should include
    * FIELD_SENSOR32 in the event packet; otherwise this status code would have
@@ -836,43 +834,43 @@ public class StatusCodes {
    * TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_0 = 0xF710;
-  
+
   /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
    * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
    * TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_1 = 0xF711;
-  
+
   /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
    * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
    * TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_2 = 0xF712;
-  
+
   /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
    * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
    * TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_3 = 0xF713;
-  
+
   /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
    * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
    * TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_4 = 0xF714;
-  
+
   /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
    * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
    * TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_5 = 0xF715;
-  
+
   /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
    * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
    * TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_6 = 0xF716;
-  
+
   /** Temperature value. Client should include at least the field FIELD_TEMP_AVER
    * in the event packet, and may also wish to include FIELD_TEMP_LOW and FIELD_
    * TEMP_HIGH.
@@ -891,49 +889,49 @@ public class StatusCodes {
    * FIELD_TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_RANGE_0 = 0xF730;
-  
+
   /**
    * Temperature value out-of-range [low/high/average]. Client should include
    * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
    * FIELD_TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_RANGE_1 = 0xF731;
-  
+
   /**
    * Temperature value out-of-range [low/high/average]. Client should include
    * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
    * FIELD_TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_RANGE_2 = 0xF732;
-  
+
   /**
    * Temperature value out-of-range [low/high/average]. Client should include
    * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
    * FIELD_TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_RANGE_3 = 0xF733;
-  
+
   /**
    * Temperature value out-of-range [low/high/average]. Client should include
    * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
    * FIELD_TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_RANGE_4 = 0xF734;
-  
+
   /**
    * Temperature value out-of-range [low/high/average]. Client should include
    * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
    * FIELD_TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_RANGE_5 = 0xF735;
-  
+
   /**
    * Temperature value out-of-range [low/high/average]. Client should include
    * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
    * FIELD_TEMP_HIGH.
    */
   public static final int STATUS_TEMPERATURE_RANGE_6 = 0xF736;
-  
+
   /**
    * Temperature value out-of-range [low/high/average]. Client should include
    * at least one of the fields FIELD_TEMP_AVER, FIELD_TEMP_LOW, or 
