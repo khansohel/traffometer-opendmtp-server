@@ -112,7 +112,7 @@ public class StatusCodes {
 
   /**
    * Device start of motion.
-   * </p>
+   * <p>
    * Notes: The definition of motion-start is provided by property PROP_MOTION_START.
    * </p>
    */
@@ -170,42 +170,42 @@ public class StatusCodes {
   // Notes:
   //      The excess-speed threshold is provided by property PROP_MOTION_EXCESS_SPEED
 
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_0 = 0xF130;
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_1 = 0xF131;
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_2 = 0xF132;
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_3 = 0xF133;
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_4 = 0xF134;
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_5 = 0xF135;
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_6 = 0xF136;
-  /** Constant odometer value */
+  /** Constant odometer value. */
   public static final int STATUS_ODOM_7 = 0xF137;
   // Description:
   //      Odometer value
   // Notes:
   //      The odometer limit is provided by property PROP_ODOMETER_#_LIMIT
 
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_0 = 0xF140;
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_1 = 0xF141;
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_2 = 0xF142;
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_3 = 0xF143;
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_4 = 0xF144;
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_5 = 0xF145;
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_6 = 0xF146;
-  /** Constant Odometer limit */
+  /** Constant Odometer limit. */
   public static final int STATUS_ODOM_LIMIT_7 = 0xF147;
   // Description:
   //      Odometer has exceeded a set limit
@@ -390,78 +390,78 @@ public class StatusCodes {
   //      'thing' turned OFF, and the 'thing' can be identified by the 'Output ID'.
   //      This 'ID' can also represent the index of a digital output.
 
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_00 = 0xF420;
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_01 = 0xF421;
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_02 = 0xF422;
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_03 = 0xF423;
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_04 = 0xF424;
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_05 = 0xF425;
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_06 = 0xF426;
-  /** Digital input state changed to ON */
+  /** Digital input state changed to ON. */
   public static final int STATUS_INPUT_ON_07 = 0xF427;
   // Description:
   //      Digital input state changed to ON
 
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_00 = 0xF440;
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_01 = 0xF441;
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_02 = 0xF442;
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_03 = 0xF443;
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_04 = 0xF444;
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_05 = 0xF445;
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_06 = 0xF446;
-  /** Digital input state changed to OFF */
+  /** Digital input state changed to OFF. */
   public static final int STATUS_INPUT_OFF_07 = 0xF447;
   // Description:
   //      Digital input state changed to OFF
 
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_00 = 0xF460;
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_01 = 0xF461;
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_02 = 0xF462;
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_03 = 0xF463;
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_04 = 0xF464;
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_05 = 0xF465;
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_06 = 0xF466;
-  /** Digital output state set to ON */
+  /** Digital output state set to ON. */
   public static final int STATUS_OUTPUT_ON_07 = 0xF467;
   // Description:
   //      Digital output state set to ON
 
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_00 = 0xF480;
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_01 = 0xF481;
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_02 = 0xF482;
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_03 = 0xF483;
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_04 = 0xF484;
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_05 = 0xF485;
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_06 = 0xF486;
-  /** Digital output state set to OFF */
+  /** Digital output state set to OFF. */
   public static final int STATUS_OUTPUT_OFF_07 = 0xF487;
   // Description:
   //      Digital output state set to OFF
@@ -971,7 +971,7 @@ public class StatusCodes {
   //      Generic 'logout'
 
   /**
-   * Device is connected 
+   * Device is connected. 
    */
   public static final int STATUS_CONNECT = 0xF821;
   // Description:

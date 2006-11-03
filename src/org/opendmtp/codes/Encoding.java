@@ -42,7 +42,7 @@ public class Encoding {
   public static final char AsciiEncodingChar = '$';
 
   /**
-   * Indicator of the beginning of the checksum
+   * Indicator of the beginning of the checksum.
    */
   public static final char AsciiChecksumChar = '*';
 

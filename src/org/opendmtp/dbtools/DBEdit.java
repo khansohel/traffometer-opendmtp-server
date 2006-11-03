@@ -35,7 +35,6 @@ package org.opendmtp.dbtools;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.Vector;
-
 import org.opendmtp.util.FileTools;
 import org.opendmtp.util.Print;
 import org.opendmtp.util.StringTools;
@@ -115,7 +114,7 @@ public class DBEdit {
    * Edits a field.
    * @param fld The field to be edited.
    * @return True if edits succesfully. Otherwise returns false.
-   * @throws If any errors occur.
+   * @throws IOException If any errors occur.
    */
   public boolean editField(DBField fld) throws IOException {
     String name = fld.getName();
