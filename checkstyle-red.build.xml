@@ -18,7 +18,7 @@
     <path refid="compile.war.classpath"/>
   </path>       
 
-   <target name="checkstyle" depends="server.jar, checkstyle.tool, checkstyle.report" 
+   <target name="checkstyle" depends="main.file, main.sql, checkstyle.tool, checkstyle.report" 
        description="Runs Checkstyle."/>
 
    <target name="checkstyle.tool" description="Checks the style of the sources and reports issues.">

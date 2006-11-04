@@ -24,6 +24,8 @@
     <isset property="env.CATALINA_HOME"/>
   </condition>
 
+  <property name="mysql.jdbc.home"      value="${env.MYSQL_JDBC_HOME}"/>
+  
   <!-- libraries -->
   <property name="lib.home"             value="${basedir}/lib"/>
   <property name="war.home"             value="${basedir}/war"/>
@@ -45,6 +47,17 @@
   <path id="compile.classpath">
     <pathelement location="${build.home}"/>
     <fileset dir="${build.lib}">
+        <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- SQL store classpath -->
+  <path id="compile.sql.classpath">
+    <pathelement location="${build.home}"/>
+    <fileset dir="${build.lib}">
+        <include name="*.jar"/>
+    </fileset>
+    <fileset dir="${mysql.jdbc.home}">
         <include name="*.jar"/>
     </fileset>
   </path>
@@ -184,7 +197,7 @@
         deprecation="${compile.deprecation}"
         optimize="${compile.optimize}">
         <!-- <compilerarg value="-Xlint"/> -->
-        <classpath refid="compile.classpath"/>
+        <classpath refid="compile.sql.classpath"/>
         <include name="org/opendmtp/dbtools/**/*.java"/>
         <include name="org/opendmtp/server_mysql/**/*.java"/>
     </javac>
