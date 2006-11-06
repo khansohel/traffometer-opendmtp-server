@@ -1,0 +1,69 @@
+<project name="checkstyle" default="checkstyle">
+  <description>
+  Provides the Checkstyle tool and the Hackystat Checkstyle sensor. 
+
+  Note: If you download a different version (say, 4.3), then you can override the default version (4.2) as follows:
+     ant -Dcheckstyle.version=4.3 -f checkstyle.build.xml checkstyle.tool
+
+  Note: The error message "Unable to create a Checker" indicates you have an old version of Checkstyle in ant/lib.
+  </description>
+
+  <import file="build.xml"/>
+  <property environment="env"/>    
+  <property name="checkstyle.dir" location="${build.home}/checkstyle" />
+  <property name="checkstyle.version" value="4.2"/>
+  <property name="checkstyle.jar" value="checkstyle-all-${checkstyle.version}.jar"/>
+
+  <path id="checkstyle.classpath">
+    <path refid="compile.war.classpath"/>
+  </path>       
+
+   <target name="checkstyle" depends="main.file, main.sql, checkstyle.tool, checkstyle.report" 
+       description="Runs Checkstyle."/>
+
+   <target name="checkstyle.tool" description="Checks the style of the sources and reports issues.">
+     <!-- Check for the CHECKSTYLE_HOME environment variable; fail build if it can't be found. -->
+     <available file="${env.CHECKSTYLE_HOME}/${checkstyle.jar}" property="checkstyle.available"/>
+     <fail unless="checkstyle.available" 
+         message="Error: CHECKSTYLE_HOME not set or ${env.CHECKSTYLE_HOME}/${checkstyle.jar} not found."/>
+     <taskdef resource="checkstyletask.properties" classpath="${env.CHECKSTYLE_HOME}/${checkstyle.jar}" />
+
+     <mkdir dir="${checkstyle.dir}"/>
+     <checkstyle config="${basedir}/checkstyle.modules.xml"
+                 failOnViolation="${checkstyle.failOnViolation}" 
+                 classpathref="checkstyle.classpath">
+       <fileset dir="${src.dmtp}">
+         <!-- Brewer assignment-->
+         <include name="org/opendmtp/server_mysql/db/EventData.java"/>
+         <include name="org/opendmtp/server_mysql/db/EventTemplate.java"/>
+         <include name="org/opendmtp/server_mysql/dbtypes/DTProfileMask.java"/>
+         <include name="org/opendmtp/server_mysql/dbtypes/DTTemplate.java"/>
+         <include name="org/opendmtp/server_mysql/dbtypes/DTUniqueID.java"/>
+         <include name="org/opendmtp/util/AbstractClientPacketHandler.java"/>
+         <include name="org/opendmtp/util/Base64.java"/>
+         <include name="org/opendmtp/util/ClientPacketHandler.java"/>
+         <include name="org/opendmtp/util/GeoEvent.java"/>
+         <!-- Senin assignment-->
+         <include name="org/opendmtp/util/DateTime.java"/>
+         <include name="org/opendmtp/util/FileTools.java"/>
+         <!-- Puckett assignment-->
+         <include name="org/opendmtp/util/GeoPoint.java"/>
+         <include name="org/opendmtp/util/ListTools.java"/>
+       </fileset>
+       <formatter type="plain"/>
+       <formatter type="xml" tofile="${checkstyle.dir}/checkstyle.xml"/>
+     </checkstyle>
+   </target>   
+
+  <target name="checkstyle.report" description="Generates an HTML report for Checkstyle.">
+     <xslt in="${checkstyle.dir}/checkstyle.xml" 
+            out="${checkstyle.dir}/index.html" 
+            style="${env.CHECKSTYLE_HOME}/contrib/checkstyle-noframes.xsl">
+       <param name="title" expression="Checkstyle Report" />
+       <param name="module" expression="${system.name}" />
+     </xslt>
+   </target>
+  
+</project>
+
+

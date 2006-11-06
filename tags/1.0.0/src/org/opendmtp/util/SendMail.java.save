@@ -1,0 +1,536 @@
+// ----------------------------------------------------------------------------
+// Copyright 2006, Martin D. Flynn
+// All rights reserved
+// ----------------------------------------------------------------------------
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+// http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// ----------------------------------------------------------------------------
+// Description:
+//  JavaMail support.
+//  The use of this module requires that the JavaMail api in downloaed and installed.
+//  Support for the JavaMail api can be downloaded from the following location:
+//      http://java.sun.com/products/javamail/index.jsp
+// ----------------------------------------------------------------------------
+// Change History:
+//  2006/03/26  Martin D. Flynn
+//      Initial release
+//  2006/04/03  Martin D. Flynn
+//      Renamed source file to "SendMail.java.save" to temporarily remove 
+//      the requirement of having the JavaMail api installed in order to compile
+//      the server.
+// ----------------------------------------------------------------------------
+package org.opendmtp.util;
+
+import java.lang.reflect.*;
+import java.io.*;
+import java.util.*;
+import java.net.*;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
+public class SendMail
+{
+    
+    // ------------------------------------------------------------------------
+    // Custom "X" headers
+
+    public static final String X_OwnerId        = "X-OwnerId";
+    public static final String X_AssetId        = "X-AssetId";
+    public static final String X_PageType       = "X-PageType";
+    public static final String X_Requestor      = "X-Requestor";
+    public static final String X_OriginatingIP  = "X-OriginatingIP";
+    public static final String X_EventTime      = "X-EventTime";
+    public static final String X_StatusCode     = "X-StatusCode";
+    public static final String X_AlarmRule      = "X-AlarmRule";
+    public static final String X_GPSLocation    = "X-GPSLocation";
+ 
+    // ------------------------------------------------------------------------
+    
+    public static final String CONTENT_TYPE_PLAIN   = "text/plain";
+    public static final String CONTENT_TYPE_GIF     = "image/gif";  // "GIF87a", "GIF89a"
+    public static final String CONTENT_TYPE_JPEG    = "image/jpeg"; // 0xFF,0xD8,0xFF,0xE0
+    public static final String CONTENT_TYPE_OCTET   = "application/octet-stream";
+    public static final String CONTENT_TYPE_CSV     = "text/comma-separated-values";
+    public static final String CONTENT_TYPE_CSV2    = "text/csv";
+
+    // ------------------------------------------------------------------------
+    
+    public  static final String THREAD_CURRENT  = "current";
+    public  static final int    _THREAD_CURRENT = 0;
+    public  static final String THREAD_POOL     = "pool"; // preferred
+    public  static final int    _THREAD_POOL    = 1;
+    public  static final String THREAD_NEW      = "new";
+    public  static final int    _THREAD_NEW     = 2;
+    public  static final String THREAD_DEBUG    = "debug";
+    public  static final int    _THREAD_DEBUG   = 3;
+    
+    public static void SetThreadModel(String model)
+    {
+        RTConfig.setString(RTKey.SMTP_THREAD_MODEL, model);
+    }
+    
+    public static void SetThreadModel(String model, boolean show)
+    {
+        SendMail.SetThreadModel(model);
+        RTConfig.setBoolean(RTKey.SMTP_THREAD_MODEL_SHOW, false);
+    }
+
+    private static int GetThreadModel() 
+    {
+        return GetThreadModel(RTConfig.getString(RTKey.SMTP_THREAD_MODEL));
+    }
+    
+    private static int GetThreadModel(String model) 
+    {
+        if (model == null) {
+            // If this is a server, then we want a thread pool
+            // If this is a one-shot 'main' program, we want the current thread
+            return RTConfig.isTestMode()? _THREAD_CURRENT : _THREAD_POOL;
+            // If a thread pool is needed while in test mode, then the thread model
+            // will have to be set explicitly.
+        } else
+        if (model.equalsIgnoreCase(THREAD_CURRENT)) {
+            return _THREAD_CURRENT;
+        } else
+        if (model.equalsIgnoreCase(THREAD_NEW)) {
+            return _THREAD_NEW;
+        } else
+        if (model.equalsIgnoreCase(THREAD_DEBUG)) {
+            return _THREAD_DEBUG;
+        } else {
+            return _THREAD_POOL;
+        }
+    }
+        
+    private static ThreadPool sendMailThreadPool = new ThreadPool("SendMail");
+        
+    // ------------------------------------------------------------------------
+    
+    public static void sendError(String subject, String msgBody)
+    {
+        Properties headers = null;
+        String emailFrom   = RTConfig.getString(RTKey.ERROR_EMAIL_FROM);
+        String emailTo     = RTConfig.getString(RTKey.ERROR_EMAIL_TO);
+        if ((emailFrom != null) && (emailTo != null)) {
+            SendMail.send(headers, emailFrom, emailTo, subject, msgBody, (SendMail.Attachment)null);
+        }
+    }
+
+    // ------------------------------------------------------------------------
+
+    public static boolean send(Properties headers, String from, String to, String subject, String msgBody, Attachment attach)
+    {
+        return send(headers, from, StringTools.parseString(to,','), subject, msgBody, attach);
+    }
+
+    public static boolean send(String from, String to, String subject, String msgBody, Attachment attach)
+    {
+        return send(null, from, StringTools.parseString(to,','), subject, msgBody, attach);
+    }
+
+    public static boolean send(String from, String to[], String subject, String msgBody, Attachment attach)
+    {
+        return send(null, from, to, subject, msgBody, attach);
+    }
+        
+    public static boolean send(Properties headers, String from, String to[], String subject, String msgBody, Attachment attach)
+    {
+        SendMailRunnable smr = new SendMailRunnable(new Args(headers, from, to, subject, msgBody, attach));
+        switch (SendMail.GetThreadModel()) {
+            case _THREAD_CURRENT  :
+                if (RTConfig.getBoolean(RTKey.SMTP_THREAD_MODEL_SHOW)) {
+                    Print.println("Running SendMail in current thread");
+                }
+                smr.run();
+                break;
+            case _THREAD_NEW   :
+                if (RTConfig.getBoolean(RTKey.SMTP_THREAD_MODEL_SHOW)) {
+                    Print.println("Starting new SendMail thread");
+                }
+                (new Thread(smr)).start();
+                break;
+            case _THREAD_DEBUG :
+                Print.println("Debug SendMail (email not sent)");
+                Print.println(smr.getArgs().toString());
+                break;
+            case _THREAD_POOL  :
+            default :
+                sendMailThreadPool.run(smr);
+                break;
+        }
+        return true; // send(args);
+    }
+        
+    private static class SendMailRunnable
+        implements Runnable
+    {
+        private Args args = null;
+        public SendMailRunnable(Args args) {
+            this.args = args;
+        }
+        public Args getArgs() {
+            return this.args;
+        }
+        public void run() {
+            if (this.args != null) {
+                SendMail.send(this.args);
+            }
+        }
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    private static boolean send(Args args)
+    {
+        String from        = args.getFrom();
+        String to[]        = args.getTo();
+        String subject     = args.getSubject();
+        String msgBody     = args.getBody();
+        Properties headers = args.getHeaders();
+        Attachment attach  = args.getAttachment();
+        
+        /* SMTP server */
+        Properties props = new Properties();
+        String smtpHost = RTConfig.getString(RTKey.SMTP_SERVER_HOST);
+        props.put("mail.smtp.host", smtpHost);
+        //props.put("mail.smtp.port", RTConfig.getString(RTKey.SMTP_SERVER_PORT));
+        if (RTConfig.getBoolean(RTKey.SMTP_DEBUG)) {
+            props.put("mail.debug", "true");
+            Print.println("SendMail debug mode");
+        }
+        Session session = Session.getInstance(props, null);
+        
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress(from));
+            
+            InternetAddress toAddr[] = _convertRecipients(to);
+            if ((toAddr != null) && (toAddr.length > 0)) {
+                for (Iterator i = headers.keySet().iterator(); i.hasNext();) {
+                    String k = (String)i.next();
+                    String v = headers.getProperty(k);
+                    if (v != null) {
+                        msg.setHeader(k, v);
+                    }
+                }
+                msg.setRecipients(Message.RecipientType.TO, toAddr);
+                msg.setSubject(subject);
+                msg.setSentDate(new Date());
+                if ((attach != null) && (attach.getSize() > 0)) {
+                    Multipart multipart = new MimeMultipart();
+                    if ((msgBody != null) && !msgBody.equals("")) {
+                        BodyPart textBodyPart = new MimeBodyPart();
+                        textBodyPart.setText(msgBody);
+                        multipart.addBodyPart(textBodyPart);
+                    }
+                    // add attachment
+                    BodyPart attachBodyPart = new MimeBodyPart();
+                    DataSource source = new ByteArrayDataSource(attach.getName(), attach.getType(), attach.getBytes());
+                    attachBodyPart.setDataHandler(new DataHandler(source));
+                    attachBodyPart.setFileName(source.getName());
+                    multipart.addBodyPart(attachBodyPart);
+                    // set content 
+                    msg.setContent(multipart);
+                } else {
+                    msg.setText(msgBody); // setContent(msgBody, CONTENT_TYPE_PLAIN);
+                }
+                Transport.send(msg);
+                Print.println("Email sent ...");
+                return true;
+            } else {
+                return false;
+            }
+            
+        } catch (MessagingException me) {
+            
+            RTConfig.setBoolean(RTKey.PRINT_EMAIL_EXCEPTIONS, false); // no more emailing exceptions
+            Print.printStackTrace("Unable to send email [host=" + smtpHost + "]", me);
+            for (Exception ex = me; ex != null;) {
+                if (ex instanceof SendFailedException) {
+                    SendFailedException sfex = (SendFailedException)ex;
+                    _printAddresses("Invalid:"     , sfex.getInvalidAddresses());
+                    _printAddresses("Valid Unsent:", sfex.getValidUnsentAddresses());
+                    _printAddresses("Valid Sent:"  , sfex.getValidSentAddresses());
+                }
+                ex = (ex instanceof MessagingException)? ((MessagingException)ex).getNextException() : null;
+            }
+            
+            return false;
+            
+        }
+                
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    private static String DefaultContentType(byte data[])
+    {
+        String code = null;
+        
+        /* GIF */
+        if (StringTools.compareEquals(data,"GIF86a")) {
+            return CONTENT_TYPE_GIF;
+        } else
+        if (StringTools.compareEquals(data,"GIF89a")) {
+            return CONTENT_TYPE_GIF;
+        }
+        
+        /* JPEG */
+        if (StringTools.compareEquals(data,new byte[]{(byte)0xFF,(byte)0xD8,(byte)0xFF,(byte)0xE0},-1)) { // ([6..10]=="JFIF")
+            return CONTENT_TYPE_JPEG;
+        }
+        
+        /* default */
+        return CONTENT_TYPE_OCTET;
+    }
+    
+    private static class ByteArrayDataSource
+        implements DataSource
+    {
+        private String name   = null;
+        private String type   = null;
+        private Object source = null;
+        private ByteArrayDataSource(String name, String type, Object src) {
+            this.name   = name;
+            this.type   = type;
+            this.source = src;
+        }
+        public ByteArrayDataSource(String name, byte src[]) {
+            this(name, null, src);
+        }
+        public ByteArrayDataSource(String name, String type, byte src[]) {
+            this(name, type, (Object)src);
+        }
+        public ByteArrayDataSource(String name, String src) {
+            this(name, null, src);
+        }
+        public ByteArrayDataSource(String name, String type, String src) {
+            this(name, type, (Object)src);
+        }
+        public String getName() {
+            return (this.name != null)? this.name : "";
+        }
+        public String getContentType() {
+            if (this.type != null) {
+                return this.type;
+            } else 
+            if (this.getName().toLowerCase().endsWith(".csv")) {
+                return CONTENT_TYPE_CSV;
+            } else 
+            if (this.getName().toLowerCase().endsWith(".gif")) {
+                return CONTENT_TYPE_GIF;
+            } else
+            if (this.source instanceof byte[]) {
+                return DefaultContentType((byte[])this.source);
+            } else
+            if (this.source instanceof ByteArrayOutputStream) {
+                return DefaultContentType(((ByteArrayOutputStream)this.source).toByteArray());
+            } else {
+                return CONTENT_TYPE_PLAIN;
+            }
+        }
+        public InputStream getInputStream() {
+            return new ByteArrayInputStream(this.toByteArray());
+        }
+        public OutputStream getOutputStream() {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte b[] = this.toByteArray();
+            if ((b != null) && (b.length > 0)) {
+                out.write(b, 0, b.length);
+            }
+            this.source = out;
+            return (ByteArrayOutputStream)this.source;
+        }
+        private byte[] toByteArray() {
+            if (this.source == null) {
+                return new byte[0];
+            } else
+            if (this.source instanceof byte[]) {
+                return (byte[])this.source;
+            } else
+            if (this.source instanceof ByteArrayOutputStream) {
+                return ((ByteArrayOutputStream)this.source).toByteArray();
+            } else {
+                return StringTools.getBytes(this.source.toString());
+            }
+        }
+    }                               
+    
+    // ------------------------------------------------------------------------
+
+    private static final String DFT_ATTACHMENT_NAME = "attachment.att";
+    private static final String DFT_ATTACHMENT_TYPE = CONTENT_TYPE_OCTET;
+
+    public static class Attachment
+    {
+        private byte       data[] = null;
+        private String     name   = DFT_ATTACHMENT_NAME;
+        private String     type   = DFT_ATTACHMENT_TYPE;
+        public Attachment(byte data[]) {
+            this(data, null, null);
+        }
+        public Attachment(byte data[], String name, String type) {
+            this.data = data;
+            this.name = ((name != null) && !name.equals(""))? name : DFT_ATTACHMENT_NAME;
+            this.type = ((type != null) && !type.equals(""))? type : DFT_ATTACHMENT_TYPE;
+        }
+        public byte[] getBytes() {
+            return this.data;
+        }
+        public int getSize() {
+            return (this.data != null)? this.data.length : 0;
+        }
+        public String getName() {
+            return this.name;
+        }
+        public String getType() {
+            return this.type;
+        }
+    }
+    
+    // ------------------------------------------------------------------------
+
+    public static class Args
+    {
+        private Properties headers      = null;
+        private String     from         = null;
+        private String     to[]         = null;
+        private String     subject      = null;
+        private String     msgBody      = null;
+        private Attachment attachment   = null;
+        public Args(String from, String to[], String subject, String msgBody) {
+            this(null, from, to, subject, msgBody, null);
+        }
+        public Args(Properties headers, String from, String to[], String subject, String msgBody) {
+            this(headers, from, to, subject, msgBody, null);
+        }
+        public Args(Properties headers, String from, String to[], String subject, String msgBody, Attachment attach) {
+            this.headers    = (headers != null)? headers : new Properties();
+            this.from       = from;
+            this.to         = to;
+            this.subject    = subject;
+            this.msgBody    = msgBody;
+            this.attachment = attach;
+        }
+        public Properties getHeaders() {
+            return this.headers;
+        }
+        public String getFrom() {
+            return (this.from != null)? this.from : "";
+        }
+        public String[] getTo() {
+            return (this.to != null)? this.to : new String[0];
+        }
+        public String getSubject() {
+            return (this.subject != null)? this.subject : "";
+        }
+        public String getBody() {
+            return (this.msgBody != null)? this.msgBody : "";
+        }
+        public Attachment getAttachment() {
+            return this.attachment;
+        }
+        public String toString() {
+            StringBuffer sb = new StringBuffer().append("\n");
+            Properties headers = this.getHeaders();
+            if ((headers != null) && !headers.isEmpty()) {
+                for (Iterator i = headers.keySet().iterator(); i.hasNext();) {
+                    String k = (String)i.next();
+                    String v = headers.getProperty(k);
+                    if (v != null) {
+                        sb.append(k).append(": ");
+                        sb.append(v).append("\n");
+                    }
+                }
+            }
+            sb.append("From: ").append(this.getFrom()).append("\n");
+            sb.append("To: ").append(StringTools.encodeArray(this.getTo())).append("\n");
+            sb.append("Subject: ").append(this.getSubject()).append("\n");
+            sb.append(this.getBody()).append("\n");
+            Attachment attach = this.getAttachment();
+            if ((attach != null) && (attach.getSize() > 0)) {
+                sb.append("---- attachment ----\n");
+                sb.append(StringTools.toHexString(attach.getBytes())).append("\n");
+            }
+            sb.append("\n");
+            return sb.toString();
+        }
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    protected static void _printAddresses(String msg, Address addr[])
+    {
+        if (addr != null) {
+            Print.println(msg);
+            for (int i = 0; i < addr.length; i++) {
+                Print.println("    " + addr[i]);
+            }
+        }
+    }
+    
+    // ------------------------------------------------------------------------
+    
+    protected static InternetAddress[] _convertRecipients(String to[])
+        throws AddressException
+    {
+        Vector inetAddr = new Vector();
+        for (int i = 0; i < to.length; i++) {
+            String t = (to[i] != null)? to[i].trim() : "";
+            if (!t.equals("")) { 
+                try {
+                    inetAddr.add(new InternetAddress(t)); 
+                } catch (AddressException ae) {
+                    Print.printStackTrace("Address: " + t + " (skipped)", ae);
+                }
+            }
+        }
+        return (InternetAddress[])inetAddr.toArray(new InternetAddress[inetAddr.size()]);
+    }
+    
+    // ------------------------------------------------------------------------
+
+    public static boolean validateAddresses(String addr)
+    {
+        if ((addr == null) || addr.trim().equals("")) { return false; }
+        String addrArry[] = StringTools.parseString(addr, ',');
+        if (addrArry.length == 0) { return false; }
+        for (int i = 0; i < addrArry.length; i++) {
+            String em = addrArry[i].trim();
+            if (em.equals("")) { return false; }
+            if (!validateAddress(em)) { return false; }
+        }
+        return true;
+    }
+    
+    public static boolean validateAddress(String addr)
+    {
+        if (addr != null) {
+            try {
+                InternetAddress ia = new InternetAddress(addr, false);
+                return true;
+            } catch (AddressException ae) {
+                // drop through
+            }
+        }
+        return false;
+    }
+    
+    // ------------------------------------------------------------------------
+    
+}
